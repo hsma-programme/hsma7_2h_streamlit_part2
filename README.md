@@ -2,13 +2,16 @@
 
 This repository contains materials for module 2H:
 
-* `app/` contains the example app.
-    * It is a multi-page app that can run, store and compare multiple scenarios. The main entrypoint is `app/app.py`.
-    * A copy of the model used is available under `app/model.py`.
+* `app/` - a multi-page app for running, saving and comparing scenarios.
+    * `app/app.py` - main entrypoint.
+    * `app/model.py` - copy of model used by app.
 
-* `exercise/` contains the exercise materials.
+* `exercise/` - exercise materials.
 
-* `slides/` contains the Quarto slides.
+* `slides/` - Quarto slides.
+    * `slides/slides.qmd` - main slides file.
+    * `slides/code/` - Python examples, kept separate to make the slides file easier to read and search.
+    * `template` - templates and assets for creating the HSMA slide style.
 
 The slides are deployed on GitHub pages via GitHub actions and can be viewed via the browser at: <https://hsma-programme.github.io/hsma7_2h_streamlit_part2>.
 

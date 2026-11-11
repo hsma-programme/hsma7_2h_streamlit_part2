@@ -1,0 +1,15 @@
+title: "![](template/hsma_logo_tall_tagline_trimmed.png){width=500px}"
+format:
+  revealjs:
+    pagetitle: "HSMA Session"
+    output-file: index.html
+    theme: dark
+    logo: template/hsma_logo.png
+    code-annotations: hover
+    embed-resources: false
+    css: template/styles.css
+    include-after-body: template/countdown.html
+    center: false
+    auto-stretch: false
+    width: 1280
+    height: 720
