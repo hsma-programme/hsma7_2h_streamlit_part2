@@ -6,7 +6,7 @@ This repository contains materials for module 2H:
     * `app/app.py` - main entrypoint.
     * `app/model.py` - copy of model used by app.
 
-* `exercise/` - exercise materials.
+* `exercises/` - exercise materials.
 
 * `slides/` - Quarto slides.
     * `slides/slides.qmd` - main slides file.
@@ -19,7 +19,7 @@ The example app is deployed with Streamlit Community Cloud and can be viewed at:
 
 <br>
 
-## Viewing the slides and example app locally
+## Viewing the example app locally
 
 Activate the HSMA `des` GitHub environment. The environment file required is available in <https://github.com/hsma-chief-elf/H7_Phase_1_Artefacts>: `DES_2/environment/environment.yml`.
 
@@ -39,4 +39,21 @@ To view the app:
 
 ```
 streamlit run app/app.py
+```
+
+<br>
+
+## Viewing the slides locally
+
+The slides environment is defined in `slides/environment.yml`. It is similar to the HSMA `des` environment, but with a few extra dependencies required for rendering the slides. A `requirements.txt` is also provided for use by GitHub actions.
+
+```
+mamba env create --file slides/environment.yml
+mamba activate hsma7_streamlit_slides
+```
+
+To view the slides:
+
+```
+quarto preview slides/slides.qmd
 ```
