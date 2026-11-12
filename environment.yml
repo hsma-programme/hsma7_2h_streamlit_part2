@@ -1,0 +1,12 @@
+name: hsma7_streamlit_slides
+channels:
+  - conda-forge
+dependencies:
+  - python=3.14.7
+  - simpy=4.1.2
+  - numpy=2.5.3
+  - pandas=3.0.6
+  - sim-tools=1.3.0
+  - jupyter=1.1.1
+  - pip:
+    - streamlit==1.67.0
