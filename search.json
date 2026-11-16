@@ -1,0 +1,142 @@
+[
+  {
+    "objectID": "slides/index.html#section",
+    "href": "slides/index.html#section",
+    "title": "",
+    "section": "",
+    "text": "Module 2 ‘I want to fix my delays, and see what works before I try it’\nSession 2H: Creating a DES interface with Streamlit - Part 2\nSammi Rosser - Presenter\nAmy Heather - Session content creator\nWe are DEStined for app development"
+  },
+  {
+    "objectID": "slides/index.html#split",
+    "href": "slides/index.html#split",
+    "title": "",
+    "section": "split",
+    "text": "split\nshow splitting the two"
+  },
+  {
+    "objectID": "slides/index.html#run-and-save-scenarios",
+    "href": "slides/index.html#run-and-save-scenarios",
+    "title": "",
+    "section": "run and save scenarios",
+    "text": "run and save scenarios\nsave how? session state\ncan do a success message, it saved yay"
+  },
+  {
+    "objectID": "slides/index.html#show-scenarios",
+    "href": "slides/index.html#show-scenarios",
+    "title": "",
+    "section": "show scenarios",
+    "text": "show scenarios\nhelp user keep track show scenarios table"
+  },
+  {
+    "objectID": "slides/index.html#results",
+    "href": "slides/index.html#results",
+    "title": "",
+    "section": "results",
+    "text": "results\nresults\nsingle scenario or compare\nst.tabs"
+  },
+  {
+    "objectID": "slides/index.html#single-scenario-results",
+    "href": "slides/index.html#single-scenario-results",
+    "title": "",
+    "section": "single scenario results",
+    "text": "single scenario results\nits same results code as before just need to choose from scenarios let user choose can use a dropdown"
+  },
+  {
+    "objectID": "slides/index.html#single-scenario-results-1",
+    "href": "slides/index.html#single-scenario-results-1",
+    "title": "",
+    "section": "single scenario results",
+    "text": "single scenario results\ncan remind of scenarios again with dataframe can use pd.styler to highlight which they chose"
+  },
+  {
+    "objectID": "slides/index.html#compare-scenarios",
+    "href": "slides/index.html#compare-scenarios",
+    "title": "",
+    "section": "compare scenarios",
+    "text": "compare scenarios\nneed to run at least two do message for that"
+  },
+  {
+    "objectID": "slides/index.html#choose-which-to-compare",
+    "href": "slides/index.html#choose-which-to-compare",
+    "title": "",
+    "section": "choose which to compare",
+    "text": "choose which to compare\nchoose which scenarios to compare can use multiselect"
+  },
+  {
+    "objectID": "slides/index.html#show-chosen",
+    "href": "slides/index.html#show-chosen",
+    "title": "",
+    "section": "show chosen",
+    "text": "show chosen\ncan do the table again with pd.styler"
+  },
+  {
+    "objectID": "slides/index.html#comparison-figure",
+    "href": "slides/index.html#comparison-figure",
+    "title": "",
+    "section": "comparison figure",
+    "text": "comparison figure\ngood for comparison is often boxplot here also showing individual rep on boxplot"
+  },
+  {
+    "objectID": "slides/index.html#comparison-table",
+    "href": "slides/index.html#comparison-table",
+    "title": "",
+    "section": "comparison table",
+    "text": "comparison table\ncould also compare those summary stats in a table and the staffing costs"
+  },
+  {
+    "objectID": "slides/index.html#exercise",
+    "href": "slides/index.html#exercise",
+    "title": "",
+    "section": "exercise",
+    "text": "exercise\nchange app from yesterday from singlepage to multipage with scenario comparison"
+  },
+  {
+    "objectID": "slides/index.html#day-two-morningafternoon-section-5-hosting-with-st-lite",
+    "href": "slides/index.html#day-two-morningafternoon-section-5-hosting-with-st-lite",
+    "title": "",
+    "section": "DAY TWO MORNING/AFTERNOON : SECTION 5 HOSTING WITH ST LITE",
+    "text": "DAY TWO MORNING/AFTERNOON : SECTION 5 HOSTING WITH ST LITE\nst lite"
+  },
+  {
+    "objectID": "slides/index.html#exercise-1",
+    "href": "slides/index.html#exercise-1",
+    "title": "",
+    "section": "exercise",
+    "text": "exercise\nhost your app with stlite"
+  },
+  {
+    "objectID": "slides/index.html#day-two-afternoon-section-6-customising-app-appearance",
+    "href": "slides/index.html#day-two-afternoon-section-6-customising-app-appearance",
+    "title": "",
+    "section": "DAY TWO AFTERNOON : SECTION 6 CUSTOMISING APP APPEARANCE",
+    "text": "DAY TWO AFTERNOON : SECTION 6 CUSTOMISING APP APPEARANCE\ntheme\ncss\nlogo\netc.\nst.set_page_config\nst.logo"
+  },
+  {
+    "objectID": "slides/index.html#exercise-2",
+    "href": "slides/index.html#exercise-2",
+    "title": "",
+    "section": "exercise",
+    "text": "exercise\ncustomise appearance of your app"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "HSMA-7 Module 2H: Creating a DES interface with Streamlit - Part 2",
+    "section": "",
+    "text": "Open slides"
+  },
+  {
+    "objectID": "index.html#slides",
+    "href": "index.html#slides",
+    "title": "HSMA-7 Module 2H: Creating a DES interface with Streamlit - Part 2",
+    "section": "",
+    "text": "Open slides"
+  },
+  {
+    "objectID": "index.html#example-app",
+    "href": "index.html#example-app",
+    "title": "HSMA-7 Module 2H: Creating a DES interface with Streamlit - Part 2",
+    "section": "Example app",
+    "text": "Example app\n\n\nRun in browser Open cloud app"
+  }
+]
