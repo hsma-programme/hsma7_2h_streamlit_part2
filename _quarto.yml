@@ -1,0 +1,11 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - index.qmd
+    - slides/slides.qmd
+  resources:
+    - "app/**"
+
+website:
+  title: "Slides and apps"

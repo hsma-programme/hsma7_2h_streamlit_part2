@@ -1,5 +1,5 @@
-name: Render and deploy slides
-run-name: Render and deploy slides
+name: Render and deploy slides and apps
+run-name: Render and deploy slides and apps
 
 on:
   push:
@@ -8,8 +8,9 @@ on:
 
 jobs:
   build-deploy:
-    name: Build and deploy slides
+    name: Build and deploy site
     runs-on: ubuntu-latest
+
     permissions:
       contents: write
 
@@ -22,6 +23,7 @@ jobs:
         with:
           python-version: "3.14"
           cache: pip
+          cache-dependency-path: slides/requirements.txt
 
       - name: Install Python dependencies
         run: |
@@ -34,7 +36,7 @@ jobs:
       - name: Render and publish to GitHub pages
         uses: quarto-dev/quarto-actions/publish@v2
         with:
-          path: slides/slides.qmd
+          path: .
           target: gh-pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

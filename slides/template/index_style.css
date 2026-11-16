@@ -1,0 +1,24 @@
+.quarto-title-banner {
+  min-height: 250px;
+}
+.quarto-title-banner > .quarto-title {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.resource-card {
+  padding: 1.5rem;
+  background: #303d50;
+  border-radius: 0.75rem;
+}
+
+.resource-card img {
+  border-radius: 0.4rem;
+}
+
+.resource-actions .btn {
+  padding: 0.65rem 1.1rem;
+  font-weight: 600;
+}

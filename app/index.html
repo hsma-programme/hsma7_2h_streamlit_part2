@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Single-page app</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@stlite/browser@1.12.2/build/stlite.css" />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@stlite/browser@1.12.2/build/stlite.js"></script>
+  </head>
+  <body>
+    <streamlit-app src="./app.py">
+        <app-file name="home.py" url="./home.py"></app-file>
+        <app-file name="model.py" url="./model.py"></app-file>
+        <app-file name="results.py" url="./results.py"></app-file>
+        <app-file name="simulation.py" url="./simulation.py"></app-file>
+        <app-file
+            name="images/model_diagram.drawio.png"
+            url="./images/model_diagram.drawio.png"
+        ></app-file>
+        <app-file
+            name="images/nihr_logo.png"
+            url="./images/nihr_logo.png"
+        ></app-file>
+        <app-requirements>
+            simpy==4.1.2
+            numpy
+            pandas
+            sim-tools==1.3.0
+        </app-requirements>
+    </streamlit-app>
+  </body>
+</html>

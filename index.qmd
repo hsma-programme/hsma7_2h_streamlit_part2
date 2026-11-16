@@ -1,0 +1,33 @@
+---
+title: "HSMA-7 Module 2H: Creating a DES interface with Streamlit - Part 2"
+title-block-banner: slides/template/banner_hq.png
+format:
+  html:
+    theme: darkly
+    css: slides/template/index_style.css
+---
+
+## Slides
+
+:::: {.resource-card}
+
+::: {.resource-actions}
+[Open slides](slides/slides.qmd){.btn .btn-info}
+:::
+
+![](slides/images/preview_slides.png){fig-alt="Preview of the slides"}
+
+::::
+
+## Example app
+
+:::: {.resource-card}
+
+::: {.resource-actions}
+[Run in browser](app/index.html){.btn .btn-info}
+[Open cloud app](https://hsma-des-scenarios.streamlit.app/){.btn .btn-primary}
+:::
+
+![](slides/images/preview_app.png){fig-alt="Preview of the app"}
+
+::::
