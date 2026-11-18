@@ -328,16 +328,289 @@ Clicking the button calls `st.switch_page` to take the user to the results page.
 
 
 
-## Try out our new simulation page
+## Results from one scenario
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+<br>
+
+Now let's make the results page!
+
+<br>
+
+We'll start by moving the analysis code we removed earlier into a new file, `results.py`.
+
+You can that code on the right.
+
+<br>
+
+However, we'll need to make some changes so it can work...
+
+:::
+
+::: {.column width="50%"}
+
+```{.python code-line-numbers="false"}
+{{< include code/page_results/original.py >}}
+```
+
+:::
+
+::::
 
 
-## results
 
-results
+## Required changes
 
-single scenario or compare
+:::::: {.r-stack}
 
-st.tabs
+::::: {.fragment .fade-out data-fragment-index="0"}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+<br><br>
+
+**1. Import the packages**
+
+Import `pandas`, `plotly.express` and `streamlit` for this page.
+:::
+
+::: {.column width="50%"}
+```{.python code-line-numbers="1-3"}
+{{< include code/page_results/original_amend.py >}}
+```
+:::
+
+::::
+
+:::::
+
+::::: {.fragment .current-visible data-fragment-index="0"}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+<br><br>
+
+**2. Retrieve the chosen scenario**
+
+Use `chosen_scenario` to look up the saved scenario in `scenarios` and store it as `results`.
+
+<br>
+
+*For now, this is the most recently run scenario. We'll add a way for users to choose a different scenario in a moment.*
+:::
+
+::: {.column width="50%"}
+```{.python code-line-numbers="5-6"}
+{{< include code/page_results/original_amend.py >}}
+```
+:::
+
+::::
+
+:::::
+
+::::: {.fragment .current-visible data-fragment-index="1"}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+<br><br>
+
+**3. Display the saved results**
+
+Read the summary statistics and cost from `results`, rather than directly from the simulation `trial` object.
+:::
+
+::: {.column width="50%"}
+```{.python code-line-numbers="13-21"}
+{{< include code/page_results/original_amend.py >}}
+```
+:::
+
+::::
+
+:::::
+
+::::: {.fragment data-fragment-index="2"}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+<br><br>
+**4. Use saved data in histogram and table**
+
+Use `results["df"]` as the data source for both the histogram and the table of individual replications.
+:::
+
+::: {.column width="50%"}
+```{.python code-line-numbers="29,40"}
+{{< include code/page_results/original_amend.py >}}
+```
+:::
+
+::::
+
+:::::
+
+::::::
+
+
+
+
+## Choose a scenario
+
+Now we can let users choosen their `chosen_scenario` to view.
+
+:::: {.columns}
+
+::: {.column width="50%"}
+We'll add:
+
+* A dropdown to select a saved scenario.
+* A table of scenario settings, so users can see what they're choosing between.
+* A highlighted row showing the selected scenario.
+:::
+
+::: {.column width="50%"}
+![](images/single_choose_scenario.png)
+:::
+
+::::
+
+
+
+
+## Choose a scenario
+
+:::::: {.r-stack}
+
+::::: {.fragment .fade-out data-fragment-index="0"}
+
+:::: {.columns}
+::: {.column width="50%"}
+Let's work through the code to do that...
+:::
+::: {.column width="50%"}
+```{.python}
+{{< include code/page_results/choose_scenario.py >}}
+```
+:::
+::::
+
+:::::
+
+::::: {.fragment .current-visible data-fragment-index="0"}
+
+:::: {.columns}
+::: {.column width="50%"}
+<br><br>
+
+**1. Use `st.container(border=True)`**
+
+This keeps the scenario selection area visually separate from the results.
+
+:::
+::: {.column width="50%"}
+```{.python code-line-numbers="1"}
+{{< include code/page_results/choose_scenario.py >}}
+```
+:::
+::::
+
+:::::
+
+::::: {.fragment .current-visible data-fragment-index="1"}
+
+:::: {.columns}
+::: {.column width="50%"}
+<br><br>
+
+**2. Select a scenario**
+
+Use `st.selectbox()` to create a dropdown with the names of save scenarios.
+
+Using `key="chosen_scenario"` means the selection is saved as and overwrites the last `chosen_scenario` in session state.
+
+:::
+::: {.column width="50%"}
+```{.python code-line-numbers="2-6"}
+{{< include code/page_results/choose_scenario.py >}}
+```
+:::
+::::
+
+:::::
+
+::::: {.fragment .current-visible data-fragment-index="2"}
+
+:::: {.columns}
+::: {.column width="50%"}
+<br><br>
+
+**3. Create a settings dataframe**
+
+Extract the settings dictionary for each saved scenario and combined them into a dataframe, with one row per scenario.
+
+:::
+::: {.column width="50%"}
+```{.python code-line-numbers="8-14"}
+{{< include code/page_results/choose_scenario.py >}}
+```
+:::
+::::
+
+:::::
+
+::::: {.fragment .current-visible data-fragment-index="3"}
+
+:::: {.columns}
+::: {.column width="50%"}
+<br><br>
+
+**4. Display the settings dataframe**
+
+Use `st.dataframe()` to display `settings`.
+
+We'll write a function `style_settings()` which we can apply to the dataframe to highlight the chosen scenario row...
+
+:::
+::: {.column width="50%"}
+```{.python code-line-numbers="16-24"}
+{{< include code/page_results/choose_scenario.py >}}
+```
+:::
+::::
+
+:::::
+
+::::: {.fragment .current-visible data-fragment-index="4"}
+
+:::: {.columns}
+::: {.column width="50%"}
+<br><br>
+
+**5. Define `style_settings()`**
+
+We write this function at the start of our `results.py` script.
+
+For each row, ...
+
+:::
+::: {.column width="50%"}
+```{.python}
+{{< include code/page_results/style_settings.py >}}
+```
+:::
+::::
+
+:::::
+
+::::::
 
 
 
