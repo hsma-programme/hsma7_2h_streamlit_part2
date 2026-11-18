@@ -95,9 +95,10 @@ else:
         fig = px.histogram(
             data_frame=results["df"],
             x="mean_q_time_nurse",
-            labels={"mean_q_time_nurse": "Mean nurse queue time"},
         )
-        fig.update_layout(yaxis_title="Number of replications")
+        fig.update_layout(
+            xaxis_title="Mean nurse queue time",
+            yaxis_title="Number of replications")
         st.plotly_chart(fig)
 
         with st.expander("View underlying data from each replication"):
@@ -164,11 +165,11 @@ else:
                     points="all",
                     category_orders={"Scenario": list(st.session_state.scenarios)},
                     hover_data=["replication_id"],
-                    labels={
-                        "mean_q_time_nurse": "Mean nurse queue time (minutes)",
-                    },
                 )
-                fig.update_layout(showlegend=False)
+                fig.update_layout(
+                    xaxis_title="Mean nurse queue time",
+                    showlegend=False,
+                )
                 st.plotly_chart(fig)
 
                 st.space()
