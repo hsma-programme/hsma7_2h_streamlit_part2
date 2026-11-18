@@ -336,7 +336,8 @@
 <div class="column" style="width:50%;">
 <p>In <code>simulation.py</code>, we’ll keep the code that sets the inputs and runs the simulation.</p>
 <p>We’ll remove the analysis code for now and move it to the results page later. We can also remove <code>import plotly.express as px</code> as this page no longer uses it.</p>
-<p>After the code to run the simulation, we’ll add new code to:</p>
+<p><br></p>
+<p>We’ll add new code to:</p>
 <ol type="1">
 <li><p>Name the scenario</p></li>
 <li><p>Save its settings and results in <code>st.session_state.scenarios</code>.</p></li>
@@ -444,14 +445,80 @@
 <span id="cb4-100"><a aria-label="100"></a>    }</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
-<section id="run-and-save-scenarios" class="slide level2">
-<h2>run and save scenarios</h2>
-<p>save how? session state</p>
-<p>can do a success message, it saved yay</p>
+<section id="run-and-save-the-results-1" class="slide level2">
+<h2>Run and save the results</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Scenario names</strong> are based on how many scenarios are already stored (e.g., “Scenario 1”, “Scenario 2”).</p>
+<p><br></p>
+<p><strong>Settings</strong> record the inputs used for each scenario, so we can interpret and compare its results.</p>
+<p><strong>Results</strong> are the summary statistics, saved using shorter keys like <code>mean</code> and <code>sd</code> so they are easier to access later.</p>
+</div><div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>    <span class="co"># Save results to session state to allow comparison between scenarios</span></span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>    scenario_name <span class="op">=</span> <span class="ss">f"Scenario </span><span class="sc">{</span><span class="bu">len</span>(st.session_state.scenarios) <span class="op">+</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>    st.session_state.scenarios[scenario_name] <span class="op">=</span> {</span>
+<span id="cb5-4"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"settings"</span>: {</span>
+<span id="cb5-5"><a aria-hidden="true" tabindex="-1"></a>            <span class="st">"Scenario"</span>: scenario_name,</span>
+<span id="cb5-6"><a aria-hidden="true" tabindex="-1"></a>            <span class="st">"Inter-arrival"</span>: st.session_state.mean_patient_inter,</span>
+<span id="cb5-7"><a aria-hidden="true" tabindex="-1"></a>            <span class="st">"Consultation mean"</span>: st.session_state.mean_nurse_consult_time,</span>
+<span id="cb5-8"><a aria-hidden="true" tabindex="-1"></a>            <span class="st">"Consultation SD"</span>: st.session_state.sd_nurse_consult_time,</span>
+<span id="cb5-9"><a aria-hidden="true" tabindex="-1"></a>            <span class="st">"Nurses"</span>: st.session_state.num_nurses,</span>
+<span id="cb5-10"><a aria-hidden="true" tabindex="-1"></a>            <span class="st">"Cost per hour"</span>: st.session_state.nurse_cost_per_hour,</span>
+<span id="cb5-11"><a aria-hidden="true" tabindex="-1"></a>            <span class="st">"Duration"</span>: st.session_state.sim_duration,</span>
+<span id="cb5-12"><a aria-hidden="true" tabindex="-1"></a>            <span class="st">"Replications"</span>: st.session_state.num_replications,</span>
+<span id="cb5-13"><a aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb5-14"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"mean"</span>: trial.trial_mean_q_time_nurse,</span>
+<span id="cb5-15"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"sd"</span>: trial.trial_sd_q_time_nurse,</span>
+<span id="cb5-16"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"p90"</span>: trial.trial_perc_90_q_time_nurse,</span>
+<span id="cb5-17"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"se"</span>: trial.se_q_time_nurse,</span>
+<span id="cb5-18"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"ci_lower"</span>: trial.ci_lower_q_time_nurse,</span>
+<span id="cb5-19"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"ci_upper"</span>: trial.ci_upper_q_time_nurse,</span>
+<span id="cb5-20"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"cost"</span>: trial.total_nurse_cost,</span>
+<span id="cb5-21"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"df"</span>: trial.replication_df,</span>
+<span id="cb5-22"><a aria-hidden="true" tabindex="-1"></a>    }</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
 </section>
-<section id="show-scenarios" class="slide level2">
-<h2>show scenarios</h2>
-<p>help user keep track show scenarios table</p>
+<section id="run-and-save-the-results-2" class="slide level2">
+<h2>Run and save the results</h2>
+<p>We then set <code>chosen_scenario</code> to this scenario, making it the default selection when the user opens the results page.</p>
+<p>We also show a success message to confirm that the scenario has run and its results have been saved.</p>
+<p><br></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a>    <span class="co"># Select the newly saved scenario and show confirmation</span></span>
+<span id="cb6-3"><a aria-hidden="true" tabindex="-1"></a>    st.session_state.chosen_scenario <span class="op">=</span> scenario_name</span>
+<span id="cb6-4"><a aria-hidden="true" tabindex="-1"></a>    st.success(<span class="ss">f"""</span></span>
+<span id="cb6-5"><a aria-hidden="true" tabindex="-1"></a><span class="ss">    </span><span class="sc">{</span>scenario_name<span class="sc">}</span><span class="ss"> ran successfully and was saved for this sesssion.</span></span>
+<span id="cb6-6"><a aria-hidden="true" tabindex="-1"></a><span class="ss">    """</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="keeping-track-of-scenarios" class="slide level2">
+<h2>Keeping track of scenarios</h2>
+<p>We can also show a table of saved scenarios, so users can keep track of their runs.</p>
+<p>This checks if <code>scenarios</code> is empty - and will only appear after the first scenario has been run.</p>
+<p>We take the settings from each saved scenario and display them as a row in the table.</p>
+<p>A caption reminds users that these scenarios are saved for the current session only.</p>
+<p><br></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> st.session_state.scenarios:</span>
+<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>    st.divider()</span>
+<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a>    st.header(<span class="st">"Saved scenarios"</span>)</span>
+<span id="cb7-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a aria-hidden="true" tabindex="-1"></a>    st.dataframe(</span>
+<span id="cb7-6"><a aria-hidden="true" tabindex="-1"></a>        [scenario[<span class="st">"settings"</span>] <span class="cf">for</span> scenario <span class="kw">in</span> st.session_state.scenarios.values()],</span>
+<span id="cb7-7"><a aria-hidden="true" tabindex="-1"></a>        hide_index<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb7-8"><a aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-9"><a aria-hidden="true" tabindex="-1"></a>    st.caption(<span class="st">"Scenarios are saved for the current session only."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="linking-to-results-page" class="slide level2">
+<h2>Linking to results page</h2>
+<p>At the end of <code>simulation.py</code>, we’ll add a button linking to <code>results.py</code>, which we’ll create next.</p>
+<p>Clicking the button calls <code>st.switch_page</code> to take the user to the results page.</p>
+<p><br></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>    st.divider()</span>
+<span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a>    st.header(<span class="st">"Results"</span>)</span>
+<span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> st.button(label<span class="op">=</span><span class="st">"Go to results page"</span>, <span class="bu">type</span><span class="op">=</span><span class="st">"primary"</span>):</span>
+<span id="cb8-4"><a aria-hidden="true" tabindex="-1"></a>        st.switch_page(<span class="st">"results.py"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="try-out-our-new-simulation-page" class="slide level2">
+<h2>Try out our new simulation page</h2>
 </section>
 <section id="results" class="slide level2">
 <h2>results</h2>
