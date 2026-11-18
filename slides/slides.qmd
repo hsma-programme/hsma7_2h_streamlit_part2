@@ -168,7 +168,7 @@ This keeps the interface manageable if we add more inputs, results and compariso
 We first create an empty dictionary in session state, ready to store scenario results.
 
 ```{.python}
-{{< include code/split/app_scenarios1.py >}}
+{{< include code/page_app/app_scenarios1.py >}}
 ```
 
 <br>
@@ -180,7 +180,7 @@ We need to make sure it is only created it if it doesn't already exist.
 This is because Streamlit reruns the script when users interact with the app. Without this check, each rerun would replace the dictionary with an empty one, clearing any saved results.
 
 ```{.python code-line-numbers="1"}
-{{< include code/split/app_scenarios2.py >}}
+{{< include code/page_app/app_scenarios2.py >}}
 ```
 
 :::
@@ -209,7 +209,7 @@ Putting this code in `app.py` ensures the dictionary exists before either page n
 ::: {.column width="50%"}
 
 ```{.python code-line-numbers="14-17"}
-{{< include code/split/app.py >}}
+{{< include code/page_app/app.py >}}
 ```
 
 :::
@@ -228,7 +228,9 @@ In `simulation.py`, we'll keep the code that sets the inputs and runs the simula
 
 We'll remove the analysis code for now and move it to the results page later. We can also remove `import plotly.express as px` as this page no longer uses it.
 
-After the code to run the simulation, we'll add new code to:
+<br>
+
+We'll add new code to:
 
 1. Name the scenario
 
@@ -239,7 +241,35 @@ After the code to run the simulation, we'll add new code to:
 ::: {.column width="50%"}
 
 ```{.python code-line-numbers="79-100"}
-{{< include code/split/simulation.py >}}
+{{< include code/page_sim/simulation.py >}}
+{{< include code/page_sim/simulation_save.py >}}
+```
+
+:::
+
+::::
+
+
+## Run and save the results
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+**Scenario names** are based on how many scenarios are already stored (e.g., "Scenario 1", "Scenario 2").
+
+<br>
+
+**Settings** record the inputs used for each scenario, so we can interpret and compare its results.
+
+**Results** are the summary statistics, saved using shorter keys like `mean` and `sd` so they are easier to access later.
+
+:::
+
+::: {.column width="50%"}
+
+```{.python code-line-numbers="false"}
+{{< include code/page_sim/simulation_save.py >}}
 ```
 
 :::
@@ -249,21 +279,56 @@ After the code to run the simulation, we'll add new code to:
 
 
 
-## run and save scenarios
+## Run and save the results
 
-save how? session state
+We then set `chosen_scenario` to this scenario, making it the default selection when the user opens the results page.
 
-can do a success message, it saved yay
+We also show a success message to confirm that the scenario has run and its results have been saved.
 
+<br>
 
-
-
-## show scenarios
-
-help user keep track
-show scenarios table
+```{.python code-line-numbers="false"}
+{{< include code/page_sim/simulation_select_success.py >}}
+```
 
 
+
+
+## Keeping track of scenarios
+
+We can also show a table of saved scenarios, so users can keep track of their runs.
+
+This checks if `scenarios` is empty - and will only appear after the first scenario has been run.
+
+We take the settings from each saved scenario and display them as a row in the table.
+
+A caption reminds users that these scenarios are saved for the current session only.
+
+<br>
+
+```{.python code-line-numbers="false"}
+{{< include code/page_sim/simulation_table.py >}}
+```
+
+
+
+
+## Linking to results page
+
+At the end of `simulation.py`, we'll add a button linking to `results.py`, which we'll create next.
+
+Clicking the button calls `st.switch_page` to take the user to the results page.
+
+<br>
+
+```{.python code-line-numbers="false"}
+{{< include code/page_sim/simulation_link.py >}}
+```
+
+
+
+
+## Try out our new simulation page
 
 
 ## results

@@ -1,7 +1,13 @@
-"""Simple single-page app."""
+"""Run and save simulation scenarios."""
 
 import streamlit as st
 from model import Param, Trial
+
+# ----------------------------------------------------------------------------
+# Allow user to choose model parameters
+# ----------------------------------------------------------------------------
+
+st.title("Run simulation")
 
 with st.container(border=True):
     st.subheader("Patients")
@@ -62,7 +68,11 @@ with st.container(border=True):
         key="num_replications",
     )
 
-if st.button("Run simulation", type="primary"):
+if st.button("Run and save scenario", type="primary"):
+    # ----------------------------------------------------------------------------
+    # Run the model
+    # ----------------------------------------------------------------------------
+
     params = Param(
         mean_patient_inter=st.session_state.mean_patient_inter,
         mean_nurse_consult_time=st.session_state.mean_nurse_consult_time,
@@ -76,7 +86,10 @@ if st.button("Run simulation", type="primary"):
     trial.run_trial()
     trial.calculate_trial_results()
 
+    # ----------------------------------------------------------------------------
     # Save results to session state to allow comparison between scenarios
+    # ----------------------------------------------------------------------------
+
     scenario_name = f"Scenario {len(st.session_state.scenarios) + 1}"
     st.session_state.scenarios[scenario_name] = {
         "settings": {
@@ -98,3 +111,24 @@ if st.button("Run simulation", type="primary"):
         "cost": trial.total_nurse_cost,
         "df": trial.replication_df,
     }
+
+    # Select the newly saved scenario and show confirmation
+    st.session_state.chosen_scenario = scenario_name
+    st.success(f"""
+    {scenario_name} ran successfully and was saved for this sesssion.
+    """)
+
+if st.session_state.scenarios:
+    st.divider()
+    st.header("Saved scenarios")
+
+    st.dataframe(
+        [scenario["settings"] for scenario in st.session_state.scenarios.values()],
+        hide_index=True,
+    )
+    st.caption("Scenarios are saved for the current session only.")
+
+    st.divider()
+    st.header("Results")
+    if st.button(label="Go to results page", type="primary"):
+        st.switch_page("results.py")
