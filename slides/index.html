@@ -33,6 +33,72 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #f8f8f2;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #f8f8f2; } /* Normal */
+    code span.al { color: #f07178; } /* Alert */
+    code span.an { color: #d4d0ab; } /* Annotation */
+    code span.at { color: #00e0e0; } /* Attribute */
+    code span.bn { color: #d4d0ab; } /* BaseN */
+    code span.bu { color: #abe338; } /* BuiltIn */
+    code span.cf { color: #ffa07a; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #abe338; } /* Char */
+    code span.cn { color: #ffd700; } /* Constant */
+    code span.co { color: #f8f8f2; font-style: italic; } /* Comment */
+    code span.cv { color: #ffd700; } /* CommentVar */
+    code span.do { color: #f8f8f2; } /* Documentation */
+    code span.dt { color: #ffa07a; } /* DataType */
+    code span.dv { color: #d4d0ab; } /* DecVal */
+    code span.er { color: #f07178; text-decoration: underline; } /* Error */
+    code span.ex { color: #00e0e0; font-weight: bold; } /* Extension */
+    code span.fl { color: #d4d0ab; } /* Float */
+    code span.fu { color: #ffa07a; } /* Function */
+    code span.im { color: #abe338; } /* Import */
+    code span.in { color: #d4d0ab; } /* Information */
+    code span.kw { color: #ffa07a; font-weight: bold; } /* Keyword */
+    code span.op { color: #ffa07a; } /* Operator */
+    code span.ot { color: #00e0e0; } /* Other */
+    code span.pp { color: #dcc6e0; } /* Preprocessor */
+    code span.re { color: #00e0e0; background-color: #f8f8f2; } /* RegionMarker */
+    code span.sc { color: #abe338; } /* SpecialChar */
+    code span.ss { color: #abe338; } /* SpecialString */
+    code span.st { color: #abe338; } /* String */
+    code span.va { color: #00e0e0; } /* Variable */
+    code span.vs { color: #abe338; } /* VerbatimString */
+    code span.wa { color: #dcc6e0; } /* Warning */
   </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-85c9fbf6f7392447b33c857e2094ad8e.css">
   <link rel="stylesheet" href="template/styles.css">
@@ -166,19 +232,217 @@
 </iframe>
 </div></div>
 </section>
+<section id="reminder-app-from-the-last-session" class="slide level2">
+<h2>Reminder: App from the last session</h2>
+<iframe src="https://hsma-des-multipage.streamlit.app/?embed=true" style="width: 100%; flex: 1; min-height: 0; border: 0;">
+</iframe>
+</section>
+<section id="reminder-app-from-the-last-session-1" class="slide level2">
+<h2>Reminder: App from the last session</h2>
+<p><a href="https://hsma-programme.github.io/hsma7_2g_streamlit_part1/app/multipage/" target="_blank">View stlite app in new tab</a></p>
+</section>
 <section>
 <section id="scenarios" class="title-slide slide level1 center">
 <h1>Scenarios</h1>
-<p>now going to show how to make an app that can compare scenarios</p>
-<p>need to be able to save results of a run</p>
-<p>and then compare between them</p>
-<p>to do this, we’re going to split the simulation page into two</p>
-<p>one that runs scenarios</p>
-<p>one that can look at results of a scenario or compare them</p>
+
 </section>
-<section id="split" class="slide level2">
-<h2>split</h2>
-<p>show splitting the two</p>
+<section id="adding-scenarios-to-our-app" class="slide level2">
+<h2>Adding scenarios to our app</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<p><br></p>
+<p>A common use for a DES app is to compare scenarios with different inputs.</p>
+<p>Our current app shows results for one run at a time. Changing the inputs and running again replaces the previous results.</p>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column" style="width:40%;">
+<p><img data-src="gif/scenarios.gif"></p>
+</div></div>
+<div class="fragment">
+<p>To compare scenarios, we need to:</p>
+<ol type="1">
+<li><strong>Save</strong> each run’s inputs and results.</li>
+<li>Allow users to <strong>view and compare</strong> saved scenarios.</li>
+</ol>
+</div>
+</section>
+<section id="preview-the-app-we-will-create" class="slide level2">
+<h2>Preview: the app we will create</h2>
+<iframe src="https://hsma-des-scenarios.streamlit.app/?embed=true" style="width: 100%; flex: 1; min-height: 0; border: 0;">
+</iframe>
+</section>
+<section id="preview-the-app-we-will-create-1" class="slide level2">
+<h2>Preview: the app we will create</h2>
+<p><a href="https://hsma-programme.github.io/hsma7_2h_streamlit_part2/app/" target="_blank">View stlite app in new tab</a></p>
+</section>
+<section id="two-pages-run-scenarios-and-explore-results" class="slide level2">
+<h2>Two pages: run scenarios and explore results</h2>
+<p>As shown, our app now splits the original simulation page into two:</p>
+<ul>
+<li><strong>Run simulation:</strong> set inputs and run the model.</li>
+<li><strong>View results:</strong> view results from a saved scenario or compare several.</li>
+</ul>
+<p><br></p>
+<div class="fragment">
+<p><strong>Why?</strong></p>
+<p>These pages support two different tasks: setting up simulations and making sense of their results. Users can move between them without having to do both in the same place.</p>
+<p>This keeps the interface manageable if we add more inputs, results and comparison features.</p>
+</div>
+</section>
+<section id="new-dictionary-in-session-state" class="slide level2">
+<h2>New dictionary in session state</h2>
+<p>We first create an empty dictionary in session state, ready to store scenario results.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-label="1"></a>st.session_state.scenarios <span class="op">=</span> {}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><br></p>
+<div class="fragment">
+<p>We need to make sure it is only created it if it doesn’t already exist.</p>
+<p>This is because Streamlit reruns the script when users interact with the app. Without this check, each rerun would replace the dictionary with an empty one, clearing any saved results.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-code-line-numbers="1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-label="1"></a><span class="cf">if</span> <span class="st">"scenarios"</span> <span class="kw">not</span> <span class="kw">in</span> st.session_state:</span>
+<span id="cb2-2"><a aria-label="2"></a>    st.session_state.scenarios <span class="op">=</span> {}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="new-dictionary-in-session-state-1" class="slide level2">
+<h2>New dictionary in session state</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>We’ll initialise the dictionary in <code>app.py</code>, which runs before whichever page the user opens.</p>
+<p><br></p>
+<p><strong>Why not in <code>simulation.py?</code></strong></p>
+<p>Users might open the results page before running a simulation. If we created the dictionary only in <code>simulation.py</code>, it wouldn’t exist yet, causing an error.</p>
+<p>Putting this code in <code>app.py</code> ensures the dictionary exists before either page needs it.</p>
+</div><div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-code-line-numbers="14-17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-label="1"></a><span class="co">"""Entrypoint for app. Defines navigation."""</span></span>
+<span id="cb3-2"><a aria-label="2"></a></span>
+<span id="cb3-3"><a aria-label="3"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb3-4"><a aria-label="4"></a></span>
+<span id="cb3-5"><a aria-label="5"></a>pg <span class="op">=</span> st.navigation(</span>
+<span id="cb3-6"><a aria-label="6"></a>    [</span>
+<span id="cb3-7"><a aria-label="7"></a>        st.Page(<span class="st">"home.py"</span>, title<span class="op">=</span><span class="st">"Home"</span>),</span>
+<span id="cb3-8"><a aria-label="8"></a>        st.Page(<span class="st">"simulation.py"</span>, title<span class="op">=</span><span class="st">"Run simulation"</span>),</span>
+<span id="cb3-9"><a aria-label="9"></a>    ]</span>
+<span id="cb3-10"><a aria-label="10"></a>)</span>
+<span id="cb3-11"><a aria-label="11"></a></span>
+<span id="cb3-12"><a aria-label="12"></a>pg.run()</span>
+<span id="cb3-13"><a aria-label="13"></a></span>
+<span id="cb3-14"><a aria-label="14"></a><span class="co"># Session state set-up</span></span>
+<span id="cb3-15"><a aria-label="15"></a><span class="co"># Doing it here as otherwise if click straight on view results get error</span></span>
+<span id="cb3-16"><a aria-label="16"></a><span class="cf">if</span> <span class="st">"scenarios"</span> <span class="kw">not</span> <span class="kw">in</span> st.session_state:</span>
+<span id="cb3-17"><a aria-label="17"></a>    st.session_state.scenarios <span class="op">=</span> {}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+</section>
+<section id="run-and-save-the-results" class="slide level2">
+<h2>Run and save the results</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>In <code>simulation.py</code>, we’ll keep the code that sets the inputs and runs the simulation.</p>
+<p>We’ll remove the analysis code for now and move it to the results page later. We can also remove <code>import plotly.express as px</code> as this page no longer uses it.</p>
+<p>After the code to run the simulation, we’ll add new code to:</p>
+<ol type="1">
+<li><p>Name the scenario</p></li>
+<li><p>Save its settings and results in <code>st.session_state.scenarios</code>.</p></li>
+</ol>
+</div><div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-code-line-numbers="79-100"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-label="1"></a><span class="co">"""Simple single-page app."""</span></span>
+<span id="cb4-2"><a aria-label="2"></a></span>
+<span id="cb4-3"><a aria-label="3"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb4-4"><a aria-label="4"></a><span class="im">from</span> model <span class="im">import</span> Param, Trial</span>
+<span id="cb4-5"><a aria-label="5"></a></span>
+<span id="cb4-6"><a aria-label="6"></a><span class="cf">with</span> st.container(border<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb4-7"><a aria-label="7"></a>    st.subheader(<span class="st">"Patients"</span>)</span>
+<span id="cb4-8"><a aria-label="8"></a></span>
+<span id="cb4-9"><a aria-label="9"></a>    st.slider(</span>
+<span id="cb4-10"><a aria-label="10"></a>        label<span class="op">=</span><span class="st">"Mean patient inter-arrival time (minutes)"</span>,</span>
+<span id="cb4-11"><a aria-label="11"></a>        min_value<span class="op">=</span><span class="fl">3.0</span>,</span>
+<span id="cb4-12"><a aria-label="12"></a>        max_value<span class="op">=</span><span class="fl">7.0</span>,</span>
+<span id="cb4-13"><a aria-label="13"></a>        value<span class="op">=</span><span class="fl">5.0</span>,</span>
+<span id="cb4-14"><a aria-label="14"></a>        step<span class="op">=</span><span class="fl">0.25</span>,</span>
+<span id="cb4-15"><a aria-label="15"></a>        key<span class="op">=</span><span class="st">"mean_patient_inter"</span>,</span>
+<span id="cb4-16"><a aria-label="16"></a>    )</span>
+<span id="cb4-17"><a aria-label="17"></a></span>
+<span id="cb4-18"><a aria-label="18"></a>    st.subheader(<span class="st">"Nurses"</span>)</span>
+<span id="cb4-19"><a aria-label="19"></a></span>
+<span id="cb4-20"><a aria-label="20"></a>    st.number_input(</span>
+<span id="cb4-21"><a aria-label="21"></a>        label<span class="op">=</span><span class="st">"Mean nurse consultation length (minutes)"</span>,</span>
+<span id="cb4-22"><a aria-label="22"></a>        min_value<span class="op">=</span><span class="fl">3.0</span>,</span>
+<span id="cb4-23"><a aria-label="23"></a>        max_value<span class="op">=</span><span class="fl">9.0</span>,</span>
+<span id="cb4-24"><a aria-label="24"></a>        value<span class="op">=</span><span class="fl">6.0</span>,</span>
+<span id="cb4-25"><a aria-label="25"></a>        key<span class="op">=</span><span class="st">"mean_nurse_consult_time"</span>,</span>
+<span id="cb4-26"><a aria-label="26"></a>    )</span>
+<span id="cb4-27"><a aria-label="27"></a></span>
+<span id="cb4-28"><a aria-label="28"></a>    st.number_input(</span>
+<span id="cb4-29"><a aria-label="29"></a>        label<span class="op">=</span><span class="st">"Standard deviation of nurse consultation length (minutes)"</span>,</span>
+<span id="cb4-30"><a aria-label="30"></a>        min_value<span class="op">=</span><span class="fl">0.0</span>,</span>
+<span id="cb4-31"><a aria-label="31"></a>        value<span class="op">=</span><span class="fl">1.0</span>,</span>
+<span id="cb4-32"><a aria-label="32"></a>        key<span class="op">=</span><span class="st">"sd_nurse_consult_time"</span>,</span>
+<span id="cb4-33"><a aria-label="33"></a>    )</span>
+<span id="cb4-34"><a aria-label="34"></a></span>
+<span id="cb4-35"><a aria-label="35"></a>    st.pills(label<span class="op">=</span><span class="st">"Number of nurses"</span>, options<span class="op">=</span><span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">5</span>), default<span class="op">=</span><span class="dv">1</span>, key<span class="op">=</span><span class="st">"num_nurses"</span>)</span>
+<span id="cb4-36"><a aria-label="36"></a></span>
+<span id="cb4-37"><a aria-label="37"></a>    st.number_input(</span>
+<span id="cb4-38"><a aria-label="38"></a>        label<span class="op">=</span><span class="st">"Cost per nurse per hour (£)"</span>,</span>
+<span id="cb4-39"><a aria-label="39"></a>        min_value<span class="op">=</span><span class="fl">0.0</span>,</span>
+<span id="cb4-40"><a aria-label="40"></a>        value<span class="op">=</span><span class="fl">30.0</span>,</span>
+<span id="cb4-41"><a aria-label="41"></a>        step<span class="op">=</span><span class="fl">1.0</span>,</span>
+<span id="cb4-42"><a aria-label="42"></a>        key<span class="op">=</span><span class="st">"nurse_cost_per_hour"</span>,</span>
+<span id="cb4-43"><a aria-label="43"></a>        <span class="bu">help</span><span class="op">=</span><span class="st">"Nurses are costed for the full simulation duration, including time when they are not seeing patients"</span>,</span>
+<span id="cb4-44"><a aria-label="44"></a>    )</span>
+<span id="cb4-45"><a aria-label="45"></a></span>
+<span id="cb4-46"><a aria-label="46"></a>    st.space(size<span class="op">=</span><span class="st">"xxsmall"</span>)</span>
+<span id="cb4-47"><a aria-label="47"></a>    st.subheader(<span class="st">"Simulation"</span>)</span>
+<span id="cb4-48"><a aria-label="48"></a></span>
+<span id="cb4-49"><a aria-label="49"></a>    st.slider(</span>
+<span id="cb4-50"><a aria-label="50"></a>        label<span class="op">=</span><span class="st">"Simulation duration (minutes)"</span>,</span>
+<span id="cb4-51"><a aria-label="51"></a>        min_value<span class="op">=</span><span class="dv">50</span>,</span>
+<span id="cb4-52"><a aria-label="52"></a>        max_value<span class="op">=</span><span class="dv">200</span>,</span>
+<span id="cb4-53"><a aria-label="53"></a>        value<span class="op">=</span><span class="dv">120</span>,</span>
+<span id="cb4-54"><a aria-label="54"></a>        key<span class="op">=</span><span class="st">"sim_duration"</span>,</span>
+<span id="cb4-55"><a aria-label="55"></a>    )</span>
+<span id="cb4-56"><a aria-label="56"></a></span>
+<span id="cb4-57"><a aria-label="57"></a>    st.slider(</span>
+<span id="cb4-58"><a aria-label="58"></a>        label<span class="op">=</span><span class="st">"Number of replications"</span>,</span>
+<span id="cb4-59"><a aria-label="59"></a>        min_value<span class="op">=</span><span class="dv">10</span>,</span>
+<span id="cb4-60"><a aria-label="60"></a>        max_value<span class="op">=</span><span class="dv">50</span>,</span>
+<span id="cb4-61"><a aria-label="61"></a>        value<span class="op">=</span><span class="dv">30</span>,</span>
+<span id="cb4-62"><a aria-label="62"></a>        key<span class="op">=</span><span class="st">"num_replications"</span>,</span>
+<span id="cb4-63"><a aria-label="63"></a>    )</span>
+<span id="cb4-64"><a aria-label="64"></a></span>
+<span id="cb4-65"><a aria-label="65"></a><span class="cf">if</span> st.button(<span class="st">"Run simulation"</span>, <span class="bu">type</span><span class="op">=</span><span class="st">"primary"</span>):</span>
+<span id="cb4-66"><a aria-label="66"></a>    params <span class="op">=</span> Param(</span>
+<span id="cb4-67"><a aria-label="67"></a>        mean_patient_inter<span class="op">=</span>st.session_state.mean_patient_inter,</span>
+<span id="cb4-68"><a aria-label="68"></a>        mean_nurse_consult_time<span class="op">=</span>st.session_state.mean_nurse_consult_time,</span>
+<span id="cb4-69"><a aria-label="69"></a>        sd_nurse_consult_time<span class="op">=</span>st.session_state.sd_nurse_consult_time,</span>
+<span id="cb4-70"><a aria-label="70"></a>        num_nurses<span class="op">=</span>st.session_state.num_nurses,</span>
+<span id="cb4-71"><a aria-label="71"></a>        sim_duration<span class="op">=</span>st.session_state.sim_duration,</span>
+<span id="cb4-72"><a aria-label="72"></a>        num_replications<span class="op">=</span>st.session_state.num_replications,</span>
+<span id="cb4-73"><a aria-label="73"></a>        nurse_cost_per_hour<span class="op">=</span>st.session_state.nurse_cost_per_hour,</span>
+<span id="cb4-74"><a aria-label="74"></a>    )</span>
+<span id="cb4-75"><a aria-label="75"></a>    trial <span class="op">=</span> Trial(param<span class="op">=</span>params)</span>
+<span id="cb4-76"><a aria-label="76"></a>    trial.run_trial()</span>
+<span id="cb4-77"><a aria-label="77"></a>    trial.calculate_trial_results()</span>
+<span id="cb4-78"><a aria-label="78"></a></span>
+<span id="cb4-79"><a aria-label="79"></a>    <span class="co"># Save results to session state to allow comparison between scenarios</span></span>
+<span id="cb4-80"><a aria-label="80"></a>    scenario_name <span class="op">=</span> <span class="ss">f"Scenario </span><span class="sc">{</span><span class="bu">len</span>(st.session_state.scenarios) <span class="op">+</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb4-81"><a aria-label="81"></a>    st.session_state.scenarios[scenario_name] <span class="op">=</span> {</span>
+<span id="cb4-82"><a aria-label="82"></a>        <span class="st">"settings"</span>: {</span>
+<span id="cb4-83"><a aria-label="83"></a>            <span class="st">"Scenario"</span>: scenario_name,</span>
+<span id="cb4-84"><a aria-label="84"></a>            <span class="st">"Inter-arrival"</span>: st.session_state.mean_patient_inter,</span>
+<span id="cb4-85"><a aria-label="85"></a>            <span class="st">"Consultation mean"</span>: st.session_state.mean_nurse_consult_time,</span>
+<span id="cb4-86"><a aria-label="86"></a>            <span class="st">"Consultation SD"</span>: st.session_state.sd_nurse_consult_time,</span>
+<span id="cb4-87"><a aria-label="87"></a>            <span class="st">"Nurses"</span>: st.session_state.num_nurses,</span>
+<span id="cb4-88"><a aria-label="88"></a>            <span class="st">"Cost per hour"</span>: st.session_state.nurse_cost_per_hour,</span>
+<span id="cb4-89"><a aria-label="89"></a>            <span class="st">"Duration"</span>: st.session_state.sim_duration,</span>
+<span id="cb4-90"><a aria-label="90"></a>            <span class="st">"Replications"</span>: st.session_state.num_replications,</span>
+<span id="cb4-91"><a aria-label="91"></a>        },</span>
+<span id="cb4-92"><a aria-label="92"></a>        <span class="st">"mean"</span>: trial.trial_mean_q_time_nurse,</span>
+<span id="cb4-93"><a aria-label="93"></a>        <span class="st">"sd"</span>: trial.trial_sd_q_time_nurse,</span>
+<span id="cb4-94"><a aria-label="94"></a>        <span class="st">"p90"</span>: trial.trial_perc_90_q_time_nurse,</span>
+<span id="cb4-95"><a aria-label="95"></a>        <span class="st">"se"</span>: trial.se_q_time_nurse,</span>
+<span id="cb4-96"><a aria-label="96"></a>        <span class="st">"ci_lower"</span>: trial.ci_lower_q_time_nurse,</span>
+<span id="cb4-97"><a aria-label="97"></a>        <span class="st">"ci_upper"</span>: trial.ci_upper_q_time_nurse,</span>
+<span id="cb4-98"><a aria-label="98"></a>        <span class="st">"cost"</span>: trial.total_nurse_cost,</span>
+<span id="cb4-99"><a aria-label="99"></a>        <span class="st">"df"</span>: trial.replication_df,</span>
+<span id="cb4-100"><a aria-label="100"></a>    }</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
 </section>
 <section id="run-and-save-scenarios" class="slide level2">
 <h2>run and save scenarios</h2>

@@ -7,11 +7,67 @@
     "text": "Module 2 ‘I want to fix my delays, and see what works before I try it’\nSession 2H: Creating a DES interface with Streamlit - Part 2\nSammi Rosser - Presenter\nAmy Heather - Session content creator\nWe are DEStined for app development"
   },
   {
-    "objectID": "slides/index.html#split",
-    "href": "slides/index.html#split",
+    "objectID": "slides/index.html#reminder-app-from-the-last-session",
+    "href": "slides/index.html#reminder-app-from-the-last-session",
     "title": "",
-    "section": "split",
-    "text": "split\nshow splitting the two"
+    "section": "Reminder: App from the last session",
+    "text": "Reminder: App from the last session"
+  },
+  {
+    "objectID": "slides/index.html#reminder-app-from-the-last-session-1",
+    "href": "slides/index.html#reminder-app-from-the-last-session-1",
+    "title": "",
+    "section": "Reminder: App from the last session",
+    "text": "Reminder: App from the last session\nView stlite app in new tab"
+  },
+  {
+    "objectID": "slides/index.html#adding-scenarios-to-our-app",
+    "href": "slides/index.html#adding-scenarios-to-our-app",
+    "title": "",
+    "section": "Adding scenarios to our app",
+    "text": "Adding scenarios to our app\n\n\n\nA common use for a DES app is to compare scenarios with different inputs.\nOur current app shows results for one run at a time. Changing the inputs and running again replaces the previous results.\n\n\n\n\n\n\nTo compare scenarios, we need to:\n\nSave each run’s inputs and results.\nAllow users to view and compare saved scenarios."
+  },
+  {
+    "objectID": "slides/index.html#preview-the-app-we-will-create",
+    "href": "slides/index.html#preview-the-app-we-will-create",
+    "title": "",
+    "section": "Preview: the app we will create",
+    "text": "Preview: the app we will create"
+  },
+  {
+    "objectID": "slides/index.html#preview-the-app-we-will-create-1",
+    "href": "slides/index.html#preview-the-app-we-will-create-1",
+    "title": "",
+    "section": "Preview: the app we will create",
+    "text": "Preview: the app we will create\nView stlite app in new tab"
+  },
+  {
+    "objectID": "slides/index.html#two-pages-run-scenarios-and-explore-results",
+    "href": "slides/index.html#two-pages-run-scenarios-and-explore-results",
+    "title": "",
+    "section": "Two pages: run scenarios and explore results",
+    "text": "Two pages: run scenarios and explore results\nAs shown, our app now splits the original simulation page into two:\n\nRun simulation: set inputs and run the model.\nView results: view results from a saved scenario or compare several.\n\n\n\nWhy?\nThese pages support two different tasks: setting up simulations and making sense of their results. Users can move between them without having to do both in the same place.\nThis keeps the interface manageable if we add more inputs, results and comparison features."
+  },
+  {
+    "objectID": "slides/index.html#new-dictionary-in-session-state",
+    "href": "slides/index.html#new-dictionary-in-session-state",
+    "title": "",
+    "section": "New dictionary in session state",
+    "text": "New dictionary in session state\nWe first create an empty dictionary in session state, ready to store scenario results.\nst.session_state.scenarios = {}\n\n\nWe need to make sure it is only created it if it doesn’t already exist.\nThis is because Streamlit reruns the script when users interact with the app. Without this check, each rerun would replace the dictionary with an empty one, clearing any saved results.\nif \"scenarios\" not in st.session_state:\n    st.session_state.scenarios = {}"
+  },
+  {
+    "objectID": "slides/index.html#new-dictionary-in-session-state-1",
+    "href": "slides/index.html#new-dictionary-in-session-state-1",
+    "title": "",
+    "section": "New dictionary in session state",
+    "text": "New dictionary in session state\n\n\nWe’ll initialise the dictionary in app.py, which runs before whichever page the user opens.\n\nWhy not in simulation.py?\nUsers might open the results page before running a simulation. If we created the dictionary only in simulation.py, it wouldn’t exist yet, causing an error.\nPutting this code in app.py ensures the dictionary exists before either page needs it.\n\n\"\"\"Entrypoint for app. Defines navigation.\"\"\"\n\nimport streamlit as st\n\npg = st.navigation(\n    [\n        st.Page(\"home.py\", title=\"Home\"),\n        st.Page(\"simulation.py\", title=\"Run simulation\"),\n    ]\n)\n\npg.run()\n\n# Session state set-up\n# Doing it here as otherwise if click straight on view results get error\nif \"scenarios\" not in st.session_state:\n    st.session_state.scenarios = {}"
+  },
+  {
+    "objectID": "slides/index.html#run-and-save-the-results",
+    "href": "slides/index.html#run-and-save-the-results",
+    "title": "",
+    "section": "Run and save the results",
+    "text": "Run and save the results\n\n\nIn simulation.py, we’ll keep the code that sets the inputs and runs the simulation.\nWe’ll remove the analysis code for now and move it to the results page later. We can also remove import plotly.express as px as this page no longer uses it.\nAfter the code to run the simulation, we’ll add new code to:\n\nName the scenario\nSave its settings and results in st.session_state.scenarios.\n\n\n\"\"\"Simple single-page app.\"\"\"\n\nimport streamlit as st\nfrom model import Param, Trial\n\nwith st.container(border=True):\n    st.subheader(\"Patients\")\n\n    st.slider(\n        label=\"Mean patient inter-arrival time (minutes)\",\n        min_value=3.0,\n        max_value=7.0,\n        value=5.0,\n        step=0.25,\n        key=\"mean_patient_inter\",\n    )\n\n    st.subheader(\"Nurses\")\n\n    st.number_input(\n        label=\"Mean nurse consultation length (minutes)\",\n        min_value=3.0,\n        max_value=9.0,\n        value=6.0,\n        key=\"mean_nurse_consult_time\",\n    )\n\n    st.number_input(\n        label=\"Standard deviation of nurse consultation length (minutes)\",\n        min_value=0.0,\n        value=1.0,\n        key=\"sd_nurse_consult_time\",\n    )\n\n    st.pills(label=\"Number of nurses\", options=range(1, 5), default=1, key=\"num_nurses\")\n\n    st.number_input(\n        label=\"Cost per nurse per hour (£)\",\n        min_value=0.0,\n        value=30.0,\n        step=1.0,\n        key=\"nurse_cost_per_hour\",\n        help=\"Nurses are costed for the full simulation duration, including time when they are not seeing patients\",\n    )\n\n    st.space(size=\"xxsmall\")\n    st.subheader(\"Simulation\")\n\n    st.slider(\n        label=\"Simulation duration (minutes)\",\n        min_value=50,\n        max_value=200,\n        value=120,\n        key=\"sim_duration\",\n    )\n\n    st.slider(\n        label=\"Number of replications\",\n        min_value=10,\n        max_value=50,\n        value=30,\n        key=\"num_replications\",\n    )\n\nif st.button(\"Run simulation\", type=\"primary\"):\n    params = Param(\n        mean_patient_inter=st.session_state.mean_patient_inter,\n        mean_nurse_consult_time=st.session_state.mean_nurse_consult_time,\n        sd_nurse_consult_time=st.session_state.sd_nurse_consult_time,\n        num_nurses=st.session_state.num_nurses,\n        sim_duration=st.session_state.sim_duration,\n        num_replications=st.session_state.num_replications,\n        nurse_cost_per_hour=st.session_state.nurse_cost_per_hour,\n    )\n    trial = Trial(param=params)\n    trial.run_trial()\n    trial.calculate_trial_results()\n\n    # Save results to session state to allow comparison between scenarios\n    scenario_name = f\"Scenario {len(st.session_state.scenarios) + 1}\"\n    st.session_state.scenarios[scenario_name] = {\n        \"settings\": {\n            \"Scenario\": scenario_name,\n            \"Inter-arrival\": st.session_state.mean_patient_inter,\n            \"Consultation mean\": st.session_state.mean_nurse_consult_time,\n            \"Consultation SD\": st.session_state.sd_nurse_consult_time,\n            \"Nurses\": st.session_state.num_nurses,\n            \"Cost per hour\": st.session_state.nurse_cost_per_hour,\n            \"Duration\": st.session_state.sim_duration,\n            \"Replications\": st.session_state.num_replications,\n        },\n        \"mean\": trial.trial_mean_q_time_nurse,\n        \"sd\": trial.trial_sd_q_time_nurse,\n        \"p90\": trial.trial_perc_90_q_time_nurse,\n        \"se\": trial.se_q_time_nurse,\n        \"ci_lower\": trial.ci_lower_q_time_nurse,\n        \"ci_upper\": trial.ci_upper_q_time_nurse,\n        \"cost\": trial.total_nurse_cost,\n        \"df\": trial.replication_df,\n    }"
   },
   {
     "objectID": "slides/index.html#run-and-save-scenarios",
