@@ -2,6 +2,8 @@
 format: revealjs
 metadata-files:
   - template/slides.yml
+filters:
+  - value-box
 ---
 
 ## 
@@ -64,26 +66,185 @@ Session 2H: Creating a DES interface with Streamlit - Part 2
 
 
 
+## Reminder: App from the last session
+
+<iframe
+  src="https://hsma-des-multipage.streamlit.app/?embed=true"
+  style="width: 100%; flex: 1; min-height: 0; border: 0;"
+></iframe>
+
+
+
+
+## Reminder: App from the last session
+
+<a href="https://hsma-programme.github.io/hsma7_2g_streamlit_part1/app/multipage/" target="_blank">View stlite app in new tab</a>
+
+
+
+
 # Scenarios
 
-now going to show how to make an app that can compare scenarios
-
-need to be able to save results of a run
-
-and then compare between them
-
-to do this, we're going to split the simulation page into two
-
-one that runs scenarios
-
-one that can look at results of a scenario or compare them
 
 
 
+## Adding scenarios to our app
 
-## split
+:::: {.columns}
 
-show splitting the two
+::: {.column width="55%"}
+
+<br>
+
+A common use for a DES app is to compare scenarios with different inputs.
+
+Our current app shows results for one run at a time. Changing the inputs and running again replaces the previous results.
+
+:::
+
+::: {.column width="5%"}
+
+:::
+
+::: {.column width="40%"}
+
+![](gif/scenarios.gif)
+
+:::
+
+::::
+
+::: {.fragment}
+
+To compare scenarios, we need to:
+
+1. **Save** each run’s inputs and results.
+2. Allow users to **view and compare** saved scenarios.
+
+:::
+
+
+
+
+## Preview: the app we will create
+
+<iframe
+  src="https://hsma-des-scenarios.streamlit.app/?embed=true"
+  style="width: 100%; flex: 1; min-height: 0; border: 0;"
+></iframe>
+
+
+
+
+## Preview: the app we will create
+
+<a href="https://hsma-programme.github.io/hsma7_2h_streamlit_part2/app/" target="_blank">View stlite app in new tab</a>
+
+
+
+
+## Two pages: run scenarios and explore results
+
+As shown, our app now splits the original simulation page into two:
+
+* **Run simulation:** set inputs and run the model.
+* **View results:** view results from a saved scenario or compare several.
+
+<br>
+
+::: {.fragment}
+
+**Why?**
+
+These pages support two different tasks: setting up simulations and making sense of their results. Users can move between them without having to do both in the same place.
+
+This keeps the interface manageable if we add more inputs, results and comparison features.
+
+:::
+
+
+## New dictionary in session state
+
+We first create an empty dictionary in session state, ready to store scenario results.
+
+```{.python}
+{{< include code/split/app_scenarios1.py >}}
+```
+
+<br>
+
+::: {.fragment}
+
+We need to make sure it is only created it if it doesn't already exist.
+
+This is because Streamlit reruns the script when users interact with the app. Without this check, each rerun would replace the dictionary with an empty one, clearing any saved results.
+
+```{.python code-line-numbers="1"}
+{{< include code/split/app_scenarios2.py >}}
+```
+
+:::
+
+
+
+
+## New dictionary in session state
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+We'll initialise the dictionary in `app.py`, which runs before whichever page the user opens.
+
+<br>
+
+**Why not in `simulation.py?`**
+
+Users might open the results page before running a simulation. If we created the dictionary only in `simulation.py`, it wouldn't exist yet, causing an error.
+
+Putting this code in `app.py` ensures the dictionary exists before either page needs it.
+
+:::
+
+::: {.column width="50%"}
+
+```{.python code-line-numbers="14-17"}
+{{< include code/split/app.py >}}
+```
+
+:::
+
+::::
+
+
+
+## Run and save the results
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+In `simulation.py`, we'll keep the code that sets the inputs and runs the simulation.
+
+We'll remove the analysis code for now and move it to the results page later. We can also remove `import plotly.express as px` as this page no longer uses it.
+
+After the code to run the simulation, we'll add new code to:
+
+1. Name the scenario
+
+2. Save its settings and results in `st.session_state.scenarios`.
+
+:::
+
+::: {.column width="50%"}
+
+```{.python code-line-numbers="79-100"}
+{{< include code/split/simulation.py >}}
+```
+
+:::
+
+::::
 
 
 
