@@ -98,18 +98,88 @@
     "text": "Linking to results page\nAt the end of simulation.py, we’ll add a button linking to results.py, which we’ll create next.\nClicking the button calls st.switch_page to take the user to the results page.\n\n    st.divider()\n    st.header(\"Results\")\n    if st.button(label=\"Go to results page\", type=\"primary\"):\n        st.switch_page(\"results.py\")"
   },
   {
-    "objectID": "slides/index.html#try-out-our-new-simulation-page",
-    "href": "slides/index.html#try-out-our-new-simulation-page",
+    "objectID": "slides/index.html#results-from-one-scenario",
+    "href": "slides/index.html#results-from-one-scenario",
     "title": "",
-    "section": "Try out our new simulation page",
-    "text": "Try out our new simulation page"
+    "section": "Results from one scenario",
+    "text": "Results from one scenario\n\n\n\nNow let’s make the results page!\n\nWe’ll start by moving the analysis code we removed earlier into a new file, results.py.\nYou can that code on the right.\n\nHowever, we’ll need to make some changes so it can work…\n\nst.space()\nst.subheader(\"Scenario summary\")\nst.write(f\"\"\"\nSummary of nurse queue times across **all** replications.\n\n* Mean: {trial.trial_mean_q_time_nurse:.2f} minutes.\n* SD: {trial.trial_sd_q_time_nurse:.2f} minutes.\n* 90th Perc: {trial.trial_perc_90_q_time_nurse:.2f} minutes.\n* Standard error: {trial.se_q_time_nurse:.2f}\n* 95% CI: ({trial.ci_lower_q_time_nurse:.2f},\n{trial.ci_upper_q_time_nurse:.2f}) minutes.\n\nTotal nurse staffing cost: £{trial.total_nurse_cost:,.2f}\n\"\"\")\n\nst.space()\nst.subheader(\"Results from individual replications\")\nst.write(\n    \"The chart shows how the mean nurse queue time varies between **individual** replications.\"\n)\n\nfig = px.histogram(\n    data_frame=trial.replication_df,\n    x=\"mean_q_time_nurse\",\n)\nfig.update_layout(\n    xaxis_title=\"Mean nurse queue time\",\n    yaxis_title=\"Number of replications\"\n)\nst.plotly_chart(fig)\n\nwith st.expander(\"View underlying data from each replication\"):\n    st.dataframe(\n        trial.replication_df[\n            [\n                \"replication_id\",\n                \"patient_counter\",\n                \"mean_q_time_nurse\",\n                \"sd_q_time_nurse\",\n                \"perc_90_q_time_nurse\",\n            ]\n        ]\n    )"
   },
   {
-    "objectID": "slides/index.html#results",
-    "href": "slides/index.html#results",
+    "objectID": "slides/index.html#required-changes",
+    "href": "slides/index.html#required-changes",
     "title": "",
-    "section": "results",
-    "text": "results\nresults\nsingle scenario or compare\nst.tabs"
+    "section": "Required changes",
+    "text": "Required changes\n\n\n\n1. Import the packages\nImport pandas, plotly.express and streamlit for this page.\n\nimport pandas as pd\nimport plotly.express as px\nimport streamlit as st\n\n# Get results of chosen scenario\nresults = st.session_state.scenarios[st.session_state.chosen_scenario]\n\nst.space()\nst.subheader(\"Scenario summary\")\nst.write(f\"\"\"\nSummary of nurse queue times across **all** replications.\n\n* Mean: {results[\"mean\"]:.2f} minutes.\n* SD: {results[\"sd\"]:.2f} minutes.\n* 90th Perc: {results[\"p90\"]:.2f} minutes.\n* Standard error: {results[\"se\"]:.2f}\n* 95% CI: ({results[\"ci_lower\"]:.2f}, {results[\"ci_upper\"]:.2f}) minutes\n\nTotal nurse staffing cost: £{results[\"cost\"]:,.2f}\n\"\"\")\n\nst.space()\nst.subheader(\"Results from individual replications\")\nst.write(\n    \"The chart shows how the mean nurse queue time varies between **individual** replications.\"\n)\n\nfig = px.histogram(\n    data_frame=results[\"df\"],\n    x=\"mean_q_time_nurse\",\n)\nfig.update_layout(\n    xaxis_title=\"Mean nurse queue time\",\n    yaxis_title=\"Number of replications\"\n)\nst.plotly_chart(fig)\n\nwith st.expander(\"View underlying data from each replication\"):\n    st.dataframe(\n        results[\"df\"][\n            [\n                \"replication_id\",\n                \"patient_counter\",\n                \"mean_q_time_nurse\",\n                \"sd_q_time_nurse\",\n                \"perc_90_q_time_nurse\",\n            ]\n        ]\n    )"
+  },
+  {
+    "objectID": "slides/index.html#required-changes-1",
+    "href": "slides/index.html#required-changes-1",
+    "title": "",
+    "section": "Required changes",
+    "text": "Required changes\n\n\n\n2. Retrieve the chosen scenario\nUse chosen_scenario to look up the saved scenario in scenarios and store it as results.\n\nFor now, this is the most recently run scenario. We’ll add a way for users to choose a different scenario in a moment.\n\nimport pandas as pd\nimport plotly.express as px\nimport streamlit as st\n\n# Get results of chosen scenario\nresults = st.session_state.scenarios[st.session_state.chosen_scenario]\n\nst.space()\nst.subheader(\"Scenario summary\")\nst.write(f\"\"\"\nSummary of nurse queue times across **all** replications.\n\n* Mean: {results[\"mean\"]:.2f} minutes.\n* SD: {results[\"sd\"]:.2f} minutes.\n* 90th Perc: {results[\"p90\"]:.2f} minutes.\n* Standard error: {results[\"se\"]:.2f}\n* 95% CI: ({results[\"ci_lower\"]:.2f}, {results[\"ci_upper\"]:.2f}) minutes\n\nTotal nurse staffing cost: £{results[\"cost\"]:,.2f}\n\"\"\")\n\nst.space()\nst.subheader(\"Results from individual replications\")\nst.write(\n    \"The chart shows how the mean nurse queue time varies between **individual** replications.\"\n)\n\nfig = px.histogram(\n    data_frame=results[\"df\"],\n    x=\"mean_q_time_nurse\",\n)\nfig.update_layout(\n    xaxis_title=\"Mean nurse queue time\",\n    yaxis_title=\"Number of replications\"\n)\nst.plotly_chart(fig)\n\nwith st.expander(\"View underlying data from each replication\"):\n    st.dataframe(\n        results[\"df\"][\n            [\n                \"replication_id\",\n                \"patient_counter\",\n                \"mean_q_time_nurse\",\n                \"sd_q_time_nurse\",\n                \"perc_90_q_time_nurse\",\n            ]\n        ]\n    )"
+  },
+  {
+    "objectID": "slides/index.html#required-changes-2",
+    "href": "slides/index.html#required-changes-2",
+    "title": "",
+    "section": "Required changes",
+    "text": "Required changes\n\n\n\n3. Display the saved results\nRead the summary statistics and cost from results, rather than directly from the simulation trial object.\n\nimport pandas as pd\nimport plotly.express as px\nimport streamlit as st\n\n# Get results of chosen scenario\nresults = st.session_state.scenarios[st.session_state.chosen_scenario]\n\nst.space()\nst.subheader(\"Scenario summary\")\nst.write(f\"\"\"\nSummary of nurse queue times across **all** replications.\n\n* Mean: {results[\"mean\"]:.2f} minutes.\n* SD: {results[\"sd\"]:.2f} minutes.\n* 90th Perc: {results[\"p90\"]:.2f} minutes.\n* Standard error: {results[\"se\"]:.2f}\n* 95% CI: ({results[\"ci_lower\"]:.2f}, {results[\"ci_upper\"]:.2f}) minutes\n\nTotal nurse staffing cost: £{results[\"cost\"]:,.2f}\n\"\"\")\n\nst.space()\nst.subheader(\"Results from individual replications\")\nst.write(\n    \"The chart shows how the mean nurse queue time varies between **individual** replications.\"\n)\n\nfig = px.histogram(\n    data_frame=results[\"df\"],\n    x=\"mean_q_time_nurse\",\n)\nfig.update_layout(\n    xaxis_title=\"Mean nurse queue time\",\n    yaxis_title=\"Number of replications\"\n)\nst.plotly_chart(fig)\n\nwith st.expander(\"View underlying data from each replication\"):\n    st.dataframe(\n        results[\"df\"][\n            [\n                \"replication_id\",\n                \"patient_counter\",\n                \"mean_q_time_nurse\",\n                \"sd_q_time_nurse\",\n                \"perc_90_q_time_nurse\",\n            ]\n        ]\n    )"
+  },
+  {
+    "objectID": "slides/index.html#required-changes-3",
+    "href": "slides/index.html#required-changes-3",
+    "title": "",
+    "section": "Required changes",
+    "text": "Required changes\n\n\n 4. Use saved data in histogram and table\nUse results[\"df\"] as the data source for both the histogram and the table of individual replications.\n\nimport pandas as pd\nimport plotly.express as px\nimport streamlit as st\n\n# Get results of chosen scenario\nresults = st.session_state.scenarios[st.session_state.chosen_scenario]\n\nst.space()\nst.subheader(\"Scenario summary\")\nst.write(f\"\"\"\nSummary of nurse queue times across **all** replications.\n\n* Mean: {results[\"mean\"]:.2f} minutes.\n* SD: {results[\"sd\"]:.2f} minutes.\n* 90th Perc: {results[\"p90\"]:.2f} minutes.\n* Standard error: {results[\"se\"]:.2f}\n* 95% CI: ({results[\"ci_lower\"]:.2f}, {results[\"ci_upper\"]:.2f}) minutes\n\nTotal nurse staffing cost: £{results[\"cost\"]:,.2f}\n\"\"\")\n\nst.space()\nst.subheader(\"Results from individual replications\")\nst.write(\n    \"The chart shows how the mean nurse queue time varies between **individual** replications.\"\n)\n\nfig = px.histogram(\n    data_frame=results[\"df\"],\n    x=\"mean_q_time_nurse\",\n)\nfig.update_layout(\n    xaxis_title=\"Mean nurse queue time\",\n    yaxis_title=\"Number of replications\"\n)\nst.plotly_chart(fig)\n\nwith st.expander(\"View underlying data from each replication\"):\n    st.dataframe(\n        results[\"df\"][\n            [\n                \"replication_id\",\n                \"patient_counter\",\n                \"mean_q_time_nurse\",\n                \"sd_q_time_nurse\",\n                \"perc_90_q_time_nurse\",\n            ]\n        ]\n    )"
+  },
+  {
+    "objectID": "slides/index.html#choose-a-scenario",
+    "href": "slides/index.html#choose-a-scenario",
+    "title": "",
+    "section": "Choose a scenario",
+    "text": "Choose a scenario\nNow we can let users choosen their chosen_scenario to view.\n\n\nWe’ll add:\n\nA dropdown to select a saved scenario.\nA table of scenario settings, so users can see what they’re choosing between.\nA highlighted row showing the selected scenario."
+  },
+  {
+    "objectID": "slides/index.html#choose-a-scenario-1",
+    "href": "slides/index.html#choose-a-scenario-1",
+    "title": "",
+    "section": "Choose a scenario",
+    "text": "Choose a scenario\n\n\nLet’s work through the code to do that…\n\nwith st.container(border=True):\n    st.selectbox(\n        label=\"**Choose a scenario to view:**\",\n        options=list(st.session_state.scenarios),\n        key=\"chosen_scenario\",\n    )\n\n    # Convert the settings dictionary into a dataframe\n    settings = pd.DataFrame(\n        [\n            scenario[\"settings\"]\n            for scenario in st.session_state.scenarios.values()\n        ]\n    )\n\n    # Show dataframe of saved scenarios, with chosen scenario highlighted\n    st.caption(\"The selected scenario is highlighted below.\")\n    st.dataframe(\n        style_settings(\n            settings=settings,\n            chosen_scenarios=[st.session_state.chosen_scenario],\n        ),\n        hide_index=True,\n    )"
+  },
+  {
+    "objectID": "slides/index.html#choose-a-scenario-2",
+    "href": "slides/index.html#choose-a-scenario-2",
+    "title": "",
+    "section": "Choose a scenario",
+    "text": "Choose a scenario\n\n\n\n1. Use st.container(border=True)\nThis keeps the scenario selection area visually separate from the results.\n\nwith st.container(border=True):\n    st.selectbox(\n        label=\"**Choose a scenario to view:**\",\n        options=list(st.session_state.scenarios),\n        key=\"chosen_scenario\",\n    )\n\n    # Convert the settings dictionary into a dataframe\n    settings = pd.DataFrame(\n        [\n            scenario[\"settings\"]\n            for scenario in st.session_state.scenarios.values()\n        ]\n    )\n\n    # Show dataframe of saved scenarios, with chosen scenario highlighted\n    st.caption(\"The selected scenario is highlighted below.\")\n    st.dataframe(\n        style_settings(\n            settings=settings,\n            chosen_scenarios=[st.session_state.chosen_scenario],\n        ),\n        hide_index=True,\n    )"
+  },
+  {
+    "objectID": "slides/index.html#choose-a-scenario-3",
+    "href": "slides/index.html#choose-a-scenario-3",
+    "title": "",
+    "section": "Choose a scenario",
+    "text": "Choose a scenario\n\n\n\n2. Select a scenario\nUse st.selectbox() to create a dropdown with the names of save scenarios.\nUsing key=\"chosen_scenario\" means the selection is saved as and overwrites the last chosen_scenario in session state.\n\nwith st.container(border=True):\n    st.selectbox(\n        label=\"**Choose a scenario to view:**\",\n        options=list(st.session_state.scenarios),\n        key=\"chosen_scenario\",\n    )\n\n    # Convert the settings dictionary into a dataframe\n    settings = pd.DataFrame(\n        [\n            scenario[\"settings\"]\n            for scenario in st.session_state.scenarios.values()\n        ]\n    )\n\n    # Show dataframe of saved scenarios, with chosen scenario highlighted\n    st.caption(\"The selected scenario is highlighted below.\")\n    st.dataframe(\n        style_settings(\n            settings=settings,\n            chosen_scenarios=[st.session_state.chosen_scenario],\n        ),\n        hide_index=True,\n    )"
+  },
+  {
+    "objectID": "slides/index.html#choose-a-scenario-4",
+    "href": "slides/index.html#choose-a-scenario-4",
+    "title": "",
+    "section": "Choose a scenario",
+    "text": "Choose a scenario\n\n\n\n3. Create a settings dataframe\nExtract the settings dictionary for each saved scenario and combined them into a dataframe, with one row per scenario.\n\nwith st.container(border=True):\n    st.selectbox(\n        label=\"**Choose a scenario to view:**\",\n        options=list(st.session_state.scenarios),\n        key=\"chosen_scenario\",\n    )\n\n    # Convert the settings dictionary into a dataframe\n    settings = pd.DataFrame(\n        [\n            scenario[\"settings\"]\n            for scenario in st.session_state.scenarios.values()\n        ]\n    )\n\n    # Show dataframe of saved scenarios, with chosen scenario highlighted\n    st.caption(\"The selected scenario is highlighted below.\")\n    st.dataframe(\n        style_settings(\n            settings=settings,\n            chosen_scenarios=[st.session_state.chosen_scenario],\n        ),\n        hide_index=True,\n    )"
+  },
+  {
+    "objectID": "slides/index.html#choose-a-scenario-5",
+    "href": "slides/index.html#choose-a-scenario-5",
+    "title": "",
+    "section": "Choose a scenario",
+    "text": "Choose a scenario\n\n\n\n4. Display the settings dataframe\nUse st.dataframe() to display settings.\nWe’ll write a function style_settings() which we can apply to the dataframe to highlight the chosen scenario row…\n\nwith st.container(border=True):\n    st.selectbox(\n        label=\"**Choose a scenario to view:**\",\n        options=list(st.session_state.scenarios),\n        key=\"chosen_scenario\",\n    )\n\n    # Convert the settings dictionary into a dataframe\n    settings = pd.DataFrame(\n        [\n            scenario[\"settings\"]\n            for scenario in st.session_state.scenarios.values()\n        ]\n    )\n\n    # Show dataframe of saved scenarios, with chosen scenario highlighted\n    st.caption(\"The selected scenario is highlighted below.\")\n    st.dataframe(\n        style_settings(\n            settings=settings,\n            chosen_scenarios=[st.session_state.chosen_scenario],\n        ),\n        hide_index=True,\n    )"
+  },
+  {
+    "objectID": "slides/index.html#style_settings",
+    "href": "slides/index.html#style_settings",
+    "title": "",
+    "section": "style_settings()",
+    "text": "style_settings()\n\n\nWe write this function at the start of our results.py script.\nFor each row, … TODO.\n\n# Function for highlighting the row/s with the chosen scenario/s\ndef style_settings(settings, chosen_scenarios):\n    def highlight(row):\n        style = (\n            \"background-color: #dbeafe; color: #111827\"\n            if row[\"Scenario\"] in chosen_scenarios\n            else \"\"\n        )\n        return [style] * len(row)\n\n    return settings.style.apply(highlight, axis=1).format(precision=2)"
   },
   {
     "objectID": "slides/index.html#single-scenario-results",

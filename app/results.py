@@ -97,8 +97,8 @@ else:
             x="mean_q_time_nurse",
         )
         fig.update_layout(
-            xaxis_title="Mean nurse queue time",
-            yaxis_title="Number of replications")
+            xaxis_title="Mean nurse queue time", yaxis_title="Number of replications"
+        )
         st.plotly_chart(fig)
 
         with st.expander("View underlying data from each replication"):
