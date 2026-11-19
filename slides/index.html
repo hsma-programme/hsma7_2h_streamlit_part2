@@ -1273,38 +1273,361 @@
 <span id="cb26-24"><a aria-label="24"></a>            <span class="co"># Results - will write next</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
-<section id="comparison-figure" class="slide level2">
-<h2>comparison figure</h2>
-<p>good for comparison is often boxplot here also showing individual rep on boxplot</p>
+<section id="boxplot" class="slide level2">
+<h2>Boxplot</h2>
+<div class="columns">
+<div class="column" style="width:35%;">
+<p><br><br><br><br></p>
+<p>Boxplots are a great option for comparing results across scenarios side by side.</p>
+<p>They make it easy to see both the average results and the spread of results across replications.</p>
+</div><div class="column" style="width:65%;">
+<p><img data-src="images/boxplot.png"></p>
+</div></div>
+</section>
+<section id="boxplot-1" class="slide level2">
+<h2>Boxplot</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><br><br></p>
+<p><strong>1. Introduce figure</strong></p>
+<p>We’ll start by using <code>st.subheader()</code> and <code>st.write()</code> to introduce the figure and explain what it is showing.</p>
+</div><div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27" data-code-line-numbers="1-5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a aria-label="1"></a>st.subheader(<span class="st">"Mean nurse queue time"</span>)</span>
+<span id="cb27-2"><a aria-label="2"></a>st.write(</span>
+<span id="cb27-3"><a aria-label="3"></a>    <span class="st">"Compare the mean nurse queue times across replications. "</span></span>
+<span id="cb27-4"><a aria-label="4"></a>    <span class="st">"Each point represents one replication."</span></span>
+<span id="cb27-5"><a aria-label="5"></a>)</span>
+<span id="cb27-6"><a aria-label="6"></a></span>
+<span id="cb27-7"><a aria-label="7"></a><span class="co"># Combine replication results, adding a scenario label.</span></span>
+<span id="cb27-8"><a aria-label="8"></a>replications <span class="op">=</span> pd.concat(</span>
+<span id="cb27-9"><a aria-label="9"></a>    [</span>
+<span id="cb27-10"><a aria-label="10"></a>        st.session_state.scenarios[name][<span class="st">"df"</span>].assign(Scenario<span class="op">=</span>name)</span>
+<span id="cb27-11"><a aria-label="11"></a>        <span class="cf">for</span> name <span class="kw">in</span> chosen_compare</span>
+<span id="cb27-12"><a aria-label="12"></a>    ],</span>
+<span id="cb27-13"><a aria-label="13"></a>    ignore_index<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb27-14"><a aria-label="14"></a>)</span>
+<span id="cb27-15"><a aria-label="15"></a></span>
+<span id="cb27-16"><a aria-label="16"></a>fig <span class="op">=</span> px.box(</span>
+<span id="cb27-17"><a aria-label="17"></a>    replications,</span>
+<span id="cb27-18"><a aria-label="18"></a>    x<span class="op">=</span><span class="st">"Scenario"</span>,</span>
+<span id="cb27-19"><a aria-label="19"></a>    y<span class="op">=</span><span class="st">"mean_q_time_nurse"</span>,</span>
+<span id="cb27-20"><a aria-label="20"></a>    color<span class="op">=</span><span class="st">"Scenario"</span>,</span>
+<span id="cb27-21"><a aria-label="21"></a>    points<span class="op">=</span><span class="st">"all"</span>,</span>
+<span id="cb27-22"><a aria-label="22"></a>    category_orders<span class="op">=</span>{<span class="st">"Scenario"</span>: [</span>
+<span id="cb27-23"><a aria-label="23"></a>        name <span class="cf">for</span> name <span class="kw">in</span> st.session_state.scenarios</span>
+<span id="cb27-24"><a aria-label="24"></a>        <span class="cf">if</span> name <span class="kw">in</span> chosen_compare</span>
+<span id="cb27-25"><a aria-label="25"></a>    ]},</span>
+<span id="cb27-26"><a aria-label="26"></a>    hover_data<span class="op">=</span>[<span class="st">"replication_id"</span>],</span>
+<span id="cb27-27"><a aria-label="27"></a>)</span>
+<span id="cb27-28"><a aria-label="28"></a>fig.update_layout(</span>
+<span id="cb27-29"><a aria-label="29"></a>    yaxis_title<span class="op">=</span><span class="st">"Mean nurse queue time"</span>,</span>
+<span id="cb27-30"><a aria-label="30"></a>    showlegend<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb27-31"><a aria-label="31"></a>)</span>
+<span id="cb27-32"><a aria-label="32"></a>st.plotly_chart(fig)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+</section>
+<section id="boxplot-2" class="slide level2">
+<h2>Boxplot</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><br><br></p>
+<p><strong>2. Create single results dataframe</strong></p>
+<p>Next, we use <code>pd.concat()</code> to stack the replication-level results from each scenario into a single dataframe called <code>replications</code>.</p>
+<p>We also add a <code>Scenario</code> column to identify which scenario each row belongs to.</p>
+</div><div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28" data-code-line-numbers="7-14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a aria-label="1"></a>st.subheader(<span class="st">"Mean nurse queue time"</span>)</span>
+<span id="cb28-2"><a aria-label="2"></a>st.write(</span>
+<span id="cb28-3"><a aria-label="3"></a>    <span class="st">"Compare the mean nurse queue times across replications. "</span></span>
+<span id="cb28-4"><a aria-label="4"></a>    <span class="st">"Each point represents one replication."</span></span>
+<span id="cb28-5"><a aria-label="5"></a>)</span>
+<span id="cb28-6"><a aria-label="6"></a></span>
+<span id="cb28-7"><a aria-label="7"></a><span class="co"># Combine replication results, adding a scenario label.</span></span>
+<span id="cb28-8"><a aria-label="8"></a>replications <span class="op">=</span> pd.concat(</span>
+<span id="cb28-9"><a aria-label="9"></a>    [</span>
+<span id="cb28-10"><a aria-label="10"></a>        st.session_state.scenarios[name][<span class="st">"df"</span>].assign(Scenario<span class="op">=</span>name)</span>
+<span id="cb28-11"><a aria-label="11"></a>        <span class="cf">for</span> name <span class="kw">in</span> chosen_compare</span>
+<span id="cb28-12"><a aria-label="12"></a>    ],</span>
+<span id="cb28-13"><a aria-label="13"></a>    ignore_index<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb28-14"><a aria-label="14"></a>)</span>
+<span id="cb28-15"><a aria-label="15"></a></span>
+<span id="cb28-16"><a aria-label="16"></a>fig <span class="op">=</span> px.box(</span>
+<span id="cb28-17"><a aria-label="17"></a>    replications,</span>
+<span id="cb28-18"><a aria-label="18"></a>    x<span class="op">=</span><span class="st">"Scenario"</span>,</span>
+<span id="cb28-19"><a aria-label="19"></a>    y<span class="op">=</span><span class="st">"mean_q_time_nurse"</span>,</span>
+<span id="cb28-20"><a aria-label="20"></a>    color<span class="op">=</span><span class="st">"Scenario"</span>,</span>
+<span id="cb28-21"><a aria-label="21"></a>    points<span class="op">=</span><span class="st">"all"</span>,</span>
+<span id="cb28-22"><a aria-label="22"></a>    category_orders<span class="op">=</span>{<span class="st">"Scenario"</span>: [</span>
+<span id="cb28-23"><a aria-label="23"></a>        name <span class="cf">for</span> name <span class="kw">in</span> st.session_state.scenarios</span>
+<span id="cb28-24"><a aria-label="24"></a>        <span class="cf">if</span> name <span class="kw">in</span> chosen_compare</span>
+<span id="cb28-25"><a aria-label="25"></a>    ]},</span>
+<span id="cb28-26"><a aria-label="26"></a>    hover_data<span class="op">=</span>[<span class="st">"replication_id"</span>],</span>
+<span id="cb28-27"><a aria-label="27"></a>)</span>
+<span id="cb28-28"><a aria-label="28"></a>fig.update_layout(</span>
+<span id="cb28-29"><a aria-label="29"></a>    yaxis_title<span class="op">=</span><span class="st">"Mean nurse queue time"</span>,</span>
+<span id="cb28-30"><a aria-label="30"></a>    showlegend<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb28-31"><a aria-label="31"></a>)</span>
+<span id="cb28-32"><a aria-label="32"></a>st.plotly_chart(fig)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+</section>
+<section id="boxplot-3" class="slide level2">
+<h2>Boxplot</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>3. Create boxplot</strong></p>
+<p>We create the figure using <code>plotly.express.box()</code>:</p>
+<ul>
+<li><code>color</code>: group and color by scenario.</li>
+<li><code>points</code>: show each replication as a dot.</li>
+<li><code>category_orders</code>: keeps scenarios in the order they were saved.</li>
+<li><code>hover_data</code>: include replication IDs.</li>
+</ul>
+<p>It’s displayed with <code>st.plotly_chart()</code>.</p>
+</div><div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29" data-code-line-numbers="16-32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a aria-label="1"></a>st.subheader(<span class="st">"Mean nurse queue time"</span>)</span>
+<span id="cb29-2"><a aria-label="2"></a>st.write(</span>
+<span id="cb29-3"><a aria-label="3"></a>    <span class="st">"Compare the mean nurse queue times across replications. "</span></span>
+<span id="cb29-4"><a aria-label="4"></a>    <span class="st">"Each point represents one replication."</span></span>
+<span id="cb29-5"><a aria-label="5"></a>)</span>
+<span id="cb29-6"><a aria-label="6"></a></span>
+<span id="cb29-7"><a aria-label="7"></a><span class="co"># Combine replication results, adding a scenario label.</span></span>
+<span id="cb29-8"><a aria-label="8"></a>replications <span class="op">=</span> pd.concat(</span>
+<span id="cb29-9"><a aria-label="9"></a>    [</span>
+<span id="cb29-10"><a aria-label="10"></a>        st.session_state.scenarios[name][<span class="st">"df"</span>].assign(Scenario<span class="op">=</span>name)</span>
+<span id="cb29-11"><a aria-label="11"></a>        <span class="cf">for</span> name <span class="kw">in</span> chosen_compare</span>
+<span id="cb29-12"><a aria-label="12"></a>    ],</span>
+<span id="cb29-13"><a aria-label="13"></a>    ignore_index<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb29-14"><a aria-label="14"></a>)</span>
+<span id="cb29-15"><a aria-label="15"></a></span>
+<span id="cb29-16"><a aria-label="16"></a>fig <span class="op">=</span> px.box(</span>
+<span id="cb29-17"><a aria-label="17"></a>    replications,</span>
+<span id="cb29-18"><a aria-label="18"></a>    x<span class="op">=</span><span class="st">"Scenario"</span>,</span>
+<span id="cb29-19"><a aria-label="19"></a>    y<span class="op">=</span><span class="st">"mean_q_time_nurse"</span>,</span>
+<span id="cb29-20"><a aria-label="20"></a>    color<span class="op">=</span><span class="st">"Scenario"</span>,</span>
+<span id="cb29-21"><a aria-label="21"></a>    points<span class="op">=</span><span class="st">"all"</span>,</span>
+<span id="cb29-22"><a aria-label="22"></a>    category_orders<span class="op">=</span>{<span class="st">"Scenario"</span>: [</span>
+<span id="cb29-23"><a aria-label="23"></a>        name <span class="cf">for</span> name <span class="kw">in</span> st.session_state.scenarios</span>
+<span id="cb29-24"><a aria-label="24"></a>        <span class="cf">if</span> name <span class="kw">in</span> chosen_compare</span>
+<span id="cb29-25"><a aria-label="25"></a>    ]},</span>
+<span id="cb29-26"><a aria-label="26"></a>    hover_data<span class="op">=</span>[<span class="st">"replication_id"</span>],</span>
+<span id="cb29-27"><a aria-label="27"></a>)</span>
+<span id="cb29-28"><a aria-label="28"></a>fig.update_layout(</span>
+<span id="cb29-29"><a aria-label="29"></a>    yaxis_title<span class="op">=</span><span class="st">"Mean nurse queue time"</span>,</span>
+<span id="cb29-30"><a aria-label="30"></a>    showlegend<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb29-31"><a aria-label="31"></a>)</span>
+<span id="cb29-32"><a aria-label="32"></a>st.plotly_chart(fig)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
 </section>
 <section id="comparison-table" class="slide level2">
-<h2>comparison table</h2>
-<p>could also compare those summary stats in a table and the staffing costs</p>
+<h2>Comparison table</h2>
+<p>We could also use tables to compare results.</p>
+<p><img data-src="images/table.png" height="450"></p>
 </section>
-<section id="exercise" class="slide level2">
-<h2>exercise</h2>
-<p>change app from yesterday from singlepage to multipage with scenario comparison</p>
+<section id="comparison-table-1" class="slide level2">
+<h2>Comparison table</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><br><br></p>
+<p><strong>1. Construct summary table for nurse queue time</strong></p>
+<p>Here, we are creating a table with the descriptive statistics from each scenario.</p>
+</div><div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30" data-code-line-numbers="4-21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a aria-label="1"></a>st.space()</span>
+<span id="cb30-2"><a aria-label="2"></a>st.subheader(<span class="st">"Summary statistics"</span>)</span>
+<span id="cb30-3"><a aria-label="3"></a></span>
+<span id="cb30-4"><a aria-label="4"></a>summary <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb30-5"><a aria-label="5"></a>    [</span>
+<span id="cb30-6"><a aria-label="6"></a>        {</span>
+<span id="cb30-7"><a aria-label="7"></a>            <span class="st">"Scenario"</span>: name,</span>
+<span id="cb30-8"><a aria-label="8"></a>            <span class="st">"Mean"</span>: st.session_state.scenarios[name][<span class="st">"mean"</span>],</span>
+<span id="cb30-9"><a aria-label="9"></a>            <span class="st">"SD"</span>: st.session_state.scenarios[name][<span class="st">"sd"</span>],</span>
+<span id="cb30-10"><a aria-label="10"></a>            <span class="st">"90th percentile"</span>: st.session_state.scenarios[name][<span class="st">"p90"</span>],</span>
+<span id="cb30-11"><a aria-label="11"></a>            <span class="st">"Standard error"</span>: st.session_state.scenarios[name][<span class="st">"se"</span>],</span>
+<span id="cb30-12"><a aria-label="12"></a>            <span class="st">"95% CI lower"</span>: st.session_state.scenarios[name][</span>
+<span id="cb30-13"><a aria-label="13"></a>                <span class="st">"ci_lower"</span></span>
+<span id="cb30-14"><a aria-label="14"></a>            ],</span>
+<span id="cb30-15"><a aria-label="15"></a>            <span class="st">"95% CI upper"</span>: st.session_state.scenarios[name][</span>
+<span id="cb30-16"><a aria-label="16"></a>                <span class="st">"ci_upper"</span></span>
+<span id="cb30-17"><a aria-label="17"></a>            ],</span>
+<span id="cb30-18"><a aria-label="18"></a>        }</span>
+<span id="cb30-19"><a aria-label="19"></a>        <span class="cf">for</span> name <span class="kw">in</span> chosen_compare</span>
+<span id="cb30-20"><a aria-label="20"></a>    ]</span>
+<span id="cb30-21"><a aria-label="21"></a>)</span>
+<span id="cb30-22"><a aria-label="22"></a></span>
+<span id="cb30-23"><a aria-label="23"></a>st.caption(<span class="st">"Nurse queue time summary statistics, in minutes:"</span>)</span>
+<span id="cb30-24"><a aria-label="24"></a></span>
+<span id="cb30-25"><a aria-label="25"></a>st.dataframe(</span>
+<span id="cb30-26"><a aria-label="26"></a>    summary.style.<span class="bu">format</span>(precision<span class="op">=</span><span class="dv">2</span>),</span>
+<span id="cb30-27"><a aria-label="27"></a>    hide_index<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb30-28"><a aria-label="28"></a>)</span>
+<span id="cb30-29"><a aria-label="29"></a></span>
+<span id="cb30-30"><a aria-label="30"></a>costs <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb30-31"><a aria-label="31"></a>    [</span>
+<span id="cb30-32"><a aria-label="32"></a>        {</span>
+<span id="cb30-33"><a aria-label="33"></a>            <span class="st">"Scenario"</span>: name,</span>
+<span id="cb30-34"><a aria-label="34"></a>            <span class="st">"Total cost (£)"</span>: st.session_state.scenarios[name][<span class="st">"cost"</span>],</span>
+<span id="cb30-35"><a aria-label="35"></a>        }</span>
+<span id="cb30-36"><a aria-label="36"></a>        <span class="cf">for</span> name <span class="kw">in</span> chosen_compare</span>
+<span id="cb30-37"><a aria-label="37"></a>    ]</span>
+<span id="cb30-38"><a aria-label="38"></a>)</span>
+<span id="cb30-39"><a aria-label="39"></a></span>
+<span id="cb30-40"><a aria-label="40"></a>st.caption(<span class="st">"Total nurse staffing costs:"</span>)</span>
+<span id="cb30-41"><a aria-label="41"></a></span>
+<span id="cb30-42"><a aria-label="42"></a>st.dataframe(costs, hide_index<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
 </section>
-<section id="day-two-morningafternoon-section-5-hosting-with-st-lite" class="slide level2">
-<h2>DAY TWO MORNING/AFTERNOON : SECTION 5 HOSTING WITH ST LITE</h2>
-<p>st lite</p>
+<section id="comparison-table-2" class="slide level2">
+<h2>Comparison table</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><br><br></p>
+<p><strong>2. Display summary table</strong></p>
+<p>We then display it using <code>st.dataframe()</code>, with <code>style.format()</code> to round the numbers.</p>
+<p><code>st.caption()</code> provides some helpful context.</p>
+</div><div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31" data-code-line-numbers="23-28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a aria-label="1"></a>st.space()</span>
+<span id="cb31-2"><a aria-label="2"></a>st.subheader(<span class="st">"Summary statistics"</span>)</span>
+<span id="cb31-3"><a aria-label="3"></a></span>
+<span id="cb31-4"><a aria-label="4"></a>summary <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb31-5"><a aria-label="5"></a>    [</span>
+<span id="cb31-6"><a aria-label="6"></a>        {</span>
+<span id="cb31-7"><a aria-label="7"></a>            <span class="st">"Scenario"</span>: name,</span>
+<span id="cb31-8"><a aria-label="8"></a>            <span class="st">"Mean"</span>: st.session_state.scenarios[name][<span class="st">"mean"</span>],</span>
+<span id="cb31-9"><a aria-label="9"></a>            <span class="st">"SD"</span>: st.session_state.scenarios[name][<span class="st">"sd"</span>],</span>
+<span id="cb31-10"><a aria-label="10"></a>            <span class="st">"90th percentile"</span>: st.session_state.scenarios[name][<span class="st">"p90"</span>],</span>
+<span id="cb31-11"><a aria-label="11"></a>            <span class="st">"Standard error"</span>: st.session_state.scenarios[name][<span class="st">"se"</span>],</span>
+<span id="cb31-12"><a aria-label="12"></a>            <span class="st">"95% CI lower"</span>: st.session_state.scenarios[name][</span>
+<span id="cb31-13"><a aria-label="13"></a>                <span class="st">"ci_lower"</span></span>
+<span id="cb31-14"><a aria-label="14"></a>            ],</span>
+<span id="cb31-15"><a aria-label="15"></a>            <span class="st">"95% CI upper"</span>: st.session_state.scenarios[name][</span>
+<span id="cb31-16"><a aria-label="16"></a>                <span class="st">"ci_upper"</span></span>
+<span id="cb31-17"><a aria-label="17"></a>            ],</span>
+<span id="cb31-18"><a aria-label="18"></a>        }</span>
+<span id="cb31-19"><a aria-label="19"></a>        <span class="cf">for</span> name <span class="kw">in</span> chosen_compare</span>
+<span id="cb31-20"><a aria-label="20"></a>    ]</span>
+<span id="cb31-21"><a aria-label="21"></a>)</span>
+<span id="cb31-22"><a aria-label="22"></a></span>
+<span id="cb31-23"><a aria-label="23"></a>st.caption(<span class="st">"Nurse queue time summary statistics, in minutes:"</span>)</span>
+<span id="cb31-24"><a aria-label="24"></a></span>
+<span id="cb31-25"><a aria-label="25"></a>st.dataframe(</span>
+<span id="cb31-26"><a aria-label="26"></a>    summary.style.<span class="bu">format</span>(precision<span class="op">=</span><span class="dv">2</span>),</span>
+<span id="cb31-27"><a aria-label="27"></a>    hide_index<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb31-28"><a aria-label="28"></a>)</span>
+<span id="cb31-29"><a aria-label="29"></a></span>
+<span id="cb31-30"><a aria-label="30"></a>costs <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb31-31"><a aria-label="31"></a>    [</span>
+<span id="cb31-32"><a aria-label="32"></a>        {</span>
+<span id="cb31-33"><a aria-label="33"></a>            <span class="st">"Scenario"</span>: name,</span>
+<span id="cb31-34"><a aria-label="34"></a>            <span class="st">"Total cost (£)"</span>: st.session_state.scenarios[name][<span class="st">"cost"</span>],</span>
+<span id="cb31-35"><a aria-label="35"></a>        }</span>
+<span id="cb31-36"><a aria-label="36"></a>        <span class="cf">for</span> name <span class="kw">in</span> chosen_compare</span>
+<span id="cb31-37"><a aria-label="37"></a>    ]</span>
+<span id="cb31-38"><a aria-label="38"></a>)</span>
+<span id="cb31-39"><a aria-label="39"></a></span>
+<span id="cb31-40"><a aria-label="40"></a>st.caption(<span class="st">"Total nurse staffing costs:"</span>)</span>
+<span id="cb31-41"><a aria-label="41"></a></span>
+<span id="cb31-42"><a aria-label="42"></a>st.dataframe(costs, hide_index<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
 </section>
-<section id="exercise-1" class="slide level2">
-<h2>exercise</h2>
-<p>host your app with stlite</p>
+<section id="comparison-table-3" class="slide level2">
+<h2>Comparison table</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><br><br></p>
+<p><strong>3. Repeat for costs</strong></p>
+<p>We can repeat this to show the nurse costs for each scenario. These are deterministic, just based on the number of resources in the simulation, so a single number is presented for each scenario.</p>
+</div><div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32" data-code-line-numbers="30-42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a aria-label="1"></a>st.space()</span>
+<span id="cb32-2"><a aria-label="2"></a>st.subheader(<span class="st">"Summary statistics"</span>)</span>
+<span id="cb32-3"><a aria-label="3"></a></span>
+<span id="cb32-4"><a aria-label="4"></a>summary <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb32-5"><a aria-label="5"></a>    [</span>
+<span id="cb32-6"><a aria-label="6"></a>        {</span>
+<span id="cb32-7"><a aria-label="7"></a>            <span class="st">"Scenario"</span>: name,</span>
+<span id="cb32-8"><a aria-label="8"></a>            <span class="st">"Mean"</span>: st.session_state.scenarios[name][<span class="st">"mean"</span>],</span>
+<span id="cb32-9"><a aria-label="9"></a>            <span class="st">"SD"</span>: st.session_state.scenarios[name][<span class="st">"sd"</span>],</span>
+<span id="cb32-10"><a aria-label="10"></a>            <span class="st">"90th percentile"</span>: st.session_state.scenarios[name][<span class="st">"p90"</span>],</span>
+<span id="cb32-11"><a aria-label="11"></a>            <span class="st">"Standard error"</span>: st.session_state.scenarios[name][<span class="st">"se"</span>],</span>
+<span id="cb32-12"><a aria-label="12"></a>            <span class="st">"95% CI lower"</span>: st.session_state.scenarios[name][</span>
+<span id="cb32-13"><a aria-label="13"></a>                <span class="st">"ci_lower"</span></span>
+<span id="cb32-14"><a aria-label="14"></a>            ],</span>
+<span id="cb32-15"><a aria-label="15"></a>            <span class="st">"95% CI upper"</span>: st.session_state.scenarios[name][</span>
+<span id="cb32-16"><a aria-label="16"></a>                <span class="st">"ci_upper"</span></span>
+<span id="cb32-17"><a aria-label="17"></a>            ],</span>
+<span id="cb32-18"><a aria-label="18"></a>        }</span>
+<span id="cb32-19"><a aria-label="19"></a>        <span class="cf">for</span> name <span class="kw">in</span> chosen_compare</span>
+<span id="cb32-20"><a aria-label="20"></a>    ]</span>
+<span id="cb32-21"><a aria-label="21"></a>)</span>
+<span id="cb32-22"><a aria-label="22"></a></span>
+<span id="cb32-23"><a aria-label="23"></a>st.caption(<span class="st">"Nurse queue time summary statistics, in minutes:"</span>)</span>
+<span id="cb32-24"><a aria-label="24"></a></span>
+<span id="cb32-25"><a aria-label="25"></a>st.dataframe(</span>
+<span id="cb32-26"><a aria-label="26"></a>    summary.style.<span class="bu">format</span>(precision<span class="op">=</span><span class="dv">2</span>),</span>
+<span id="cb32-27"><a aria-label="27"></a>    hide_index<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb32-28"><a aria-label="28"></a>)</span>
+<span id="cb32-29"><a aria-label="29"></a></span>
+<span id="cb32-30"><a aria-label="30"></a>costs <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb32-31"><a aria-label="31"></a>    [</span>
+<span id="cb32-32"><a aria-label="32"></a>        {</span>
+<span id="cb32-33"><a aria-label="33"></a>            <span class="st">"Scenario"</span>: name,</span>
+<span id="cb32-34"><a aria-label="34"></a>            <span class="st">"Total cost (£)"</span>: st.session_state.scenarios[name][<span class="st">"cost"</span>],</span>
+<span id="cb32-35"><a aria-label="35"></a>        }</span>
+<span id="cb32-36"><a aria-label="36"></a>        <span class="cf">for</span> name <span class="kw">in</span> chosen_compare</span>
+<span id="cb32-37"><a aria-label="37"></a>    ]</span>
+<span id="cb32-38"><a aria-label="38"></a>)</span>
+<span id="cb32-39"><a aria-label="39"></a></span>
+<span id="cb32-40"><a aria-label="40"></a>st.caption(<span class="st">"Total nurse staffing costs:"</span>)</span>
+<span id="cb32-41"><a aria-label="41"></a></span>
+<span id="cb32-42"><a aria-label="42"></a>st.dataframe(costs, hide_index<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+</section></section>
+<section>
+<section id="exercise-1" class="title-slide slide level1 center">
+<h1>Exercise 1</h1>
+
 </section>
-<section id="day-two-afternoon-section-6-customising-app-appearance" class="slide level2">
-<h2>DAY TWO AFTERNOON : SECTION 6 CUSTOMISING APP APPEARANCE</h2>
+<section id="exercise-1-1" class="slide level2">
+<h2>Exercise 1</h2>
+<p>TODO change app from yesterday from singlepage to multipage with scenario comparison</p>
+</section></section>
+<section>
+<section id="hosting-with-stlite" class="title-slide slide level1 center">
+<h1>Hosting with stlite</h1>
+
+</section>
+<section id="stlite" class="slide level2">
+<h2>stlite</h2>
+<p>TODO</p>
+</section></section>
+<section>
+<section id="exercise-2" class="title-slide slide level1 center">
+<h1>Exercise 2</h1>
+
+</section>
+<section id="exercise-2-1" class="slide level2">
+<h2>Exercise 2</h2>
+<p>TODO host your app with stlite</p>
+</section></section>
+<section>
+<section id="customising-app-appearance" class="title-slide slide level1 center">
+<h1>Customising app appearance</h1>
+
+</section>
+<section id="customising-app-appearance-1" class="slide level2">
+<h2>Customising app appearance</h2>
 <p>theme</p>
 <p>css</p>
 <p>logo</p>
 <p>etc.</p>
 <p>st.set_page_config</p>
 <p>st.logo</p>
+</section></section>
+<section>
+<section id="exercise-3" class="title-slide slide level1 center">
+<h1>Exercise 3</h1>
+
 </section>
-<section id="exercise-2" class="slide level2">
-<h2>exercise</h2>
-<p>customise appearance of your app</p>
+<section id="exercise-3-1" class="slide level2">
+<h2>Exercise 3</h2>
+<p>TODO customise appearance of your app</p>
 
 
 </section></section>

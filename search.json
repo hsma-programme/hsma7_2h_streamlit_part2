@@ -252,53 +252,95 @@
     "text": "Choosing scenarios to compare\n\n\n\n4. Check chosen scenarios\nShow a message until at least two scenarios have been chosen. Then, results can be shown.\n\nwith tab_compare:\n    if len(st.session_state.scenarios) &lt; 2:\n        st.info(\"Run at least two scenarios to enable comparison\", icon=\"ℹ️\")\n\n    else:\n        st.space()\n        with st.container(border=True):\n            chosen_compare = st.multiselect(\n                label=\"**Choose scenarios to compare**\",\n                options=list(st.session_state.scenarios),\n            )\n\n            st.caption(\"The selected scenarios are highlighted below.\")\n\n            st.dataframe(\n                style_settings(settings=settings, chosen_scenarios=chosen_compare),\n                hide_index=True,\n            )\n\n        if len(chosen_compare) &lt; 2:\n            st.info(\"Choose at least two scenario to compare\", icon=\"ℹ️\")\n\n        else:\n            # Results - will write next"
   },
   {
-    "objectID": "slides/index.html#comparison-figure",
-    "href": "slides/index.html#comparison-figure",
+    "objectID": "slides/index.html#boxplot",
+    "href": "slides/index.html#boxplot",
     "title": "",
-    "section": "comparison figure",
-    "text": "comparison figure\ngood for comparison is often boxplot here also showing individual rep on boxplot"
+    "section": "Boxplot",
+    "text": "Boxplot\n\n\n\nBoxplots are a great option for comparing results across scenarios side by side.\nThey make it easy to see both the average results and the spread of results across replications."
+  },
+  {
+    "objectID": "slides/index.html#boxplot-1",
+    "href": "slides/index.html#boxplot-1",
+    "title": "",
+    "section": "Boxplot",
+    "text": "Boxplot\n\n\n\n1. Introduce figure\nWe’ll start by using st.subheader() and st.write() to introduce the figure and explain what it is showing.\n\nst.subheader(\"Mean nurse queue time\")\nst.write(\n    \"Compare the mean nurse queue times across replications. \"\n    \"Each point represents one replication.\"\n)\n\n# Combine replication results, adding a scenario label.\nreplications = pd.concat(\n    [\n        st.session_state.scenarios[name][\"df\"].assign(Scenario=name)\n        for name in chosen_compare\n    ],\n    ignore_index=True,\n)\n\nfig = px.box(\n    replications,\n    x=\"Scenario\",\n    y=\"mean_q_time_nurse\",\n    color=\"Scenario\",\n    points=\"all\",\n    category_orders={\"Scenario\": [\n        name for name in st.session_state.scenarios\n        if name in chosen_compare\n    ]},\n    hover_data=[\"replication_id\"],\n)\nfig.update_layout(\n    yaxis_title=\"Mean nurse queue time\",\n    showlegend=False,\n)\nst.plotly_chart(fig)"
+  },
+  {
+    "objectID": "slides/index.html#boxplot-2",
+    "href": "slides/index.html#boxplot-2",
+    "title": "",
+    "section": "Boxplot",
+    "text": "Boxplot\n\n\n\n2. Create single results dataframe\nNext, we use pd.concat() to stack the replication-level results from each scenario into a single dataframe called replications.\nWe also add a Scenario column to identify which scenario each row belongs to.\n\nst.subheader(\"Mean nurse queue time\")\nst.write(\n    \"Compare the mean nurse queue times across replications. \"\n    \"Each point represents one replication.\"\n)\n\n# Combine replication results, adding a scenario label.\nreplications = pd.concat(\n    [\n        st.session_state.scenarios[name][\"df\"].assign(Scenario=name)\n        for name in chosen_compare\n    ],\n    ignore_index=True,\n)\n\nfig = px.box(\n    replications,\n    x=\"Scenario\",\n    y=\"mean_q_time_nurse\",\n    color=\"Scenario\",\n    points=\"all\",\n    category_orders={\"Scenario\": [\n        name for name in st.session_state.scenarios\n        if name in chosen_compare\n    ]},\n    hover_data=[\"replication_id\"],\n)\nfig.update_layout(\n    yaxis_title=\"Mean nurse queue time\",\n    showlegend=False,\n)\nst.plotly_chart(fig)"
+  },
+  {
+    "objectID": "slides/index.html#boxplot-3",
+    "href": "slides/index.html#boxplot-3",
+    "title": "",
+    "section": "Boxplot",
+    "text": "Boxplot\n\n\n3. Create boxplot\nWe create the figure using plotly.express.box():\n\ncolor: group and color by scenario.\npoints: show each replication as a dot.\ncategory_orders: keeps scenarios in the order they were saved.\nhover_data: include replication IDs.\n\nIt’s displayed with st.plotly_chart().\n\nst.subheader(\"Mean nurse queue time\")\nst.write(\n    \"Compare the mean nurse queue times across replications. \"\n    \"Each point represents one replication.\"\n)\n\n# Combine replication results, adding a scenario label.\nreplications = pd.concat(\n    [\n        st.session_state.scenarios[name][\"df\"].assign(Scenario=name)\n        for name in chosen_compare\n    ],\n    ignore_index=True,\n)\n\nfig = px.box(\n    replications,\n    x=\"Scenario\",\n    y=\"mean_q_time_nurse\",\n    color=\"Scenario\",\n    points=\"all\",\n    category_orders={\"Scenario\": [\n        name for name in st.session_state.scenarios\n        if name in chosen_compare\n    ]},\n    hover_data=[\"replication_id\"],\n)\nfig.update_layout(\n    yaxis_title=\"Mean nurse queue time\",\n    showlegend=False,\n)\nst.plotly_chart(fig)"
   },
   {
     "objectID": "slides/index.html#comparison-table",
     "href": "slides/index.html#comparison-table",
     "title": "",
-    "section": "comparison table",
-    "text": "comparison table\ncould also compare those summary stats in a table and the staffing costs"
+    "section": "Comparison table",
+    "text": "Comparison table\nWe could also use tables to compare results."
   },
   {
-    "objectID": "slides/index.html#exercise",
-    "href": "slides/index.html#exercise",
+    "objectID": "slides/index.html#comparison-table-1",
+    "href": "slides/index.html#comparison-table-1",
     "title": "",
-    "section": "exercise",
-    "text": "exercise\nchange app from yesterday from singlepage to multipage with scenario comparison"
+    "section": "Comparison table",
+    "text": "Comparison table\n\n\n\n1. Construct summary table for nurse queue time\nHere, we are creating a table with the descriptive statistics from each scenario.\n\nst.space()\nst.subheader(\"Summary statistics\")\n\nsummary = pd.DataFrame(\n    [\n        {\n            \"Scenario\": name,\n            \"Mean\": st.session_state.scenarios[name][\"mean\"],\n            \"SD\": st.session_state.scenarios[name][\"sd\"],\n            \"90th percentile\": st.session_state.scenarios[name][\"p90\"],\n            \"Standard error\": st.session_state.scenarios[name][\"se\"],\n            \"95% CI lower\": st.session_state.scenarios[name][\n                \"ci_lower\"\n            ],\n            \"95% CI upper\": st.session_state.scenarios[name][\n                \"ci_upper\"\n            ],\n        }\n        for name in chosen_compare\n    ]\n)\n\nst.caption(\"Nurse queue time summary statistics, in minutes:\")\n\nst.dataframe(\n    summary.style.format(precision=2),\n    hide_index=True,\n)\n\ncosts = pd.DataFrame(\n    [\n        {\n            \"Scenario\": name,\n            \"Total cost (£)\": st.session_state.scenarios[name][\"cost\"],\n        }\n        for name in chosen_compare\n    ]\n)\n\nst.caption(\"Total nurse staffing costs:\")\n\nst.dataframe(costs, hide_index=True)"
   },
   {
-    "objectID": "slides/index.html#day-two-morningafternoon-section-5-hosting-with-st-lite",
-    "href": "slides/index.html#day-two-morningafternoon-section-5-hosting-with-st-lite",
+    "objectID": "slides/index.html#comparison-table-2",
+    "href": "slides/index.html#comparison-table-2",
     "title": "",
-    "section": "DAY TWO MORNING/AFTERNOON : SECTION 5 HOSTING WITH ST LITE",
-    "text": "DAY TWO MORNING/AFTERNOON : SECTION 5 HOSTING WITH ST LITE\nst lite"
+    "section": "Comparison table",
+    "text": "Comparison table\n\n\n\n2. Display summary table\nWe then display it using st.dataframe(), with style.format() to round the numbers.\nst.caption() provides some helpful context.\n\nst.space()\nst.subheader(\"Summary statistics\")\n\nsummary = pd.DataFrame(\n    [\n        {\n            \"Scenario\": name,\n            \"Mean\": st.session_state.scenarios[name][\"mean\"],\n            \"SD\": st.session_state.scenarios[name][\"sd\"],\n            \"90th percentile\": st.session_state.scenarios[name][\"p90\"],\n            \"Standard error\": st.session_state.scenarios[name][\"se\"],\n            \"95% CI lower\": st.session_state.scenarios[name][\n                \"ci_lower\"\n            ],\n            \"95% CI upper\": st.session_state.scenarios[name][\n                \"ci_upper\"\n            ],\n        }\n        for name in chosen_compare\n    ]\n)\n\nst.caption(\"Nurse queue time summary statistics, in minutes:\")\n\nst.dataframe(\n    summary.style.format(precision=2),\n    hide_index=True,\n)\n\ncosts = pd.DataFrame(\n    [\n        {\n            \"Scenario\": name,\n            \"Total cost (£)\": st.session_state.scenarios[name][\"cost\"],\n        }\n        for name in chosen_compare\n    ]\n)\n\nst.caption(\"Total nurse staffing costs:\")\n\nst.dataframe(costs, hide_index=True)"
   },
   {
-    "objectID": "slides/index.html#exercise-1",
-    "href": "slides/index.html#exercise-1",
+    "objectID": "slides/index.html#comparison-table-3",
+    "href": "slides/index.html#comparison-table-3",
     "title": "",
-    "section": "exercise",
-    "text": "exercise\nhost your app with stlite"
+    "section": "Comparison table",
+    "text": "Comparison table\n\n\n\n3. Repeat for costs\nWe can repeat this to show the nurse costs for each scenario. These are deterministic, just based on the number of resources in the simulation, so a single number is presented for each scenario.\n\nst.space()\nst.subheader(\"Summary statistics\")\n\nsummary = pd.DataFrame(\n    [\n        {\n            \"Scenario\": name,\n            \"Mean\": st.session_state.scenarios[name][\"mean\"],\n            \"SD\": st.session_state.scenarios[name][\"sd\"],\n            \"90th percentile\": st.session_state.scenarios[name][\"p90\"],\n            \"Standard error\": st.session_state.scenarios[name][\"se\"],\n            \"95% CI lower\": st.session_state.scenarios[name][\n                \"ci_lower\"\n            ],\n            \"95% CI upper\": st.session_state.scenarios[name][\n                \"ci_upper\"\n            ],\n        }\n        for name in chosen_compare\n    ]\n)\n\nst.caption(\"Nurse queue time summary statistics, in minutes:\")\n\nst.dataframe(\n    summary.style.format(precision=2),\n    hide_index=True,\n)\n\ncosts = pd.DataFrame(\n    [\n        {\n            \"Scenario\": name,\n            \"Total cost (£)\": st.session_state.scenarios[name][\"cost\"],\n        }\n        for name in chosen_compare\n    ]\n)\n\nst.caption(\"Total nurse staffing costs:\")\n\nst.dataframe(costs, hide_index=True)"
   },
   {
-    "objectID": "slides/index.html#day-two-afternoon-section-6-customising-app-appearance",
-    "href": "slides/index.html#day-two-afternoon-section-6-customising-app-appearance",
+    "objectID": "slides/index.html#exercise-1-1",
+    "href": "slides/index.html#exercise-1-1",
     "title": "",
-    "section": "DAY TWO AFTERNOON : SECTION 6 CUSTOMISING APP APPEARANCE",
-    "text": "DAY TWO AFTERNOON : SECTION 6 CUSTOMISING APP APPEARANCE\ntheme\ncss\nlogo\netc.\nst.set_page_config\nst.logo"
+    "section": "Exercise 1",
+    "text": "Exercise 1\nTODO change app from yesterday from singlepage to multipage with scenario comparison"
   },
   {
-    "objectID": "slides/index.html#exercise-2",
-    "href": "slides/index.html#exercise-2",
+    "objectID": "slides/index.html#stlite",
+    "href": "slides/index.html#stlite",
     "title": "",
-    "section": "exercise",
-    "text": "exercise\ncustomise appearance of your app"
+    "section": "stlite",
+    "text": "stlite\nTODO"
+  },
+  {
+    "objectID": "slides/index.html#exercise-2-1",
+    "href": "slides/index.html#exercise-2-1",
+    "title": "",
+    "section": "Exercise 2",
+    "text": "Exercise 2\nTODO host your app with stlite"
+  },
+  {
+    "objectID": "slides/index.html#customising-app-appearance-1",
+    "href": "slides/index.html#customising-app-appearance-1",
+    "title": "",
+    "section": "Customising app appearance",
+    "text": "Customising app appearance\ntheme\ncss\nlogo\netc.\nst.set_page_config\nst.logo"
+  },
+  {
+    "objectID": "slides/index.html#exercise-3-1",
+    "href": "slides/index.html#exercise-3-1",
+    "title": "",
+    "section": "Exercise 3",
+    "text": "Exercise 3\nTODO customise appearance of your app"
   },
   {
     "objectID": "index.html",
