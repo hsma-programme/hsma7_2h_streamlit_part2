@@ -1313,17 +1313,20 @@
 <span id="cb27-19"><a aria-label="19"></a>    y<span class="op">=</span><span class="st">"mean_q_time_nurse"</span>,</span>
 <span id="cb27-20"><a aria-label="20"></a>    color<span class="op">=</span><span class="st">"Scenario"</span>,</span>
 <span id="cb27-21"><a aria-label="21"></a>    points<span class="op">=</span><span class="st">"all"</span>,</span>
-<span id="cb27-22"><a aria-label="22"></a>    category_orders<span class="op">=</span>{<span class="st">"Scenario"</span>: [</span>
-<span id="cb27-23"><a aria-label="23"></a>        name <span class="cf">for</span> name <span class="kw">in</span> st.session_state.scenarios</span>
-<span id="cb27-24"><a aria-label="24"></a>        <span class="cf">if</span> name <span class="kw">in</span> chosen_compare</span>
-<span id="cb27-25"><a aria-label="25"></a>    ]},</span>
-<span id="cb27-26"><a aria-label="26"></a>    hover_data<span class="op">=</span>[<span class="st">"replication_id"</span>],</span>
-<span id="cb27-27"><a aria-label="27"></a>)</span>
-<span id="cb27-28"><a aria-label="28"></a>fig.update_layout(</span>
-<span id="cb27-29"><a aria-label="29"></a>    yaxis_title<span class="op">=</span><span class="st">"Mean nurse queue time"</span>,</span>
-<span id="cb27-30"><a aria-label="30"></a>    showlegend<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb27-31"><a aria-label="31"></a>)</span>
-<span id="cb27-32"><a aria-label="32"></a>st.plotly_chart(fig)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb27-22"><a aria-label="22"></a>    category_orders<span class="op">=</span>{</span>
+<span id="cb27-23"><a aria-label="23"></a>        <span class="st">"Scenario"</span>: [</span>
+<span id="cb27-24"><a aria-label="24"></a>            name</span>
+<span id="cb27-25"><a aria-label="25"></a>            <span class="cf">for</span> name <span class="kw">in</span> st.session_state.scenarios</span>
+<span id="cb27-26"><a aria-label="26"></a>            <span class="cf">if</span> name <span class="kw">in</span> chosen_compare</span>
+<span id="cb27-27"><a aria-label="27"></a>        ]</span>
+<span id="cb27-28"><a aria-label="28"></a>    },</span>
+<span id="cb27-29"><a aria-label="29"></a>    hover_data<span class="op">=</span>[<span class="st">"replication_id"</span>],</span>
+<span id="cb27-30"><a aria-label="30"></a>)</span>
+<span id="cb27-31"><a aria-label="31"></a>fig.update_layout(</span>
+<span id="cb27-32"><a aria-label="32"></a>    yaxis_title<span class="op">=</span><span class="st">"Mean nurse queue time"</span>,</span>
+<span id="cb27-33"><a aria-label="33"></a>    showlegend<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb27-34"><a aria-label="34"></a>)</span>
+<span id="cb27-35"><a aria-label="35"></a>st.plotly_chart(fig)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
 <section id="boxplot-2" class="slide level2">
@@ -1356,17 +1359,20 @@
 <span id="cb28-19"><a aria-label="19"></a>    y<span class="op">=</span><span class="st">"mean_q_time_nurse"</span>,</span>
 <span id="cb28-20"><a aria-label="20"></a>    color<span class="op">=</span><span class="st">"Scenario"</span>,</span>
 <span id="cb28-21"><a aria-label="21"></a>    points<span class="op">=</span><span class="st">"all"</span>,</span>
-<span id="cb28-22"><a aria-label="22"></a>    category_orders<span class="op">=</span>{<span class="st">"Scenario"</span>: [</span>
-<span id="cb28-23"><a aria-label="23"></a>        name <span class="cf">for</span> name <span class="kw">in</span> st.session_state.scenarios</span>
-<span id="cb28-24"><a aria-label="24"></a>        <span class="cf">if</span> name <span class="kw">in</span> chosen_compare</span>
-<span id="cb28-25"><a aria-label="25"></a>    ]},</span>
-<span id="cb28-26"><a aria-label="26"></a>    hover_data<span class="op">=</span>[<span class="st">"replication_id"</span>],</span>
-<span id="cb28-27"><a aria-label="27"></a>)</span>
-<span id="cb28-28"><a aria-label="28"></a>fig.update_layout(</span>
-<span id="cb28-29"><a aria-label="29"></a>    yaxis_title<span class="op">=</span><span class="st">"Mean nurse queue time"</span>,</span>
-<span id="cb28-30"><a aria-label="30"></a>    showlegend<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb28-31"><a aria-label="31"></a>)</span>
-<span id="cb28-32"><a aria-label="32"></a>st.plotly_chart(fig)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb28-22"><a aria-label="22"></a>    category_orders<span class="op">=</span>{</span>
+<span id="cb28-23"><a aria-label="23"></a>        <span class="st">"Scenario"</span>: [</span>
+<span id="cb28-24"><a aria-label="24"></a>            name</span>
+<span id="cb28-25"><a aria-label="25"></a>            <span class="cf">for</span> name <span class="kw">in</span> st.session_state.scenarios</span>
+<span id="cb28-26"><a aria-label="26"></a>            <span class="cf">if</span> name <span class="kw">in</span> chosen_compare</span>
+<span id="cb28-27"><a aria-label="27"></a>        ]</span>
+<span id="cb28-28"><a aria-label="28"></a>    },</span>
+<span id="cb28-29"><a aria-label="29"></a>    hover_data<span class="op">=</span>[<span class="st">"replication_id"</span>],</span>
+<span id="cb28-30"><a aria-label="30"></a>)</span>
+<span id="cb28-31"><a aria-label="31"></a>fig.update_layout(</span>
+<span id="cb28-32"><a aria-label="32"></a>    yaxis_title<span class="op">=</span><span class="st">"Mean nurse queue time"</span>,</span>
+<span id="cb28-33"><a aria-label="33"></a>    showlegend<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb28-34"><a aria-label="34"></a>)</span>
+<span id="cb28-35"><a aria-label="35"></a>st.plotly_chart(fig)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
 <section id="boxplot-3" class="slide level2">
@@ -1404,17 +1410,20 @@
 <span id="cb29-19"><a aria-label="19"></a>    y<span class="op">=</span><span class="st">"mean_q_time_nurse"</span>,</span>
 <span id="cb29-20"><a aria-label="20"></a>    color<span class="op">=</span><span class="st">"Scenario"</span>,</span>
 <span id="cb29-21"><a aria-label="21"></a>    points<span class="op">=</span><span class="st">"all"</span>,</span>
-<span id="cb29-22"><a aria-label="22"></a>    category_orders<span class="op">=</span>{<span class="st">"Scenario"</span>: [</span>
-<span id="cb29-23"><a aria-label="23"></a>        name <span class="cf">for</span> name <span class="kw">in</span> st.session_state.scenarios</span>
-<span id="cb29-24"><a aria-label="24"></a>        <span class="cf">if</span> name <span class="kw">in</span> chosen_compare</span>
-<span id="cb29-25"><a aria-label="25"></a>    ]},</span>
-<span id="cb29-26"><a aria-label="26"></a>    hover_data<span class="op">=</span>[<span class="st">"replication_id"</span>],</span>
-<span id="cb29-27"><a aria-label="27"></a>)</span>
-<span id="cb29-28"><a aria-label="28"></a>fig.update_layout(</span>
-<span id="cb29-29"><a aria-label="29"></a>    yaxis_title<span class="op">=</span><span class="st">"Mean nurse queue time"</span>,</span>
-<span id="cb29-30"><a aria-label="30"></a>    showlegend<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb29-31"><a aria-label="31"></a>)</span>
-<span id="cb29-32"><a aria-label="32"></a>st.plotly_chart(fig)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb29-22"><a aria-label="22"></a>    category_orders<span class="op">=</span>{</span>
+<span id="cb29-23"><a aria-label="23"></a>        <span class="st">"Scenario"</span>: [</span>
+<span id="cb29-24"><a aria-label="24"></a>            name</span>
+<span id="cb29-25"><a aria-label="25"></a>            <span class="cf">for</span> name <span class="kw">in</span> st.session_state.scenarios</span>
+<span id="cb29-26"><a aria-label="26"></a>            <span class="cf">if</span> name <span class="kw">in</span> chosen_compare</span>
+<span id="cb29-27"><a aria-label="27"></a>        ]</span>
+<span id="cb29-28"><a aria-label="28"></a>    },</span>
+<span id="cb29-29"><a aria-label="29"></a>    hover_data<span class="op">=</span>[<span class="st">"replication_id"</span>],</span>
+<span id="cb29-30"><a aria-label="30"></a>)</span>
+<span id="cb29-31"><a aria-label="31"></a>fig.update_layout(</span>
+<span id="cb29-32"><a aria-label="32"></a>    yaxis_title<span class="op">=</span><span class="st">"Mean nurse queue time"</span>,</span>
+<span id="cb29-33"><a aria-label="33"></a>    showlegend<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb29-34"><a aria-label="34"></a>)</span>
+<span id="cb29-35"><a aria-label="35"></a>st.plotly_chart(fig)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
 <section id="comparison-table" class="slide level2">
