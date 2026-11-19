@@ -1114,9 +1114,47 @@ We can repeat this to show the nurse costs for each scenario. These are determin
 
 ## Exercise 1
 
-TODO
-change app from yesterday from singlepage to multipage
-with scenario comparison
+:::: {.columns}
+
+::: {.column width="55%"}
+
+Adapt the app you created in the last session so users can save and compare scenarios.
+
+Create two separate pages:
+
+* `simulation.py`: run the simulation and save each scenario's settings and results.
+* `results.py`: view results for one saved scenario or compare results across multiple scenarios.
+
+Use session state to make saved scenarios available on both pages.
+
+:::
+
+::: {.column width="5%"}
+
+:::
+
+::: {.column width="40%"}
+
+::: {style="display: flex; justify-content: flex-end;"}
+::: {.value-box icon="fa-solid fa-clock" icon-position="left" icon-size="2em" min-height="0" padding="0.4rem 1rem" width="350px"}
+?? minutes + ?? minute break
+:::
+:::
+
+::: {style="font-size: 80%"}
+
+> **Extensions**
+> 
+> * Add a selector to choose which outcome to compare in the boxplot.
+> * Let users delete saved scenarios.
+> * Highlight which settings differ between selected scenarios.
+> * Let users add a short optional note describing each scenario.
+
+:::
+
+:::
+
+::::
 
 
 
@@ -1126,9 +1164,190 @@ with scenario comparison
 
 
 
+## Reminder: Streamlit Community Cloud
+
+In the last session, we introduced Streamlit Community Cloud.
+
+It was an easy  way to deploy from GitHub, with automatic updates when you push changes.
+
+However, apps share limited server resources and go to sleep after 12 hours without visitors. 
+
+
+
+
 ## stlite
 
-TODO
+An alternative is **stlite**, which runs Python directly in the user's browser. Instead of sending requests to a server to run your code, the user's own device does the work.
+
+:::: {.columns}
+
+::: {.column .fragment width="50%"}
+
+**Pros:**
+
+* Host for free with GitHub Pages.
+* No server to wake up.
+* No external resource limits.
+
+:::
+
+::: {.column .fragment width="50%"}
+
+**Cons:**
+
+* Initial loading can take longer while Python and packages download.
+* Performance depends on the user's device.
+* Not all Python packages and Streamlit features are supported.
+* Set-up is not as easy as Streamlit Community Cloud.
+* Browser caching can leave users seeing an older version of the app.
+
+:::
+
+::::
+
+
+
+
+## Running a Streamlit app with stlite
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+To use stlite, we add an `index.html` file to our app folder. HTML defines the structure and content of a web page. This file loads stlite and tells it how to launch our app.
+
+<br>
+
+We can reuse a standard template, changing a few details for our app.
+
+Let’s work through the `index.html` used to deploy the scenario app.
+
+:::
+
+::: {.column width="50%"}
+
+```{.html}
+{{< include ../app/index.html >}}
+```
+
+:::
+
+::::
+
+
+
+
+## Running a Streamlit app with stlite
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+<br>
+
+The highlighted lines provide the standard page structure and can stay the same between apps.
+
+* `<head>` contains page settings and loads stlite's stylesheet and JavaScript.
+* `<body>` contains the page content, including our app.
+
+The closing tags at the end mark where the app, page body and HTML document finish.
+
+:::
+
+::: {.column width="50%"}
+
+```{.html code-line-numbers="1-5,7-10,26-28"}
+{{< include ../app/index.html >}}
+```
+
+:::
+
+::::
+
+
+
+
+## Running a Streamlit app with stlite
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+<br>
+
+`<title>` sets the browser tab's initial title.
+
+The app replaces this once it loads, so it only appears briefly.
+
+:::
+
+::: {.column width="50%"}
+
+```{.html code-line-numbers="6"}
+{{< include ../app/index.html >}}
+```
+
+:::
+
+::::
+
+
+
+
+## Running a Streamlit app with stlite
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+<br><br>
+
+`<streamlit-app>` specifies the entrypoint file.
+
+`<app-file>` identifies all other files required by the app - including Python files, images, and other file types.=
+
+:::
+
+::: {.column width="50%"}
+
+```{.html code-line-numbers="11-19"}
+{{< include ../app/index.html >}}
+```
+
+:::
+
+::::
+
+
+
+
+## Running a Streamlit app with stlite
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+<br>
+
+`<app-requirements>` lists the Python packages to install.
+
+We pin `simpy` and `sim-tools` to the versions used to develop the app. We leave `numpy` and `pandas` unpinned so Pyodide can use its compatible versions.
+
+<br>
+
+We don't include `streamlit` as stlite provides it.
+
+:::
+
+::: {.column width="50%"}
+
+```{.html code-line-numbers="20-25"}
+{{< include ../app/index.html >}}
+```
+
+:::
+
+::::
 
 
 
@@ -1140,9 +1359,39 @@ TODO
 
 ## Exercise 2
 
-TODO
-host your app with stlite
+:::: {.columns}
 
+::: {.column width="45%"}
+
+<br>
+
+Host your app using stlite.
+
+:::
+
+::: {.column width="5%"}
+
+:::
+
+::: {.column width="50%"}
+
+::: {style="display: flex; justify-content: flex-end;"}
+::: {.value-box icon="fa-solid fa-clock" icon-position="left" icon-size="2em" min-height="0" padding="0.4rem 1rem" width="350px"}
+?? minutes + ?? minute break
+:::
+:::
+
+::: {style="font-size: 80%"}
+
+> **Extensions**
+> 
+> * .
+
+:::
+
+:::
+
+::::
 
 
 # Customising app appearance
