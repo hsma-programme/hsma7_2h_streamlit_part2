@@ -33,7 +33,7 @@ Session 2H: Creating a DES interface with Streamlit - Part 2
 
 [Amy Heather - Session content creator]{style="color: #7ac943;"}
 
-[**We are DEStined for app development**]{style="color: #ffe600;"}
+[**And they all lived APPily every after**]{style="color: #ffe600;"}
 
 :::
 
@@ -118,7 +118,7 @@ Our current app shows results for one run at a time. Changing the inputs and run
 
 To compare scenarios, we need to:
 
-1. **Save** each run’s inputs and results.
+1. **Save** each run's inputs and results.
 2. Allow users to **view and compare** saved scenarios.
 
 :::
@@ -208,7 +208,7 @@ Putting this code in `app.py` ensures the dictionary exists before either page n
 
 ::: {.column width="50%"}
 
-```{.python code-line-numbers="14-17"}
+```{.python code-line-numbers="5-7"}
 {{< include code/page_app/app.py >}}
 ```
 
@@ -632,20 +632,111 @@ We'll write a function `style_settings()` which we can apply to the dataframe to
 
 ## `style_settings()`
 
+We'll write this function near the start of our `results.py` script.
+
+It checks each row's scenario name against `chosen_scenarios`. Matching rows get a pale blue background. We use `.style.apply()` to apply this formatting row by row, then `.format(precision=2)` to display decimal values to two decimal places.
+
+```{.python}
+{{< include code/page_results/style_settings.py >}}
+```
+
+
+
+
+## No scenarios to view
+
+Users might open the results page before running a scenario.
+
+We'll show a message explaining that there are no saved results yet and directing them to run a scenario first.
+
+![](images/no_scenarios.png)
+
+
+
+
+## No scenarios to view
+
 :::: {.columns}
 
 ::: {.column width="50%"}
 
-We write this function at the start of our `results.py` script.
+We first check whether `scenarios` is empty.
 
-For each row, ... TODO.
+If it is, we show a message using `st.info()`.
+
+Otherwise, we display the results page as before.
 
 :::
 
 ::: {.column width="50%"}
 
-```{.python}
-{{< include code/page_results/style_settings.py >}}
+```{.python code-line-numbers="1-4"}
+{{< include code/page_results/no_scenarios.py >}}
+```
+
+:::
+
+::::
+
+<br>
+
+This avoids trying to display results when none are available.
+
+
+
+
+## Creating tabs
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+<br><br>
+
+We have now finished the code for displaying results from one chosen scenario. Next, we'll add a way to compare several scenarios.
+
+<br>
+
+We'll use `st.tabs` to organise these two tasks within the results page:
+
+* **View single scenario**
+* **Compare scenarios**
+
+:::
+
+::: {.column width="50%"}
+
+![](images/tabs.png)
+
+:::
+
+::::
+
+
+
+
+## Creating tabs
+
+:::: {.columns}
+
+::: {.column width="40%"}
+
+We pass `st.tabs()` a list with titles for each tab.
+
+<br>
+
+It returns a container for each tab, which we assign to variables (here, `tab_single` and `tab_compare`).
+
+<br>
+
+We then use a `with` block to add content to each tab.
+
+:::
+
+::: {.column width="60%"}
+
+```{.python code-line-numbers="11-15"}
+{{< include code/page_results/tabs.py >}}
 ```
 
 :::
@@ -655,43 +746,159 @@ For each row, ... TODO.
 
 
 
-## single scenario results
+## Choosing scenarios to compare
 
-its same results code as before
-just need to choose from scenarios
-let user choose
-can use a dropdown
+:::: {.columns}
 
+::: {.column width="50%"}
 
+<br><br><br>
 
+On the “Compare scenarios” tab, we'll add a selection box where users can choose multiple saved scenarios.
 
-## single scenario results
+If fewer than two scenario are run or selected, we'll show a messages asking them to run or select at least two.
 
-can remind of scenarios again with dataframe
-can use pd.styler to highlight which they chose
+:::
 
+::: {.column width="50%"}
 
+![](images/compare_choose_scenario.png)
 
+:::
 
-## compare scenarios
-
-need to run at least two
-do message for that
-
+::::
 
 
 
-## choose which to compare
+## Choosing scenarios to compare
 
-choose which scenarios to compare
-can use multiselect
+:::: {.columns}
+
+::: {.column width="50%"}
+
+Let's work through the code to do that...
+
+:::
+
+::: {.column width="50%"}
+
+```{.python}
+{{< include code/page_results/compare_choose.py >}}
+```
+
+:::
+
+::::
 
 
 
 
-## show chosen
+## Choosing scenarios to compare
 
-can do the table again with pd.styler
+:::: {.columns}
+
+::: {.column width="50%"}
+
+<br><br>
+
+**1. Use `tab_compare` and warn for insufficient scenarios**
+
+If `scenarios` in session state only has zero or one saved scenarios, a message is displayed using `st.info()`.
+
+:::
+
+::: {.column width="50%"}
+
+```{.python code-line-numbers="1-3"}
+{{< include code/page_results/compare_choose.py >}}
+```
+
+:::
+
+::::
+
+
+
+
+## Choosing scenarios to compare
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+<br><br>
+
+**2. Multiselect**
+
+Once there are at least two scenarios, we set up a container and create `st.multiselect()`.
+
+This is similar to `selectbox`, but allows users to choose multiple options at once.
+
+:::
+
+::: {.column width="50%"}
+
+```{.python code-line-numbers="5-11"}
+{{< include code/page_results/compare_choose.py >}}
+```
+
+:::
+
+::::
+
+
+
+
+## Choosing scenarios to compare
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+<br><br>
+
+**3. Show saved scenarios**
+
+Like before, we can show the saved scenarios and highlighted those selected using `style_settings()`.
+
+:::
+
+::: {.column width="50%"}
+
+```{.python code-line-numbers="13-18"}
+{{< include code/page_results/compare_choose.py >}}
+```
+
+:::
+
+::::
+
+
+
+
+## Choosing scenarios to compare
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+<br><br>
+
+**4. Check chosen scenarios**
+
+Show a message until at least two scenarios have been chosen. Then, results can be shown.
+
+:::
+
+::: {.column width="50%"}
+
+```{.python code-line-numbers="20-24"}
+{{< include code/page_results/compare_choose.py >}}
+```
+
+:::
+
+::::
 
 
 
