@@ -312,35 +312,133 @@
     "href": "slides/index.html#exercise-1-1",
     "title": "",
     "section": "Exercise 1",
-    "text": "Exercise 1\nTODO change app from yesterday from singlepage to multipage with scenario comparison"
+    "text": "Exercise 1\n\n\nAdapt the app you created in the last session so users can save and compare scenarios.\nCreate two separate pages:\n\nsimulation.py: run the simulation and save each scenario’s settings and results.\nresults.py: view results for one saved scenario or compare results across multiple scenarios.\n\nUse session state to make saved scenarios available on both pages.\n\n\n\n\n\n?? minutes + ?? minute break\n\n\n\n\nExtensions\n\nAdd a selector to choose which outcome to compare in the boxplot.\nLet users delete saved scenarios.\nHighlight which settings differ between selected scenarios.\nLet users add a short optional note describing each scenario."
+  },
+  {
+    "objectID": "slides/index.html#reminder-streamlit-community-cloud",
+    "href": "slides/index.html#reminder-streamlit-community-cloud",
+    "title": "",
+    "section": "Reminder: Streamlit Community Cloud",
+    "text": "Reminder: Streamlit Community Cloud\nIn the last session, we introduced Streamlit Community Cloud.\nIt was an easy way to deploy from GitHub, with automatic updates when you push changes.\nHowever, apps share limited server resources and go to sleep after 12 hours without visitors."
   },
   {
     "objectID": "slides/index.html#stlite",
     "href": "slides/index.html#stlite",
     "title": "",
     "section": "stlite",
-    "text": "stlite\nTODO"
+    "text": "stlite\nAn alternative is stlite, which runs Python directly in the user’s browser. Instead of sending requests to a server to run your code, the user’s own device does the work.\n\n\nPros:\n\nHost for free with GitHub Pages.\nNo server to wake up.\nNo external resource limits.\n\n\nCons:\n\nInitial loading can take longer while Python and packages download.\nPerformance depends on the user’s device.\nNot all Python packages and Streamlit features are supported.\nSet-up is not as easy as Streamlit Community Cloud.\nBrowser caching can leave users seeing an older version of the app."
+  },
+  {
+    "objectID": "slides/index.html#running-a-streamlit-app-with-stlite",
+    "href": "slides/index.html#running-a-streamlit-app-with-stlite",
+    "title": "",
+    "section": "Running a Streamlit app with stlite",
+    "text": "Running a Streamlit app with stlite\n\n\nTo use stlite, we add an index.html file to our app folder. HTML defines the structure and content of a web page. This file loads stlite and tells it how to launch our app.\n\nWe can reuse a standard template, changing a few details for our app.\nLet’s work through the index.html used to deploy the scenario app.\n\n&lt;!doctype html&gt;\n&lt;html&gt;\n  &lt;head&gt;\n    &lt;meta charset=\"UTF-8\" /&gt;\n    &lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\" /&gt;\n    &lt;title&gt;Scenario app&lt;/title&gt;\n    &lt;link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/@stlite/browser@1.12.2/build/stlite.css\" /&gt;\n    &lt;script type=\"module\" src=\"https://cdn.jsdelivr.net/npm/@stlite/browser@1.12.2/build/stlite.js\"&gt;&lt;/script&gt;\n  &lt;/head&gt;\n  &lt;body&gt;\n    &lt;streamlit-app src=\"./app.py\"&gt;\n        &lt;app-file name=\"home.py\" url=\"./home.py\"&gt;&lt;/app-file&gt;\n        &lt;app-file name=\"model.py\" url=\"./model.py\"&gt;&lt;/app-file&gt;\n        &lt;app-file name=\"results.py\" url=\"./results.py\"&gt;&lt;/app-file&gt;\n        &lt;app-file name=\"simulation.py\" url=\"./simulation.py\"&gt;&lt;/app-file&gt;\n        &lt;app-file\n            name=\"images/model_diagram.drawio.png\"\n            url=\"./images/model_diagram.drawio.png\"\n        &gt;&lt;/app-file&gt;\n        &lt;app-requirements&gt;\n            simpy==4.1.2\n            numpy\n            pandas\n            sim-tools==1.3.0\n        &lt;/app-requirements&gt;\n    &lt;/streamlit-app&gt;\n  &lt;/body&gt;\n&lt;/html&gt;"
+  },
+  {
+    "objectID": "slides/index.html#running-a-streamlit-app-with-stlite-1",
+    "href": "slides/index.html#running-a-streamlit-app-with-stlite-1",
+    "title": "",
+    "section": "Running a Streamlit app with stlite",
+    "text": "Running a Streamlit app with stlite\n\n\n\nThe highlighted lines provide the standard page structure and can stay the same between apps.\n\n&lt;head&gt; contains page settings and loads stlite’s stylesheet and JavaScript.\n&lt;body&gt; contains the page content, including our app.\n\nThe closing tags at the end mark where the app, page body and HTML document finish.\n\n&lt;!doctype html&gt;\n&lt;html&gt;\n  &lt;head&gt;\n    &lt;meta charset=\"UTF-8\" /&gt;\n    &lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\" /&gt;\n    &lt;title&gt;Scenario app&lt;/title&gt;\n    &lt;link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/@stlite/browser@1.12.2/build/stlite.css\" /&gt;\n    &lt;script type=\"module\" src=\"https://cdn.jsdelivr.net/npm/@stlite/browser@1.12.2/build/stlite.js\"&gt;&lt;/script&gt;\n  &lt;/head&gt;\n  &lt;body&gt;\n    &lt;streamlit-app src=\"./app.py\"&gt;\n        &lt;app-file name=\"home.py\" url=\"./home.py\"&gt;&lt;/app-file&gt;\n        &lt;app-file name=\"model.py\" url=\"./model.py\"&gt;&lt;/app-file&gt;\n        &lt;app-file name=\"results.py\" url=\"./results.py\"&gt;&lt;/app-file&gt;\n        &lt;app-file name=\"simulation.py\" url=\"./simulation.py\"&gt;&lt;/app-file&gt;\n        &lt;app-file\n            name=\"images/model_diagram.drawio.png\"\n            url=\"./images/model_diagram.drawio.png\"\n        &gt;&lt;/app-file&gt;\n        &lt;app-requirements&gt;\n            simpy==4.1.2\n            numpy\n            pandas\n            sim-tools==1.3.0\n        &lt;/app-requirements&gt;\n    &lt;/streamlit-app&gt;\n  &lt;/body&gt;\n&lt;/html&gt;"
+  },
+  {
+    "objectID": "slides/index.html#running-a-streamlit-app-with-stlite-2",
+    "href": "slides/index.html#running-a-streamlit-app-with-stlite-2",
+    "title": "",
+    "section": "Running a Streamlit app with stlite",
+    "text": "Running a Streamlit app with stlite\n\n\n\n&lt;title&gt; sets the browser tab’s initial title.\nThe app replaces this once it loads, so it only appears briefly.\n\n&lt;!doctype html&gt;\n&lt;html&gt;\n  &lt;head&gt;\n    &lt;meta charset=\"UTF-8\" /&gt;\n    &lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\" /&gt;\n    &lt;title&gt;Scenario app&lt;/title&gt;\n    &lt;link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/@stlite/browser@1.12.2/build/stlite.css\" /&gt;\n    &lt;script type=\"module\" src=\"https://cdn.jsdelivr.net/npm/@stlite/browser@1.12.2/build/stlite.js\"&gt;&lt;/script&gt;\n  &lt;/head&gt;\n  &lt;body&gt;\n    &lt;streamlit-app src=\"./app.py\"&gt;\n        &lt;app-file name=\"home.py\" url=\"./home.py\"&gt;&lt;/app-file&gt;\n        &lt;app-file name=\"model.py\" url=\"./model.py\"&gt;&lt;/app-file&gt;\n        &lt;app-file name=\"results.py\" url=\"./results.py\"&gt;&lt;/app-file&gt;\n        &lt;app-file name=\"simulation.py\" url=\"./simulation.py\"&gt;&lt;/app-file&gt;\n        &lt;app-file\n            name=\"images/model_diagram.drawio.png\"\n            url=\"./images/model_diagram.drawio.png\"\n        &gt;&lt;/app-file&gt;\n        &lt;app-requirements&gt;\n            simpy==4.1.2\n            numpy\n            pandas\n            sim-tools==1.3.0\n        &lt;/app-requirements&gt;\n    &lt;/streamlit-app&gt;\n  &lt;/body&gt;\n&lt;/html&gt;"
+  },
+  {
+    "objectID": "slides/index.html#running-a-streamlit-app-with-stlite-3",
+    "href": "slides/index.html#running-a-streamlit-app-with-stlite-3",
+    "title": "",
+    "section": "Running a Streamlit app with stlite",
+    "text": "Running a Streamlit app with stlite\n\n\n\n&lt;streamlit-app&gt; specifies the entrypoint file.\n&lt;app-file&gt; identifies all other files required by the app - including Python files, images, and other file types.=\n\n&lt;!doctype html&gt;\n&lt;html&gt;\n  &lt;head&gt;\n    &lt;meta charset=\"UTF-8\" /&gt;\n    &lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\" /&gt;\n    &lt;title&gt;Scenario app&lt;/title&gt;\n    &lt;link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/@stlite/browser@1.12.2/build/stlite.css\" /&gt;\n    &lt;script type=\"module\" src=\"https://cdn.jsdelivr.net/npm/@stlite/browser@1.12.2/build/stlite.js\"&gt;&lt;/script&gt;\n  &lt;/head&gt;\n  &lt;body&gt;\n    &lt;streamlit-app src=\"./app.py\"&gt;\n        &lt;app-file name=\"home.py\" url=\"./home.py\"&gt;&lt;/app-file&gt;\n        &lt;app-file name=\"model.py\" url=\"./model.py\"&gt;&lt;/app-file&gt;\n        &lt;app-file name=\"results.py\" url=\"./results.py\"&gt;&lt;/app-file&gt;\n        &lt;app-file name=\"simulation.py\" url=\"./simulation.py\"&gt;&lt;/app-file&gt;\n        &lt;app-file\n            name=\"images/model_diagram.drawio.png\"\n            url=\"./images/model_diagram.drawio.png\"\n        &gt;&lt;/app-file&gt;\n        &lt;app-requirements&gt;\n            simpy==4.1.2\n            numpy\n            pandas\n            sim-tools==1.3.0\n        &lt;/app-requirements&gt;\n    &lt;/streamlit-app&gt;\n  &lt;/body&gt;\n&lt;/html&gt;"
+  },
+  {
+    "objectID": "slides/index.html#running-a-streamlit-app-with-stlite-4",
+    "href": "slides/index.html#running-a-streamlit-app-with-stlite-4",
+    "title": "",
+    "section": "Running a Streamlit app with stlite",
+    "text": "Running a Streamlit app with stlite\n\n\n\n&lt;app-requirements&gt; lists the Python packages to install.\nWe pin simpy and sim-tools to the versions used to develop the app. We leave numpy and pandas unpinned so Pyodide can use its compatible versions.\n\nWe don’t include streamlit as stlite provides it.\n\n&lt;!doctype html&gt;\n&lt;html&gt;\n  &lt;head&gt;\n    &lt;meta charset=\"UTF-8\" /&gt;\n    &lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\" /&gt;\n    &lt;title&gt;Scenario app&lt;/title&gt;\n    &lt;link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/@stlite/browser@1.12.2/build/stlite.css\" /&gt;\n    &lt;script type=\"module\" src=\"https://cdn.jsdelivr.net/npm/@stlite/browser@1.12.2/build/stlite.js\"&gt;&lt;/script&gt;\n  &lt;/head&gt;\n  &lt;body&gt;\n    &lt;streamlit-app src=\"./app.py\"&gt;\n        &lt;app-file name=\"home.py\" url=\"./home.py\"&gt;&lt;/app-file&gt;\n        &lt;app-file name=\"model.py\" url=\"./model.py\"&gt;&lt;/app-file&gt;\n        &lt;app-file name=\"results.py\" url=\"./results.py\"&gt;&lt;/app-file&gt;\n        &lt;app-file name=\"simulation.py\" url=\"./simulation.py\"&gt;&lt;/app-file&gt;\n        &lt;app-file\n            name=\"images/model_diagram.drawio.png\"\n            url=\"./images/model_diagram.drawio.png\"\n        &gt;&lt;/app-file&gt;\n        &lt;app-requirements&gt;\n            simpy==4.1.2\n            numpy\n            pandas\n            sim-tools==1.3.0\n        &lt;/app-requirements&gt;\n    &lt;/streamlit-app&gt;\n  &lt;/body&gt;\n&lt;/html&gt;"
   },
   {
     "objectID": "slides/index.html#exercise-2-1",
     "href": "slides/index.html#exercise-2-1",
     "title": "",
     "section": "Exercise 2",
-    "text": "Exercise 2\nTODO host your app with stlite"
+    "text": "Exercise 2\n\n\n\nHost your app using stlite.\n\n\n\n\n\n?? minutes + ?? minute break\n\n\n\n\nExtensions\n\n."
   },
   {
     "objectID": "slides/index.html#customising-app-appearance-1",
     "href": "slides/index.html#customising-app-appearance-1",
     "title": "",
     "section": "Customising app appearance",
-    "text": "Customising app appearance\ntheme\ncss\nlogo\netc.\nst.set_page_config\nst.logo"
+    "text": "Customising app appearance\nThere’s lots of fun ways to change the appearance of your app!\nWe’re going to touch on a few of the options available…"
+  },
+  {
+    "objectID": "slides/index.html#st.set_page_config",
+    "href": "slides/index.html#st.set_page_config",
+    "title": "",
+    "section": "st.set_page_config",
+    "text": "st.set_page_config\nThis function configures the page’s appearance. Set defaults in app.py, then override them on individual pages if needed.\nKey parameters include:\n\npage_title: The title shown in the browser tab.\npage_icon: The favicon, which is a small icon beside the browser tab’s title. Use an image, emoji or Material Symbols icon.\nlayout: \"centered\" constrains content to a centred column (default) while \"wide\" uses the available page width."
+  },
+  {
+    "objectID": "slides/index.html#st.set_page_config-1",
+    "href": "slides/index.html#st.set_page_config-1",
+    "title": "",
+    "section": "st.set_page_config",
+    "text": "st.set_page_config\nFor example, in app.py we could add the following code to set the browser tab title and icon:\n\n\nTODO: code\n\nTODO: screenshot"
+  },
+  {
+    "objectID": "slides/index.html#logo",
+    "href": "slides/index.html#logo",
+    "title": "",
+    "section": "Logo",
+    "text": "Logo\nst.logo\ncreates logo in top right corner and in sidebar\nprovide an image, emoji or material symbols icon"
+  },
+  {
+    "objectID": "slides/index.html#st.navigation",
+    "href": "slides/index.html#st.navigation",
+    "title": "",
+    "section": "st.navigation",
+    "text": "st.navigation\nBy default sidebar, but can move navigation menu to top of screen using position=\"top\""
+  },
+  {
+    "objectID": "slides/index.html#config.toml",
+    "href": "slides/index.html#config.toml",
+    "title": "",
+    "section": "config.toml",
+    "text": "config.toml\nCreate .streamlit/config.toml (in folder).\nConfiguration file.\nTHis includes some more like other things like log settings, error settings, cacheing settings, etc. but also can use to contorl theme."
+  },
+  {
+    "objectID": "slides/index.html#config.toml-theme",
+    "href": "slides/index.html#config.toml-theme",
+    "title": "",
+    "section": "config.toml theme",
+    "text": "config.toml theme\nthis is under [theme] and [theme.sidebar] can have separate configurations for light and dark mode by having [theme.dark] and [theme.light]\nthere are lottttttssssss of options here.\na few key ones…\n[theme]\n# Primary accent colour for interactive elements\nprimaryColor = \"#FF6E4A\"\n\n# Background colour for the main content area\nbackgroundColor = \"#F5F0ED\"\n\n# Background colour used for sidebar and most ineractive widgets\nsecondaryBackgroundColor = \"#E0BFE5\"\n\n# Colour used for almost all text\ntextColor = \"#05291F\"\n\n# Font family for all text in the app except code blocks, one of 3 options\nfont = \"sans-serif\""
+  },
+  {
+    "objectID": "slides/index.html#awesome-streamlit-themes",
+    "href": "slides/index.html#awesome-streamlit-themes",
+    "title": "",
+    "section": "awesome-streamlit-themes",
+    "text": "awesome-streamlit-themes\ngood place to start is looking for examplesand just playing around\nhttps://github.com/jmedia65/awesome-streamlit-themes is a great option\nhas ten example themes then can run app and play around to see how different changes look etc."
+  },
+  {
+    "objectID": "slides/index.html#css",
+    "href": "slides/index.html#css",
+    "title": "",
+    "section": "CSS",
+    "text": "CSS\nFor additional customisation, we can use CSS. CSS means “cascading style sheets”. It’s a language used for themeing much of the web! We can create our own .css and force Streamlit to load it in.\nwith open(\"style.css\") as css:\n  st.markdown(f\"&lt;style&gt;{css.read()}&lt;/style&gt;\", unsafe_allow_html=True)"
   },
   {
     "objectID": "slides/index.html#exercise-3-1",
     "href": "slides/index.html#exercise-3-1",
     "title": "",
     "section": "Exercise 3",
-    "text": "Exercise 3\nTODO customise appearance of your app"
+    "text": "Exercise 3\n\n\n\nCustomise your app.\n\n\n\n\n\n?? minutes + ?? minute break\n\n\n\n\nExtensions\n\n."
   },
   {
     "objectID": "index.html",
