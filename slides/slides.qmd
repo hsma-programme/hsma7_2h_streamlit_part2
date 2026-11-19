@@ -903,44 +903,254 @@ Show a message until at least two scenarios have been chosen. Then, results can 
 
 
 
-## comparison figure
+## Boxplot
 
-good for comparison is often boxplot
-here also showing individual rep on boxplot
+:::: {.columns}
+
+::: {.column width="35%"}
+
+<br><br><br><br>
+
+Boxplots are a great option for comparing results across scenarios side by side.
+
+They make it easy to see both the average results and the spread of results across replications.
+
+:::
+
+::: {.column width="65%"}
+
+![](images/boxplot.png)
+
+:::
+
+::::
 
 
 
 
-## comparison table
+## Boxplot
 
-could also compare those summary stats in a table
-and the staffing costs
+:::: {.columns}
+
+::: {.column width="50%"}
+
+<br><br>
+
+**1. Introduce figure**
+
+We'll start by using `st.subheader()` and `st.write()` to introduce the figure and explain what it is showing.
+
+:::
+
+::: {.column width="50%"}
+
+```{.python code-line-numbers="1-5"}
+{{< include code/page_results/boxplot.py >}}
+```
+
+:::
+
+::::
 
 
 
 
-## exercise
+## Boxplot
 
+:::: {.columns}
+
+::: {.column width="50%"}
+
+<br><br>
+
+**2. Create single results dataframe**
+
+Next, we use `pd.concat()` to stack the replication-level results from each scenario into a single dataframe called `replications`.
+
+We also add a `Scenario` column to identify which scenario each row belongs to.
+
+:::
+
+::: {.column width="50%"}
+
+```{.python code-line-numbers="7-14"}
+{{< include code/page_results/boxplot.py >}}
+```
+
+:::
+
+::::
+
+
+
+
+## Boxplot
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+**3. Create boxplot**
+
+We create the figure using `plotly.express.box()`:
+
+* `color`: group and color by scenario.
+* `points`: show each replication as a dot.
+* `category_orders`: keeps scenarios in the order they were saved.
+* `hover_data`: include replication IDs.
+
+It's displayed with `st.plotly_chart()`.
+
+:::
+
+::: {.column width="50%"}
+
+```{.python code-line-numbers="16-32"}
+{{< include code/page_results/boxplot.py >}}
+```
+
+:::
+
+::::
+
+
+
+
+## Comparison table
+
+We could also use tables to compare results.
+
+![](images/table.png){height=450px}
+
+
+
+
+## Comparison table
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+<br><br>
+
+**1. Construct summary table for nurse queue time**
+
+Here, we are creating a table with the descriptive statistics from each scenario.
+
+:::
+
+::: {.column width="50%"}
+
+```{.python code-line-numbers="4-21"}
+{{< include code/page_results/table.py >}}
+```
+
+:::
+
+::::
+
+
+
+
+## Comparison table
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+<br><br>
+
+**2. Display summary table**
+
+We then display it using `st.dataframe()`, with `style.format()` to round the numbers.
+
+`st.caption()` provides some helpful context.
+
+:::
+
+::: {.column width="50%"}
+
+```{.python code-line-numbers="23-28"}
+{{< include code/page_results/table.py >}}
+```
+
+:::
+
+::::
+
+
+
+
+## Comparison table
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+<br><br>
+
+**3. Repeat for costs**
+
+We can repeat this to show the nurse costs for each scenario. These are deterministic, just based on the number of resources in the simulation, so a single number is presented for each scenario.
+
+:::
+
+::: {.column width="50%"}
+
+```{.python code-line-numbers="30-42"}
+{{< include code/page_results/table.py >}}
+```
+
+:::
+
+::::
+
+
+
+# Exercise 1
+
+
+
+
+## Exercise 1
+
+TODO
 change app from yesterday from singlepage to multipage
 with scenario comparison
 
 
 
 
-## DAY TWO MORNING/AFTERNOON : SECTION 5 HOSTING WITH ST LITE
-
-st lite
+# Hosting with stlite
 
 
 
 
-## exercise
+## stlite
 
+TODO
+
+
+
+
+# Exercise 2
+
+
+
+
+## Exercise 2
+
+TODO
 host your app with stlite
 
 
 
-## DAY TWO AFTERNOON : SECTION 6 CUSTOMISING APP APPEARANCE
+# Customising app appearance
+
+
+
+
+## Customising app appearance
 
 theme
 
@@ -957,6 +1167,12 @@ st.logo
 
 
 
-## exercise
+# Exercise 3
 
+
+
+
+## Exercise 3
+
+TODO
 customise appearance of your app
