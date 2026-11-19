@@ -315,19 +315,18 @@
 <span id="cb3-2"><a aria-label="2"></a></span>
 <span id="cb3-3"><a aria-label="3"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
 <span id="cb3-4"><a aria-label="4"></a></span>
-<span id="cb3-5"><a aria-label="5"></a>pg <span class="op">=</span> st.navigation(</span>
-<span id="cb3-6"><a aria-label="6"></a>    [</span>
-<span id="cb3-7"><a aria-label="7"></a>        st.Page(<span class="st">"home.py"</span>, title<span class="op">=</span><span class="st">"Home"</span>),</span>
-<span id="cb3-8"><a aria-label="8"></a>        st.Page(<span class="st">"simulation.py"</span>, title<span class="op">=</span><span class="st">"Run simulation"</span>),</span>
-<span id="cb3-9"><a aria-label="9"></a>    ]</span>
-<span id="cb3-10"><a aria-label="10"></a>)</span>
-<span id="cb3-11"><a aria-label="11"></a></span>
-<span id="cb3-12"><a aria-label="12"></a>pg.run()</span>
-<span id="cb3-13"><a aria-label="13"></a></span>
-<span id="cb3-14"><a aria-label="14"></a><span class="co"># Session state set-up</span></span>
-<span id="cb3-15"><a aria-label="15"></a><span class="co"># Doing it here as otherwise if click straight on view results get error</span></span>
-<span id="cb3-16"><a aria-label="16"></a><span class="cf">if</span> <span class="st">"scenarios"</span> <span class="kw">not</span> <span class="kw">in</span> st.session_state:</span>
-<span id="cb3-17"><a aria-label="17"></a>    st.session_state.scenarios <span class="op">=</span> {}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-5"><a aria-label="5"></a><span class="co"># Initialise session state before running any page</span></span>
+<span id="cb3-6"><a aria-label="6"></a><span class="cf">if</span> <span class="st">"scenarios"</span> <span class="kw">not</span> <span class="kw">in</span> st.session_state:</span>
+<span id="cb3-7"><a aria-label="7"></a>    st.session_state.scenarios <span class="op">=</span> {}</span>
+<span id="cb3-8"><a aria-label="8"></a></span>
+<span id="cb3-9"><a aria-label="9"></a>pg <span class="op">=</span> st.navigation(</span>
+<span id="cb3-10"><a aria-label="10"></a>    [</span>
+<span id="cb3-11"><a aria-label="11"></a>        st.Page(<span class="st">"home.py"</span>, title<span class="op">=</span><span class="st">"Home"</span>),</span>
+<span id="cb3-12"><a aria-label="12"></a>        st.Page(<span class="st">"simulation.py"</span>, title<span class="op">=</span><span class="st">"Run simulation"</span>),</span>
+<span id="cb3-13"><a aria-label="13"></a>    ]</span>
+<span id="cb3-14"><a aria-label="14"></a>)</span>
+<span id="cb3-15"><a aria-label="15"></a></span>
+<span id="cb3-16"><a aria-label="16"></a>pg.run()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
 <section id="run-and-save-the-results" class="slide level2">

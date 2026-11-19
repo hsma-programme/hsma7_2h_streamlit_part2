@@ -13,6 +13,10 @@ st.logo(
     image="app/images/nihr_logo.png",
 )
 
+# Initialise session state before running any page
+if "scenarios" not in st.session_state:
+    st.session_state.scenarios = {}
+
 # Define pages and their order
 pg = st.navigation(
     [
@@ -22,11 +26,3 @@ pg = st.navigation(
     ]
 )
 pg.run()
-
-# ----------------------------------------------------------------------------
-# Session state set-up
-# ----------------------------------------------------------------------------
-# Doing it here as otherwise if click straight on view results get error
-
-if "scenarios" not in st.session_state:
-    st.session_state.scenarios = {}
