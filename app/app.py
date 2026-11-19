@@ -2,17 +2,6 @@
 
 import streamlit as st
 
-# Configure default settings for the app
-st.set_page_config(
-    page_title="Nurse clinic DES",
-    page_icon="🏥",
-)
-
-# Add logo to sidebar
-st.logo(
-    image="app/images/nihr_logo.png",
-)
-
 # Initialise session state before running any page
 if "scenarios" not in st.session_state:
     st.session_state.scenarios = {}
