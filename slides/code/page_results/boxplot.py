@@ -19,10 +19,13 @@ fig = px.box(
     y="mean_q_time_nurse",
     color="Scenario",
     points="all",
-    category_orders={"Scenario": [
-        name for name in st.session_state.scenarios
-        if name in chosen_compare
-    ]},
+    category_orders={
+        "Scenario": [
+            name
+            for name in st.session_state.scenarios
+            if name in chosen_compare
+        ]
+    },
     hover_data=["replication_id"],
 )
 fig.update_layout(
