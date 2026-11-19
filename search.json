@@ -4,7 +4,7 @@
     "href": "slides/index.html#section",
     "title": "",
     "section": "",
-    "text": "Module 2 ‘I want to fix my delays, and see what works before I try it’\nSession 2H: Creating a DES interface with Streamlit - Part 2\nSammi Rosser - Presenter\nAmy Heather - Session content creator\nWe are DEStined for app development"
+    "text": "Module 2 ‘I want to fix my delays, and see what works before I try it’\nSession 2H: Creating a DES interface with Streamlit - Part 2\nSammi Rosser - Presenter\nAmy Heather - Session content creator\nAnd they all lived APPily every after"
   },
   {
     "objectID": "slides/index.html#reminder-app-from-the-last-session",
@@ -179,42 +179,77 @@
     "href": "slides/index.html#style_settings",
     "title": "",
     "section": "style_settings()",
-    "text": "style_settings()\n\n\nWe write this function at the start of our results.py script.\nFor each row, … TODO.\n\n# Function for highlighting the row/s with the chosen scenario/s\ndef style_settings(settings, chosen_scenarios):\n    def highlight(row):\n        style = (\n            \"background-color: #dbeafe; color: #111827\"\n            if row[\"Scenario\"] in chosen_scenarios\n            else \"\"\n        )\n        return [style] * len(row)\n\n    return settings.style.apply(highlight, axis=1).format(precision=2)"
+    "text": "style_settings()\nWe’ll write this function near the start of our results.py script.\nIt checks each row’s scenario name against chosen_scenarios. Matching rows get a pale blue background. We use .style.apply() to apply this formatting row by row, then .format(precision=2) to display decimal values to two decimal places.\n# Function for highlighting the row/s with the chosen scenario/s\ndef style_settings(settings, chosen_scenarios):\n    def highlight(row):\n        style = (\n            \"background-color: #dbeafe; color: #111827\"\n            if row[\"Scenario\"] in chosen_scenarios\n            else \"\"\n        )\n        return [style] * len(row)\n\n    return settings.style.apply(highlight, axis=1).format(precision=2)"
   },
   {
-    "objectID": "slides/index.html#single-scenario-results",
-    "href": "slides/index.html#single-scenario-results",
+    "objectID": "slides/index.html#no-scenarios-to-view",
+    "href": "slides/index.html#no-scenarios-to-view",
     "title": "",
-    "section": "single scenario results",
-    "text": "single scenario results\nits same results code as before just need to choose from scenarios let user choose can use a dropdown"
+    "section": "No scenarios to view",
+    "text": "No scenarios to view\nUsers might open the results page before running a scenario.\nWe’ll show a message explaining that there are no saved results yet and directing them to run a scenario first."
   },
   {
-    "objectID": "slides/index.html#single-scenario-results-1",
-    "href": "slides/index.html#single-scenario-results-1",
+    "objectID": "slides/index.html#no-scenarios-to-view-1",
+    "href": "slides/index.html#no-scenarios-to-view-1",
     "title": "",
-    "section": "single scenario results",
-    "text": "single scenario results\ncan remind of scenarios again with dataframe can use pd.styler to highlight which they chose"
+    "section": "No scenarios to view",
+    "text": "No scenarios to view\n\n\nWe first check whether scenarios is empty.\nIf it is, we show a message using st.info().\nOtherwise, we display the results page as before.\n\nif not st.session_state.scenarios:\n    st.info(\"Run and save scenarios to view results here.\", icon=\"ℹ️\")\n\nelse:\n    st.space()\n    with st.container(border=True):\n        st.selectbox(\n            label=\"**Choose a scenario to view:**\",\n            options=list(st.session_state.scenarios),\n            key=\"chosen_scenario\",\n        )\n    \n    ...\n\n\nThis avoids trying to display results when none are available."
   },
   {
-    "objectID": "slides/index.html#compare-scenarios",
-    "href": "slides/index.html#compare-scenarios",
+    "objectID": "slides/index.html#creating-tabs",
+    "href": "slides/index.html#creating-tabs",
     "title": "",
-    "section": "compare scenarios",
-    "text": "compare scenarios\nneed to run at least two do message for that"
+    "section": "Creating tabs",
+    "text": "Creating tabs\n\n\n\nWe have now finished the code for displaying results from one chosen scenario. Next, we’ll add a way to compare several scenarios.\n\nWe’ll use st.tabs to organise these two tasks within the results page:\n\nView single scenario\nCompare scenarios"
   },
   {
-    "objectID": "slides/index.html#choose-which-to-compare",
-    "href": "slides/index.html#choose-which-to-compare",
+    "objectID": "slides/index.html#creating-tabs-1",
+    "href": "slides/index.html#creating-tabs-1",
     "title": "",
-    "section": "choose which to compare",
-    "text": "choose which to compare\nchoose which scenarios to compare can use multiselect"
+    "section": "Creating tabs",
+    "text": "Creating tabs\n\n\nWe pass st.tabs() a list with titles for each tab.\n\nIt returns a container for each tab, which we assign to variables (here, tab_single and tab_compare).\n\nWe then use a with block to add content to each tab.\n\nst.title(\"View results\")\n\nif not st.session_state.scenarios:\n    st.info(\"Run and save scenarios to view results here.\", icon=\"ℹ️\")\n\nelse:\n    st.write(\n        \"You can either view results from a **single scenario**, or **compare across scenarios**.\"\n    )\n\n    tab_single, tab_compare = st.tabs(\n        [\"View single scenario\", \"Compare scenarios\"]\n    )\n\n    with tab_single:\n        st.space()\n        with st.container(border=True):\n            st.selectbox(\n                label=\"**Choose a scenario to view:**\",\n                options=list(st.session_state.scenarios),\n                key=\"chosen_scenario\",\n            )\n            ..."
   },
   {
-    "objectID": "slides/index.html#show-chosen",
-    "href": "slides/index.html#show-chosen",
+    "objectID": "slides/index.html#choosing-scenarios-to-compare",
+    "href": "slides/index.html#choosing-scenarios-to-compare",
     "title": "",
-    "section": "show chosen",
-    "text": "show chosen\ncan do the table again with pd.styler"
+    "section": "Choosing scenarios to compare",
+    "text": "Choosing scenarios to compare\n\n\n\nOn the “Compare scenarios” tab, we’ll add a selection box where users can choose multiple saved scenarios.\nIf fewer than two scenario are run or selected, we’ll show a messages asking them to run or select at least two."
+  },
+  {
+    "objectID": "slides/index.html#choosing-scenarios-to-compare-1",
+    "href": "slides/index.html#choosing-scenarios-to-compare-1",
+    "title": "",
+    "section": "Choosing scenarios to compare",
+    "text": "Choosing scenarios to compare\n\n\nLet’s work through the code to do that…\n\nwith tab_compare:\n    if len(st.session_state.scenarios) &lt; 2:\n        st.info(\"Run at least two scenarios to enable comparison\", icon=\"ℹ️\")\n\n    else:\n        st.space()\n        with st.container(border=True):\n            chosen_compare = st.multiselect(\n                label=\"**Choose scenarios to compare**\",\n                options=list(st.session_state.scenarios),\n            )\n\n            st.caption(\"The selected scenarios are highlighted below.\")\n\n            st.dataframe(\n                style_settings(settings=settings, chosen_scenarios=chosen_compare),\n                hide_index=True,\n            )\n\n        if len(chosen_compare) &lt; 2:\n            st.info(\"Choose at least two scenario to compare\", icon=\"ℹ️\")\n\n        else:\n            # Results - will write next"
+  },
+  {
+    "objectID": "slides/index.html#choosing-scenarios-to-compare-2",
+    "href": "slides/index.html#choosing-scenarios-to-compare-2",
+    "title": "",
+    "section": "Choosing scenarios to compare",
+    "text": "Choosing scenarios to compare\n\n\n\n1. Use tab_compare and warn for insufficient scenarios\nIf scenarios in session state only has zero or one saved scenarios, a message is displayed using st.info().\n\nwith tab_compare:\n    if len(st.session_state.scenarios) &lt; 2:\n        st.info(\"Run at least two scenarios to enable comparison\", icon=\"ℹ️\")\n\n    else:\n        st.space()\n        with st.container(border=True):\n            chosen_compare = st.multiselect(\n                label=\"**Choose scenarios to compare**\",\n                options=list(st.session_state.scenarios),\n            )\n\n            st.caption(\"The selected scenarios are highlighted below.\")\n\n            st.dataframe(\n                style_settings(settings=settings, chosen_scenarios=chosen_compare),\n                hide_index=True,\n            )\n\n        if len(chosen_compare) &lt; 2:\n            st.info(\"Choose at least two scenario to compare\", icon=\"ℹ️\")\n\n        else:\n            # Results - will write next"
+  },
+  {
+    "objectID": "slides/index.html#choosing-scenarios-to-compare-3",
+    "href": "slides/index.html#choosing-scenarios-to-compare-3",
+    "title": "",
+    "section": "Choosing scenarios to compare",
+    "text": "Choosing scenarios to compare\n\n\n\n2. Multiselect\nOnce there are at least two scenarios, we set up a container and create st.multiselect().\nThis is similar to selectbox, but allows users to choose multiple options at once.\n\nwith tab_compare:\n    if len(st.session_state.scenarios) &lt; 2:\n        st.info(\"Run at least two scenarios to enable comparison\", icon=\"ℹ️\")\n\n    else:\n        st.space()\n        with st.container(border=True):\n            chosen_compare = st.multiselect(\n                label=\"**Choose scenarios to compare**\",\n                options=list(st.session_state.scenarios),\n            )\n\n            st.caption(\"The selected scenarios are highlighted below.\")\n\n            st.dataframe(\n                style_settings(settings=settings, chosen_scenarios=chosen_compare),\n                hide_index=True,\n            )\n\n        if len(chosen_compare) &lt; 2:\n            st.info(\"Choose at least two scenario to compare\", icon=\"ℹ️\")\n\n        else:\n            # Results - will write next"
+  },
+  {
+    "objectID": "slides/index.html#choosing-scenarios-to-compare-4",
+    "href": "slides/index.html#choosing-scenarios-to-compare-4",
+    "title": "",
+    "section": "Choosing scenarios to compare",
+    "text": "Choosing scenarios to compare\n\n\n\n3. Show saved scenarios\nLike before, we can show the saved scenarios and highlighted those selected using style_settings().\n\nwith tab_compare:\n    if len(st.session_state.scenarios) &lt; 2:\n        st.info(\"Run at least two scenarios to enable comparison\", icon=\"ℹ️\")\n\n    else:\n        st.space()\n        with st.container(border=True):\n            chosen_compare = st.multiselect(\n                label=\"**Choose scenarios to compare**\",\n                options=list(st.session_state.scenarios),\n            )\n\n            st.caption(\"The selected scenarios are highlighted below.\")\n\n            st.dataframe(\n                style_settings(settings=settings, chosen_scenarios=chosen_compare),\n                hide_index=True,\n            )\n\n        if len(chosen_compare) &lt; 2:\n            st.info(\"Choose at least two scenario to compare\", icon=\"ℹ️\")\n\n        else:\n            # Results - will write next"
+  },
+  {
+    "objectID": "slides/index.html#choosing-scenarios-to-compare-5",
+    "href": "slides/index.html#choosing-scenarios-to-compare-5",
+    "title": "",
+    "section": "Choosing scenarios to compare",
+    "text": "Choosing scenarios to compare\n\n\n\n4. Check chosen scenarios\nShow a message until at least two scenarios have been chosen. Then, results can be shown.\n\nwith tab_compare:\n    if len(st.session_state.scenarios) &lt; 2:\n        st.info(\"Run at least two scenarios to enable comparison\", icon=\"ℹ️\")\n\n    else:\n        st.space()\n        with st.container(border=True):\n            chosen_compare = st.multiselect(\n                label=\"**Choose scenarios to compare**\",\n                options=list(st.session_state.scenarios),\n            )\n\n            st.caption(\"The selected scenarios are highlighted below.\")\n\n            st.dataframe(\n                style_settings(settings=settings, chosen_scenarios=chosen_compare),\n                hide_index=True,\n            )\n\n        if len(chosen_compare) &lt; 2:\n            st.info(\"Choose at least two scenario to compare\", icon=\"ℹ️\")\n\n        else:\n            # Results - will write next"
   },
   {
     "objectID": "slides/index.html#comparison-figure",
