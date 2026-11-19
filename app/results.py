@@ -170,7 +170,7 @@ else:
                     hover_data=["replication_id"],
                 )
                 fig.update_layout(
-                    xaxis_title="Mean nurse queue time",
+                    yaxis_title="Mean nurse queue time",
                     showlegend=False,
                 )
                 st.plotly_chart(fig)
