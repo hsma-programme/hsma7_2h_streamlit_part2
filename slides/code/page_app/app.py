@@ -2,6 +2,10 @@
 
 import streamlit as st
 
+# Initialise session state before running any page
+if "scenarios" not in st.session_state:
+    st.session_state.scenarios = {}
+
 pg = st.navigation(
     [
         st.Page("home.py", title="Home"),
@@ -10,8 +14,3 @@ pg = st.navigation(
 )
 
 pg.run()
-
-# Session state set-up
-# Doing it here as otherwise if click straight on view results get error
-if "scenarios" not in st.session_state:
-    st.session_state.scenarios = {}
