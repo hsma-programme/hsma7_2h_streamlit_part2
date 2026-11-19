@@ -204,7 +204,6 @@ else:
                     hide_index=True,
                 )
 
-                st.caption("Total nurse staffing costs:")
                 costs = pd.DataFrame(
                     [
                         {
@@ -214,4 +213,7 @@ else:
                         for name in chosen_compare
                     ]
                 )
+
+                st.caption("Total nurse staffing costs:")
+
                 st.dataframe(costs, hide_index=True)
