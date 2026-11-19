@@ -1,5 +1,7 @@
 """Home page introducing the nurse clinic simulation."""
 
+from pathlib import Path
+
 import streamlit as st
 
 st.title("Nurse clinic simulation")
@@ -12,7 +14,9 @@ This is a synthetic model created for the HSMA course. It is from
 [session 2C: Replications, Reproducibility and Multiple Activities](https://docs.google.com/presentation/d/1ZCgLD82pcPGyNPMvpki724URyNudy_CNpLn882V9B1w/edit?usp=sharing).
 """)
 
-st.image("app/images/model_diagram.drawio.png")
+image_path = Path(__file__).resolve().parent / "images" / "model_diagram.drawio.png"
+
+st.image(image_path)
 
 st.caption("""
 Model diagram: patient arrives, waits for an available nurse, has a
