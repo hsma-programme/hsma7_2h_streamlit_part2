@@ -1472,6 +1472,72 @@ We don't include `streamlit` as stlite provides it.
 
 
 
+## Streamlit versions in stlite
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+stlite includes a modified version of Streamlit, adapted to run in the browser. This is why we do not add `streamlit` to `<app-requirements>`.
+
+::: {.fragment}
+The stlite developers periodically update this version to the latest version of Streamlit, but may not always be up-to-date. New Streamlit features may therefore not be available immediately in stlite. Check the [stlite release notes](https://github.com/whitphx/stlite/releases), and test your app before upgrading.
+:::
+
+::: {.fragment}
+**Each stlite release is pinned to a particular version of streamlit**. For example, stlite `1.12.2` includes a build based on Streamlit `1.65.0`.
+:::
+
+:::
+
+::: {.column width="50%"}
+
+![](gif/thinking.gif)
+
+:::
+
+::::
+
+
+
+
+## Finding which streamlit version is in use
+
+
+:::: {.columns}
+
+::: {.column width="45%"}
+
+Via GitHub:
+
+1. Open the [stlite release you are using on GitHub](https://github.com/whitphx/stlite/tree/%40stlite/browser%401.12.2).
+2. Click the `streamlit` submodule link (e.g., `streamlit @ 9c524f4`). This opens the exact Streamlit source code included in that release.
+3. Open `lib/pyproject.toml` and find `version` under `[project]`.
+
+:::
+
+::: {.column width="10%"}
+:::
+
+::: {.column width="45%"}
+
+::: {.fragment}
+
+Alternatively, run your app using your chosen stlite version and include this command to see which Streamlit build it uses:
+
+```{.python}
+st.write("Streamlit version:", st.__version__)
+```
+
+:::
+
+:::
+
+::::
+
+
+
+
 ##  Try out the stlite app locally
 
 `index.html` serves as the website's starting page. To view the app locally, open a terminal in the folder containing `index.html` and run:
