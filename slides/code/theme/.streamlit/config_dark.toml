@@ -1,0 +1,6 @@
+[theme]
+
+# Theme that your custom theme inherits from
+# Can be Streamlit's default light or dark theme
+# Or a local file path or URL to a custom theme.toml file
+base = "dark"

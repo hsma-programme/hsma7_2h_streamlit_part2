@@ -1309,7 +1309,7 @@ To use stlite, we add an `index.html` file to our app folder. HTML defines the s
 
 We can reuse a standard template, changing a few details for our app.
 
-Let’s work through the `index.html` used to deploy the scenario app.
+Let's work through the `index.html` used to deploy the scenario app.
 
 :::
 
@@ -1670,34 +1670,28 @@ We're going to touch on a few of the options available...
 
 
 
-## `st.set_page_config`
-
-This function configures the page’s appearance. Set defaults in `app.py`, then override them on individual pages if needed.
-
-Key parameters include:
-
-* `page_title`: The title shown in the browser tab.
-* `page_icon`: The favicon, which is a small icon beside the browser tab's title. Use an image, emoji or Material Symbols icon.
-* `layout`: `"centered"` constrains content to a centred column (default) while `"wide"` uses the available page width.
-
-
-
 
 ## `st.set_page_config`
 
-For example, in `app.py` we could add the following code to set the browser tab title and icon:
+This function configures the page's appearance. Set defaults in `app.py`, then override them on individual pages if needed. Key parameters include...
+
+`page_title`: The title shown in the browser tab.
+
+`page_icon`: The favicon, which is a small icon beside the browser tab's title. Use an image, emoji or Material Symbols icon.
 
 :::: {.columns}
 
 ::: {.column width="50%"}
 
-TODO: code
+```{.python code-line-numbers="3-6"}
+{{< include code/set_page_config/tab.py >}}
+```
 
 :::
 
 ::: {.column width="50%"}
 
-TODO: screenshot
+![](images/set_page_config_tab.png)
 
 :::
 
@@ -1706,85 +1700,251 @@ TODO: screenshot
 
 
 
-## Logo
+## `st.set_page_config`
 
-`st.logo`
+`layout` decides whether the app constrains content to a centered column (default) or if it uses the available page width.
 
-creates logo in top right corner and in sidebar
+This is what an app looks like with `layout="centered"`.
 
-provide an image, emoji or material symbols icon
+:::: {.columns}
+
+::: {.column width="40%"}
+
+```{.python code-line-numbers="3-5"}
+{{< include code/set_page_config/centered.py >}}
+```
+
+:::
+
+::: {.column width="60%"}
+
+![](images/layout_centered.png)
+
+:::
+
+::::
+
+
+
+
+## `st.set_page_config`
+
+`layout` decides whether the app constrains content to a centered column (default) or if it uses the available page width.
+
+This is what an app looks like with `layout="wide"`.
+
+:::: {.columns}
+
+::: {.column width="40%"}
+
+```{.python code-line-numbers="3-5"}
+{{< include code/set_page_config/wide.py >}}
+```
+
+:::
+
+::: {.column width="60%"}
+
+![](images/layout_wide.png)
+
+:::
+
+::::
+
+
+
+
+## `st.logo`
+
+This command creates a logo in the app. You can provide a path to an image, or an emoji or material symbols icon. For example:
+
+:::: {.columns}
+
+::: {.column width="40%"}
+
+```{.python code-line-numbers="3"}
+{{< include code/logo/app.py >}}
+```
+
+:::
+
+::: {.column width="60%"}
+
+![](images/logo.png)
+
+:::
+
+::::
 
 
 
 
 ## `st.navigation`
 
-By default sidebar, but can move navigation menu to top of screen using `position="top"`
+When we set-up our multi-page app using `st.navigation`, it provided a navigation menu in a sidebar by default.
+
+We can move the navigation menu to the top of the screen using `position="top"`. For example:
+
+:::: {.columns}
+
+::: {.column width="40%"}
+
+<br>
+
+```{.python code-line-numbers="8"}
+{{< include code/navigation/app.py >}}
+```
+
+:::
+
+::: {.column width="60%"}
+
+![](images/navbar.png)
+
+:::
+
+::::
 
 
 
 
 ## `config.toml`
 
-Create `.streamlit/config.toml` (in folder).
+Create a `.streamlit` folder in your project folder, then add a `config.toml` file:
 
-Configuration file.
+```text
+your-app/
+├── app.py
+└── .streamlit/
+    └── config.toml
+```
 
-THis includes some more like other things like log settings, error settings, cacheing settings, etc. but also can use to contorl theme.
+This is a configuration file. It can control things like logging, error messages, and caching.
+
+We'll focus now on using it to customise the app's theme.
 
 
 
 
 ## `config.toml` theme
 
-this is under `[theme]` and `[theme.sidebar]`
-can have separate configurations for light and dark mode by having `[theme.dark]` and [`theme.light`]
+:::: {.columns}
 
-there are lottttttssssss of options here.
-
-a few key ones...
+::: {.column width="60%"}
 
 ```{.toml}
-[theme]
-# Primary accent colour for interactive elements
-primaryColor = "#FF6E4A"
-
-# Background colour for the main content area
-backgroundColor = "#F5F0ED"
-
-# Background colour used for sidebar and most ineractive widgets
-secondaryBackgroundColor = "#E0BFE5"
-
-# Colour used for almost all text
-textColor = "#05291F"
-
-# Font family for all text in the app except code blocks, one of 3 options
-font = "sans-serif"
+{{< include code/theme/.streamlit/config_custom.toml >}}
 ```
 
+:::
+
+::: {.column width="40%"}
+
+Define your theme settings under `[theme]`. There are lots of options - we have included a few of the main ones here.
+
+Use `[theme.sidebar]` to override settings specifically for the sidebar.
+
+You can also define separate light and dark themes using `[theme.light]` and `[theme.dark]`.
+
+:::
+
+::::
 
 
-## `awesome-streamlit-themes`
 
-good place to start is looking for examplesand just playing around
 
-https://github.com/jmedia65/awesome-streamlit-themes
-is a great option
+## `config.toml` theme: light
 
-has ten example themes
-then can run app and play around to see how different changes look etc.
+This is what the default light theme looks like.
+
+:::: {.columns}
+
+::: {.column width="45%"}
+
+```{.toml}
+{{< include code/theme/.streamlit/config_light.toml >}}
+```
+
+:::
+
+::: {.column width="55%"}
+
+![](images/theme_light.png)
+
+:::
+
+::::
+
+
+
+
+## `config.toml` theme: dark
+
+This is what the default dark theme looks like.
+
+:::: {.columns}
+
+::: {.column width="45%"}
+
+```{.toml}
+{{< include code/theme/.streamlit/config_dark.toml >}}
+```
+
+:::
+
+::: {.column width="55%"}
+
+![](images/theme_dark.png)
+
+:::
+
+::::
+
+
+
+
+## `config.toml` theme: custom
+
+This is an example of a custom theme.
+
+:::: {.columns}
+
+::: {.column width="45%"}
+
+```{.toml}
+{{< include code/theme/.streamlit/config_custom.toml >}}
+```
+
+:::
+
+::: {.column width="55%"}
+
+![](images/theme_custom.png)
+
+:::
+
+::::
+
 
 
 
 
 ## CSS
 
-For additional customisation, we can use CSS. CSS means "cascading style sheets". It's a language used for themeing much of the web! We can create our own `.css` and force Streamlit to load it in.
+For additional customisation, we can use CSS (Cascading Style Sheets). CSS is a language that controls how web content look.
+
+Use config.toml for the overall theme, and Streamlit's built-in options wherever possible. CSS is useful for more specific styling that these options don't support.
+
+We can write these styles in a `.css` file and load them into our app using `st.html()`.
 
 ```{.python}
+import streamlit as st
+
 with open("style.css") as css:
-  st.markdown(f"<style>{css.read()}</style>", unsafe_allow_html=True)
+    st.html(f"<style>{css.read()}</style>")
 ```
+
+Streamlit has introduced lots of new features over the last few years. You may find older tutorial using CSS, but those features are now supported directly by Streamlit, so it's always worth checking the current documentaiton.
 
 
 
@@ -1802,7 +1962,12 @@ with open("style.css") as css:
 
 <br>
 
-Customise your app.
+Customise your app. You could try:
+
+* Setting `st.set_page_config`.
+* Adding `st.logo()`.
+* Moving navigation menu to top of screen.
+* Adding `config.toml` with a custom theme.
 
 :::
 

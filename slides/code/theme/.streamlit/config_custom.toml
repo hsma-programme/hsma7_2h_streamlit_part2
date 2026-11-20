@@ -1,0 +1,21 @@
+[theme]
+
+# Theme that your custom theme inherits from
+# Can be Streamlit's default light or dark theme
+# Or a local file path or URL to a custom theme.toml file
+base = "light"
+
+# Primary accent colour for interactive elements
+primaryColor = "#2563EB"
+
+#  Background colour for the main content area
+backgroundColor = "#FFFCF5"
+
+# Secondary background colour, used for widgets and the sidebar
+secondaryBackgroundColor = "#DEEAF6"
+
+# Default text colour
+textColor = "#172B4D"
+
+# Default font, excluding code
+font = "sans-serif"
