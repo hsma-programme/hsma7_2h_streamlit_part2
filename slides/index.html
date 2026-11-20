@@ -1628,8 +1628,8 @@
 </div></div>
 </section></section>
 <section>
-<section id="hosting-with-stlite" class="title-slide slide level1 center">
-<h1>Hosting with stlite</h1>
+<section id="stlite" class="title-slide slide level1 center">
+<h1>stlite</h1>
 
 </section>
 <section id="reminder-streamlit-community-cloud" class="slide level2">
@@ -1638,22 +1638,60 @@
 <p>It was an easy way to deploy from GitHub, with automatic updates when you push changes.</p>
 <p>However, apps share limited server resources and go to sleep after 12 hours without visitors.</p>
 </section>
-<section id="stlite" class="slide level2">
+<section id="stlite-1" class="slide level2">
 <h2>stlite</h2>
 <p>An alternative is <strong>stlite</strong>, which runs Python directly in the user’s browser. Instead of sending requests to a server to run your code, the user’s own device does the work.</p>
+<p><img data-src="images/stlite.png"></p>
+</section>
+<section id="how-does-stlite-work" class="slide level2">
+<h2>How does stlite work?</h2>
 <div class="columns">
-<div class="column fragment" style="width:50%;">
+<div class="column" style="width:85%;">
+<p>A browser can display your app, but can’t normally run its Python code. Browsers usually use <strong>JavaScript</strong>, a programming language designed for web pages.</p>
+</div><div class="column" style="width:15%;">
+<p><img data-src="images/javascript.png" height="70"></p>
+</div></div>
+<div class="fragment">
+<div class="columns">
+<div class="column" style="width:85%;">
+<p>In 2017, <strong>WebAssembly (Wasm)</strong> was released. It allows browsers to run compiled code alongside JavaScript, including software they wouldn’t normally support.</p>
+</div><div class="column" style="width:15%;">
+<p><img data-src="images/webassembly.png" height="70"></p>
+</div></div>
+</div>
+<div class="fragment">
+<div class="columns">
+<div class="column" style="width:85%;">
+<p><strong>Pyodide</strong> uses WebAssembly to provide a Python environment. It includes an interpreter (which reads and runs Python code) and support for packages.</p>
+</div><div class="column" style="width:15%;">
+<p><img data-src="images/pyodide.png" height="70"></p>
+</div></div>
+</div>
+<div class="fragment">
+<div class="columns">
+<div class="column" style="width:85%;">
+<p>stlite uses this environment to run your Streamlit app on the user’s device.</p>
+</div><div class="column" style="width:15%;">
+<p><img data-src="images/stlite.png" height="70"></p>
+</div></div>
+</div>
+</section>
+<section id="stlite-pros-and-cons" class="slide level2">
+<h2>stlite: pros and cons</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
 <p><strong>Pros:</strong></p>
 <ul>
-<li>Host for free with GitHub Pages.</li>
 <li>No server to wake up.</li>
-<li>No external resource limits.</li>
+<li>No external resource limits, can cope with concurrent users.</li>
+<li>Data doesn’t leave the user’s browser.</li>
+<li>Host for free with GitHub Pages.</li>
 </ul>
 </div><div class="column fragment" style="width:50%;">
 <p><strong>Cons:</strong></p>
 <ul>
 <li>Initial loading can take longer while Python and packages download.</li>
-<li>Performance depends on the user’s device.</li>
+<li>Slower to run (as depends on the user’s device).</li>
 <li>Not all Python packages and Streamlit features are supported.</li>
 <li>Set-up is not as easy as Streamlit Community Cloud.</li>
 <li>Browser caching can leave users seeing an older version of the app.</li>
@@ -1856,6 +1894,50 @@
 <span id="cb37-27"><a aria-label="27"></a>  <span class="dt">&lt;/</span><span class="kw">body</span><span class="dt">&gt;</span></span>
 <span id="cb37-28"><a aria-label="28"></a><span class="dt">&lt;/</span><span class="kw">html</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
+</section>
+<section id="try-out-the-stlite-app-locally" class="slide level2">
+<h2>Try out the stlite app locally</h2>
+<p><code>index.html</code> serves as the website’s starting page. To view the app locally, open a terminal in the folder containing <code>index.html</code> and run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a aria-label="1"></a><span class="ex">python</span> <span class="at">-m</span> http.server 8000</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then open <code>http://localhost:8000</code> in your browser. This lets us test the app on our own computer.</p>
+<p>To share it with others through a web address, we need to host its files online. GitHub Pages can host <code>index.html</code> and the other files our app needs. When someone visits the website, their browser downloads these files and runs the app using stlite.</p>
+</section></section>
+<section>
+<section id="hosting-an-stlite-app-on-github-pages" class="title-slide slide level1 center">
+<h1>Hosting an stlite app on GitHub Pages</h1>
+
+</section>
+<section id="github-pages" class="slide level2">
+<h2>GitHub Pages</h2>
+<div class="columns" width="50%">
+<div class="column">
+<p><br><br></p>
+<p>GitHub Pages is a website hosting service. It takes HTML, CSS, and JavaScript files from your GitHub repository and publishes them as a website.</p>
+<p><br></p>
+<p>It is <strong>free</strong> to use with public repositories.</p>
+<p>It is <strong>easy</strong> to set up because it integrates directly with your GitHub repository.</p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="images/githubpages.png"></p>
+</div></div>
+</section>
+<section id="enabling-github-pages" class="slide level2">
+<h2>Enabling GitHub Pages</h2>
+<div class="columns">
+<div class="column" style="width:70%;">
+<p><br><br></p>
+<p>The first step for setting up our stlite app website is to enable GitHub Pages.</p>
+<p>From your GitHub repository, click on “Settings” and then in the sidebar click on “Pages”.</p>
+<p><img data-src="images/pages_settings.png"></p>
+</div><div class="column" style="width:20%;">
+<p><img data-src="images/pages_pages.png"></p>
+</div></div>
+</section>
+<section id="enabling-github-pages-1" class="slide level2">
+<h2>Enabling GitHub Pages</h2>
+<p>Under Source, select <code>Deploy from a branch</code> (if not already selected).</p>
+<p>Then select <code>main</code> and <code>/ (root)</code> and click <code>Save</code>.</p>
+<p>It should now say your site is “currently being built from the <code>main</code> branch”.</p>
+<p><img data-src="images/pages_source.png" height="320"></p>
 </section></section>
 <section>
 <section id="exercise-2" class="title-slide slide level1 center">
@@ -1867,7 +1949,7 @@
 <div class="columns">
 <div class="column" style="width:45%;">
 <p><br></p>
-<p>Host your app using stlite.</p>
+<p>Deploy your app using stlite and GitHub pages.</p>
 </div><div class="column" style="width:5%;">
 
 </div><div class="column" style="width:50%;">
@@ -1938,21 +2020,21 @@
 <p>this is under <code>[theme]</code> and <code>[theme.sidebar]</code> can have separate configurations for light and dark mode by having <code>[theme.dark]</code> and [<code>theme.light</code>]</p>
 <p>there are lottttttssssss of options here.</p>
 <p>a few key ones…</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb38-1"><a aria-label="1"></a><span class="kw">[theme]</span></span>
-<span id="cb38-2"><a aria-label="2"></a><span class="co"># Primary accent colour for interactive elements</span></span>
-<span id="cb38-3"><a aria-label="3"></a><span class="dt">primaryColor</span> <span class="op">=</span> <span class="st">"#FF6E4A"</span></span>
-<span id="cb38-4"><a aria-label="4"></a></span>
-<span id="cb38-5"><a aria-label="5"></a><span class="co"># Background colour for the main content area</span></span>
-<span id="cb38-6"><a aria-label="6"></a><span class="dt">backgroundColor</span> <span class="op">=</span> <span class="st">"#F5F0ED"</span></span>
-<span id="cb38-7"><a aria-label="7"></a></span>
-<span id="cb38-8"><a aria-label="8"></a><span class="co"># Background colour used for sidebar and most ineractive widgets</span></span>
-<span id="cb38-9"><a aria-label="9"></a><span class="dt">secondaryBackgroundColor</span> <span class="op">=</span> <span class="st">"#E0BFE5"</span></span>
-<span id="cb38-10"><a aria-label="10"></a></span>
-<span id="cb38-11"><a aria-label="11"></a><span class="co"># Colour used for almost all text</span></span>
-<span id="cb38-12"><a aria-label="12"></a><span class="dt">textColor</span> <span class="op">=</span> <span class="st">"#05291F"</span></span>
-<span id="cb38-13"><a aria-label="13"></a></span>
-<span id="cb38-14"><a aria-label="14"></a><span class="co"># Font family for all text in the app except code blocks, one of 3 options</span></span>
-<span id="cb38-15"><a aria-label="15"></a><span class="dt">font</span> <span class="op">=</span> <span class="st">"sans-serif"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb39-1"><a aria-label="1"></a><span class="kw">[theme]</span></span>
+<span id="cb39-2"><a aria-label="2"></a><span class="co"># Primary accent colour for interactive elements</span></span>
+<span id="cb39-3"><a aria-label="3"></a><span class="dt">primaryColor</span> <span class="op">=</span> <span class="st">"#FF6E4A"</span></span>
+<span id="cb39-4"><a aria-label="4"></a></span>
+<span id="cb39-5"><a aria-label="5"></a><span class="co"># Background colour for the main content area</span></span>
+<span id="cb39-6"><a aria-label="6"></a><span class="dt">backgroundColor</span> <span class="op">=</span> <span class="st">"#F5F0ED"</span></span>
+<span id="cb39-7"><a aria-label="7"></a></span>
+<span id="cb39-8"><a aria-label="8"></a><span class="co"># Background colour used for sidebar and most ineractive widgets</span></span>
+<span id="cb39-9"><a aria-label="9"></a><span class="dt">secondaryBackgroundColor</span> <span class="op">=</span> <span class="st">"#E0BFE5"</span></span>
+<span id="cb39-10"><a aria-label="10"></a></span>
+<span id="cb39-11"><a aria-label="11"></a><span class="co"># Colour used for almost all text</span></span>
+<span id="cb39-12"><a aria-label="12"></a><span class="dt">textColor</span> <span class="op">=</span> <span class="st">"#05291F"</span></span>
+<span id="cb39-13"><a aria-label="13"></a></span>
+<span id="cb39-14"><a aria-label="14"></a><span class="co"># Font family for all text in the app except code blocks, one of 3 options</span></span>
+<span id="cb39-15"><a aria-label="15"></a><span class="dt">font</span> <span class="op">=</span> <span class="st">"sans-serif"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="awesome-streamlit-themes" class="slide level2">
 <h2><code>awesome-streamlit-themes</code></h2>
@@ -1963,8 +2045,8 @@
 <section id="css" class="slide level2">
 <h2>CSS</h2>
 <p>For additional customisation, we can use CSS. CSS means “cascading style sheets”. It’s a language used for themeing much of the web! We can create our own <code>.css</code> and force Streamlit to load it in.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a aria-label="1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"style.css"</span>) <span class="im">as</span> css:</span>
-<span id="cb39-2"><a aria-label="2"></a>  st.markdown(<span class="ss">f"&lt;style&gt;</span><span class="sc">{</span>css<span class="sc">.</span>read()<span class="sc">}</span><span class="ss">&lt;/style&gt;"</span>, unsafe_allow_html<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a aria-label="1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"style.css"</span>) <span class="im">as</span> css:</span>
+<span id="cb40-2"><a aria-label="2"></a>  st.markdown(<span class="ss">f"&lt;style&gt;</span><span class="sc">{</span>css<span class="sc">.</span>read()<span class="sc">}</span><span class="ss">&lt;/style&gt;"</span>, unsafe_allow_html<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section></section>
 <section>
 <section id="exercise-3" class="title-slide slide level1 center">

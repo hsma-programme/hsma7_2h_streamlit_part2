@@ -322,11 +322,25 @@
     "text": "Reminder: Streamlit Community Cloud\nIn the last session, we introduced Streamlit Community Cloud.\nIt was an easy way to deploy from GitHub, with automatic updates when you push changes.\nHowever, apps share limited server resources and go to sleep after 12 hours without visitors."
   },
   {
-    "objectID": "slides/index.html#stlite",
-    "href": "slides/index.html#stlite",
+    "objectID": "slides/index.html#stlite-1",
+    "href": "slides/index.html#stlite-1",
     "title": "",
     "section": "stlite",
-    "text": "stlite\nAn alternative is stlite, which runs Python directly in the user’s browser. Instead of sending requests to a server to run your code, the user’s own device does the work.\n\n\nPros:\n\nHost for free with GitHub Pages.\nNo server to wake up.\nNo external resource limits.\n\n\nCons:\n\nInitial loading can take longer while Python and packages download.\nPerformance depends on the user’s device.\nNot all Python packages and Streamlit features are supported.\nSet-up is not as easy as Streamlit Community Cloud.\nBrowser caching can leave users seeing an older version of the app."
+    "text": "stlite\nAn alternative is stlite, which runs Python directly in the user’s browser. Instead of sending requests to a server to run your code, the user’s own device does the work."
+  },
+  {
+    "objectID": "slides/index.html#how-does-stlite-work",
+    "href": "slides/index.html#how-does-stlite-work",
+    "title": "",
+    "section": "How does stlite work?",
+    "text": "How does stlite work?\n\n\nA browser can display your app, but can’t normally run its Python code. Browsers usually use JavaScript, a programming language designed for web pages.\n\n\n\n\n\n\nIn 2017, WebAssembly (Wasm) was released. It allows browsers to run compiled code alongside JavaScript, including software they wouldn’t normally support.\n\n\n\n\n\n\n\nPyodide uses WebAssembly to provide a Python environment. It includes an interpreter (which reads and runs Python code) and support for packages.\n\n\n\n\n\n\n\nstlite uses this environment to run your Streamlit app on the user’s device."
+  },
+  {
+    "objectID": "slides/index.html#stlite-pros-and-cons",
+    "href": "slides/index.html#stlite-pros-and-cons",
+    "title": "",
+    "section": "stlite: pros and cons",
+    "text": "stlite: pros and cons\n\n\nPros:\n\nNo server to wake up.\nNo external resource limits, can cope with concurrent users.\nData doesn’t leave the user’s browser.\nHost for free with GitHub Pages.\n\n\nCons:\n\nInitial loading can take longer while Python and packages download.\nSlower to run (as depends on the user’s device).\nNot all Python packages and Streamlit features are supported.\nSet-up is not as easy as Streamlit Community Cloud.\nBrowser caching can leave users seeing an older version of the app."
   },
   {
     "objectID": "slides/index.html#running-a-streamlit-app-with-stlite",
@@ -364,11 +378,39 @@
     "text": "Running a Streamlit app with stlite\n\n\n\n&lt;app-requirements&gt; lists the Python packages to install.\nWe pin simpy and sim-tools to the versions used to develop the app. We leave numpy and pandas unpinned so Pyodide can use its compatible versions.\n\nWe don’t include streamlit as stlite provides it.\n\n&lt;!doctype html&gt;\n&lt;html&gt;\n  &lt;head&gt;\n    &lt;meta charset=\"UTF-8\" /&gt;\n    &lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\" /&gt;\n    &lt;title&gt;Scenario app&lt;/title&gt;\n    &lt;link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/@stlite/browser@1.12.2/build/stlite.css\" /&gt;\n    &lt;script type=\"module\" src=\"https://cdn.jsdelivr.net/npm/@stlite/browser@1.12.2/build/stlite.js\"&gt;&lt;/script&gt;\n  &lt;/head&gt;\n  &lt;body&gt;\n    &lt;streamlit-app src=\"./app.py\"&gt;\n        &lt;app-file name=\"home.py\" url=\"./home.py\"&gt;&lt;/app-file&gt;\n        &lt;app-file name=\"model.py\" url=\"./model.py\"&gt;&lt;/app-file&gt;\n        &lt;app-file name=\"results.py\" url=\"./results.py\"&gt;&lt;/app-file&gt;\n        &lt;app-file name=\"simulation.py\" url=\"./simulation.py\"&gt;&lt;/app-file&gt;\n        &lt;app-file\n            name=\"images/model_diagram.drawio.png\"\n            url=\"./images/model_diagram.drawio.png\"\n        &gt;&lt;/app-file&gt;\n        &lt;app-requirements&gt;\n            simpy==4.1.2\n            numpy\n            pandas\n            sim-tools==1.3.0\n        &lt;/app-requirements&gt;\n    &lt;/streamlit-app&gt;\n  &lt;/body&gt;\n&lt;/html&gt;"
   },
   {
+    "objectID": "slides/index.html#try-out-the-stlite-app-locally",
+    "href": "slides/index.html#try-out-the-stlite-app-locally",
+    "title": "",
+    "section": "Try out the stlite app locally",
+    "text": "Try out the stlite app locally\nindex.html serves as the website’s starting page. To view the app locally, open a terminal in the folder containing index.html and run:\npython -m http.server 8000\nThen open http://localhost:8000 in your browser. This lets us test the app on our own computer.\nTo share it with others through a web address, we need to host its files online. GitHub Pages can host index.html and the other files our app needs. When someone visits the website, their browser downloads these files and runs the app using stlite."
+  },
+  {
+    "objectID": "slides/index.html#github-pages",
+    "href": "slides/index.html#github-pages",
+    "title": "",
+    "section": "GitHub Pages",
+    "text": "GitHub Pages\n\n\n\nGitHub Pages is a website hosting service. It takes HTML, CSS, and JavaScript files from your GitHub repository and publishes them as a website.\n\nIt is free to use with public repositories.\nIt is easy to set up because it integrates directly with your GitHub repository."
+  },
+  {
+    "objectID": "slides/index.html#enabling-github-pages",
+    "href": "slides/index.html#enabling-github-pages",
+    "title": "",
+    "section": "Enabling GitHub Pages",
+    "text": "Enabling GitHub Pages\n\n\n\nThe first step for setting up our stlite app website is to enable GitHub Pages.\nFrom your GitHub repository, click on “Settings” and then in the sidebar click on “Pages”."
+  },
+  {
+    "objectID": "slides/index.html#enabling-github-pages-1",
+    "href": "slides/index.html#enabling-github-pages-1",
+    "title": "",
+    "section": "Enabling GitHub Pages",
+    "text": "Enabling GitHub Pages\nUnder Source, select Deploy from a branch (if not already selected).\nThen select main and / (root) and click Save.\nIt should now say your site is “currently being built from the main branch”."
+  },
+  {
     "objectID": "slides/index.html#exercise-2-1",
     "href": "slides/index.html#exercise-2-1",
     "title": "",
     "section": "Exercise 2",
-    "text": "Exercise 2\n\n\n\nHost your app using stlite.\n\n\n\n\n\n?? minutes + ?? minute break\n\n\n\n\nExtensions\n\n."
+    "text": "Exercise 2\n\n\n\nDeploy your app using stlite and GitHub pages.\n\n\n\n\n\n?? minutes + ?? minute break\n\n\n\n\nExtensions\n\n."
   },
   {
     "objectID": "slides/index.html#customising-app-appearance-1",
