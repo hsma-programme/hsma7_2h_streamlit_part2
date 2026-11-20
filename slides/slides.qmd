@@ -1159,7 +1159,7 @@ Use session state to make saved scenarios available on both pages.
 
 
 
-# Hosting with stlite
+# stlite
 
 
 
@@ -1179,15 +1179,104 @@ However, apps share limited server resources and go to sleep after 12 hours with
 
 An alternative is **stlite**, which runs Python directly in the user's browser. Instead of sending requests to a server to run your code, the user's own device does the work.
 
+![](images/stlite.png)
+
+
+
+
+## How does stlite work?
+
 :::: {.columns}
 
-::: {.column .fragment width="50%"}
+::: {.column width="85%"}
+
+A browser can display your app, but can't normally run its Python code. Browsers usually use **JavaScript**, a programming language designed for web pages.
+
+:::
+
+::: {.column width="15%"}
+
+![](images/javascript.png){height=70px}
+
+:::
+
+::::
+
+::::: {.fragment}
+
+:::: {.columns}
+
+::: {.column width="85%"}
+
+In 2017, **WebAssembly (Wasm)** was released. It allows browsers to run compiled code alongside JavaScript, including software they wouldn't normally support.
+
+:::
+
+::: {.column width="15%"}
+
+![](images/webassembly.png){height=70px}
+
+:::
+
+::::
+
+:::::
+
+::::: {.fragment}
+
+:::: {.columns}
+
+::: {.column width="85%"}
+
+**Pyodide** uses WebAssembly to provide a Python environment. It includes an interpreter (which reads and runs Python code) and support for packages.
+
+:::
+
+::: {.column width="15%"}
+
+![](images/pyodide.png){height=70px}
+
+:::
+
+::::
+
+:::::
+
+::::: {.fragment}
+
+:::: {.columns}
+
+::: {.column width="85%"}
+
+stlite uses this environment to run your Streamlit app on the user's device.
+
+:::
+
+::: {.column width="15%"}
+
+![](images/stlite.png){height=70px}
+
+:::
+
+::::
+
+:::::
+
+
+
+
+## stlite: pros and cons
+
+:::: {.columns}
+
+::: {.column width="50%"}
 
 **Pros:**
 
-* Host for free with GitHub Pages.
 * No server to wake up.
-* No external resource limits.
+* No external resource limits, can cope with concurrent users.
+* Data doesn't leave the user's browser.
+* Host for free with GitHub Pages.
 
 :::
 
@@ -1196,7 +1285,7 @@ An alternative is **stlite**, which runs Python directly in the user's browser. 
 **Cons:**
 
 * Initial loading can take longer while Python and packages download.
-* Performance depends on the user's device.
+* Slower to run (as depends on the user's device).
 * Not all Python packages and Streamlit features are supported.
 * Set-up is not as easy as Streamlit Community Cloud.
 * Browser caching can leave users seeing an older version of the app.
@@ -1352,6 +1441,131 @@ We don't include `streamlit` as stlite provides it.
 
 
 
+##  Try out the stlite app locally
+
+`index.html` serves as the website's starting page. To view the app locally, open a terminal in the folder containing `index.html` and run:
+
+```bash
+python -m http.server 8000
+```
+
+Then open `http://localhost:8000` in your browser. This lets us test the app on our own computer.
+
+To share it with others through a web address, we need to host its files online. GitHub Pages can host `index.html` and the other files our app needs. When someone visits the website, their browser downloads these files and runs the app using stlite.
+
+
+
+
+# Hosting an stlite app on GitHub Pages
+
+## GitHub Pages
+
+:::: {.columns width="50%"}
+
+::: {.column}
+
+<br><br>
+
+GitHub Pages is a website hosting service. It takes HTML, CSS, and JavaScript files from your GitHub repository and publishes them as a website.
+
+<br>
+
+It is **free** to use with public repositories.
+
+It is **easy** to set up because it integrates directly with your GitHub repository. We recommend setting it up with **GitHub Actions...**
+
+:::
+
+::: {.column width="50%"}
+
+![](images/githubpages.png)
+
+:::
+
+::::
+
+
+
+
+## GitHub Actions
+
+GitHub actions lets us run tasks on GitHub automatically in response to an event. For example, running everytime we push changes to the `main` branch.
+
+We will use it to publish our app on GitHub Pages, as it means we can automatically update the app whenever we push changes to `main`.
+
+![](images/app_github_actions.drawio.png)
+
+
+
+
+## Workflow files
+
+GitHub actions are defined using workflow files. These are written in YAML (filetype `.yml` or `.yaml`), which is a text format for organising settings and instructions using labels, lists, and indentation.
+
+::: {.fragment}
+
+The workflow file specifies:
+
+* When to run (e.g., after a push to `main`).
+* What computer to use (e.g., Windows, MacOS, Ubuntu).
+* What steps to carry out.
+
+:::
+
+::: {.fragment}
+
+Workflow files must be stored in a `.github/workflows` folder of the repository. For example: `.github/workflows/deploy.yml`.
+
+:::
+
+
+
+
+## Enabling GitHub Pages
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+<br><br>
+
+The first step for setting up our stlite app website is to enable GitHub Pages.
+
+From your GitHub repository, click on "Settings" and then in the sidebar click on "Pages".
+
+![](images/pages_settings.png)
+
+:::
+
+::: {.column width="20%"}
+
+![](images/pages_pages.png)
+
+:::
+
+::::
+
+
+
+
+
+## Enabling GitHub Pages
+
+Under Source, select `Deploy from a branch` (if not already selected).
+
+Then select `main` and `/ (root)` and click `Save`.
+
+It should now say your site is "currently being built from the `main` branch".
+
+![](images/pages_source.png){height=320px}
+
+## GitHub action to deploy our stlite app
+
+TODO: Work through action
+
+
+
+
 # Exercise 2
 
 
@@ -1365,7 +1579,7 @@ We don't include `streamlit` as stlite provides it.
 
 <br>
 
-Host your app using stlite.
+Deploy your app using stlite and GitHub pages.
 
 :::
 
