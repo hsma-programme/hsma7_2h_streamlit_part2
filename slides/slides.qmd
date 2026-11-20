@@ -1527,6 +1527,92 @@ It should now say your site is "currently being built from the `main` branch".
 
 
 
+## Deployed site
+
+Your app should now be live on GitHub Pages. Click the `github-pages` deployment in your repository's right sidebar to view the deployment details and website link.
+
+![](images/pages_deployments.png){height=400px}
+
+
+
+
+## Add link to repository home
+
+We'd recommend adding this link to your repository `README`.
+
+You can also add it to the "About" panel by clicking the "⚙" symbol in the right sidebar, then clicking "Use your GitHub Pages website" and then "Save changes".
+
+![](images/pages_about.png){height=350px}
+
+
+
+
+## File locations
+
+These instructions assume your app files are in the repository root (the top-level folder).
+
+This is why we selected `/ (root)` when setting up GitHub Pages.
+
+For example:
+
+```text
+your-repository/
+├── index.html
+├── app.py
+├── home.py
+├── model.py
+├── simulation.py
+├── results.py
+└── images/
+    └── logo.png
+```
+
+
+
+
+## File locations
+
+You can also organise your app files into subfolders.
+
+If `index.html` stays in the root, the GitHub Pages settings stay the same. Just update the paths in `index.html` to match your file locations.
+
+For example:
+
+```{.text code-line-numbers="3-10"}
+your-repository/
+├── index.html
+└── app/
+    ├── app.py
+    ├── home.py
+    ├── model.py
+    ├── simulation.py
+    ├── results.py
+    └── images/
+        └── logo.png
+```
+
+
+
+
+## File locations
+
+If you move `index.html` into a subfolder too, you have a few options:
+
+<div style="margin-top: 1em; margin-bottom: 1em;">
+
+| Location | What to do |
+| - | --- |
+| `docs/index.html` | Select `main` → `/docs` as the publishing source. |
+| `app/index.html` | Publish the repository root and access the app at `https://USERNAME.github.io/REPOSITORY/app/`. |
+| `app/index.html` | Use a GitHub Actions workflow to publisht the contents of `app/` |
+
+</div>
+
+For simplicity, we recommend keeping `index.html` in the repository root. The other files can be in subfolders - just make sure the paths in `index.html` match their locations.
+
+
+
+
 # Exercise 2
 
 
