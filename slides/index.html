@@ -1938,6 +1938,81 @@
 <p>Then select <code>main</code> and <code>/ (root)</code> and click <code>Save</code>.</p>
 <p>It should now say your site is “currently being built from the <code>main</code> branch”.</p>
 <p><img data-src="images/pages_source.png" height="320"></p>
+</section>
+<section id="deployed-site" class="slide level2">
+<h2>Deployed site</h2>
+<p>Your app should now be live on GitHub Pages. Click the <code>github-pages</code> deployment in your repository’s right sidebar to view the deployment details and website link.</p>
+<p><img data-src="images/pages_deployments.png" height="400"></p>
+</section>
+<section id="add-link-to-repository-home" class="slide level2">
+<h2>Add link to repository home</h2>
+<p>We’d recommend adding this link to your repository <code>README</code>.</p>
+<p>You can also add it to the “About” panel by clicking the “⚙” symbol in the right sidebar, then clicking “Use your GitHub Pages website” and then “Save changes”.</p>
+<p><img data-src="images/pages_about.png" height="350"></p>
+</section>
+<section id="file-locations" class="slide level2">
+<h2>File locations</h2>
+<p>These instructions assume your app files are in the repository root (the top-level folder).</p>
+<p>This is why we selected <code>/ (root)</code> when setting up GitHub Pages.</p>
+<p>For example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb39-1"><a aria-label="1"></a>your-repository/</span>
+<span id="cb39-2"><a aria-label="2"></a>├── index.html</span>
+<span id="cb39-3"><a aria-label="3"></a>├── app.py</span>
+<span id="cb39-4"><a aria-label="4"></a>├── home.py</span>
+<span id="cb39-5"><a aria-label="5"></a>├── model.py</span>
+<span id="cb39-6"><a aria-label="6"></a>├── simulation.py</span>
+<span id="cb39-7"><a aria-label="7"></a>├── results.py</span>
+<span id="cb39-8"><a aria-label="8"></a>└── images/</span>
+<span id="cb39-9"><a aria-label="9"></a>    └── logo.png</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="file-locations-1" class="slide level2">
+<h2>File locations</h2>
+<p>You can also organise your app files into subfolders.</p>
+<p>If <code>index.html</code> stays in the root, the GitHub Pages settings stay the same. Just update the paths in <code>index.html</code> to match your file locations.</p>
+<p>For example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40" data-code-line-numbers="3-10"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb40-1"><a aria-label="1"></a>your-repository/</span>
+<span id="cb40-2"><a aria-label="2"></a>├── index.html</span>
+<span id="cb40-3"><a aria-label="3"></a>└── app/</span>
+<span id="cb40-4"><a aria-label="4"></a>    ├── app.py</span>
+<span id="cb40-5"><a aria-label="5"></a>    ├── home.py</span>
+<span id="cb40-6"><a aria-label="6"></a>    ├── model.py</span>
+<span id="cb40-7"><a aria-label="7"></a>    ├── simulation.py</span>
+<span id="cb40-8"><a aria-label="8"></a>    ├── results.py</span>
+<span id="cb40-9"><a aria-label="9"></a>    └── images/</span>
+<span id="cb40-10"><a aria-label="10"></a>        └── logo.png</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="file-locations-2" class="slide level2">
+<h2>File locations</h2>
+<p>If you move <code>index.html</code> into a subfolder too, you have a few options:</p>
+<div style="margin-top: 1em; margin-bottom: 1em;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 75%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Location</th>
+<th>What to do</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>docs/index.html</code></td>
+<td>Select <code>main</code> → <code>/docs</code> as the publishing source.</td>
+</tr>
+<tr class="even">
+<td><code>app/index.html</code></td>
+<td>Publish the repository root and access the app at <code>https://USERNAME.github.io/REPOSITORY/app/</code>.</td>
+</tr>
+<tr class="odd">
+<td><code>app/index.html</code></td>
+<td>Use a GitHub Actions workflow to publisht the contents of <code>app/</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For simplicity, we recommend keeping <code>index.html</code> in the repository root. The other files can be in subfolders - just make sure the paths in <code>index.html</code> match their locations.</p>
 </section></section>
 <section>
 <section id="exercise-2" class="title-slide slide level1 center">
@@ -2020,21 +2095,21 @@
 <p>this is under <code>[theme]</code> and <code>[theme.sidebar]</code> can have separate configurations for light and dark mode by having <code>[theme.dark]</code> and [<code>theme.light</code>]</p>
 <p>there are lottttttssssss of options here.</p>
 <p>a few key ones…</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb39-1"><a aria-label="1"></a><span class="kw">[theme]</span></span>
-<span id="cb39-2"><a aria-label="2"></a><span class="co"># Primary accent colour for interactive elements</span></span>
-<span id="cb39-3"><a aria-label="3"></a><span class="dt">primaryColor</span> <span class="op">=</span> <span class="st">"#FF6E4A"</span></span>
-<span id="cb39-4"><a aria-label="4"></a></span>
-<span id="cb39-5"><a aria-label="5"></a><span class="co"># Background colour for the main content area</span></span>
-<span id="cb39-6"><a aria-label="6"></a><span class="dt">backgroundColor</span> <span class="op">=</span> <span class="st">"#F5F0ED"</span></span>
-<span id="cb39-7"><a aria-label="7"></a></span>
-<span id="cb39-8"><a aria-label="8"></a><span class="co"># Background colour used for sidebar and most ineractive widgets</span></span>
-<span id="cb39-9"><a aria-label="9"></a><span class="dt">secondaryBackgroundColor</span> <span class="op">=</span> <span class="st">"#E0BFE5"</span></span>
-<span id="cb39-10"><a aria-label="10"></a></span>
-<span id="cb39-11"><a aria-label="11"></a><span class="co"># Colour used for almost all text</span></span>
-<span id="cb39-12"><a aria-label="12"></a><span class="dt">textColor</span> <span class="op">=</span> <span class="st">"#05291F"</span></span>
-<span id="cb39-13"><a aria-label="13"></a></span>
-<span id="cb39-14"><a aria-label="14"></a><span class="co"># Font family for all text in the app except code blocks, one of 3 options</span></span>
-<span id="cb39-15"><a aria-label="15"></a><span class="dt">font</span> <span class="op">=</span> <span class="st">"sans-serif"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb41-1"><a aria-label="1"></a><span class="kw">[theme]</span></span>
+<span id="cb41-2"><a aria-label="2"></a><span class="co"># Primary accent colour for interactive elements</span></span>
+<span id="cb41-3"><a aria-label="3"></a><span class="dt">primaryColor</span> <span class="op">=</span> <span class="st">"#FF6E4A"</span></span>
+<span id="cb41-4"><a aria-label="4"></a></span>
+<span id="cb41-5"><a aria-label="5"></a><span class="co"># Background colour for the main content area</span></span>
+<span id="cb41-6"><a aria-label="6"></a><span class="dt">backgroundColor</span> <span class="op">=</span> <span class="st">"#F5F0ED"</span></span>
+<span id="cb41-7"><a aria-label="7"></a></span>
+<span id="cb41-8"><a aria-label="8"></a><span class="co"># Background colour used for sidebar and most ineractive widgets</span></span>
+<span id="cb41-9"><a aria-label="9"></a><span class="dt">secondaryBackgroundColor</span> <span class="op">=</span> <span class="st">"#E0BFE5"</span></span>
+<span id="cb41-10"><a aria-label="10"></a></span>
+<span id="cb41-11"><a aria-label="11"></a><span class="co"># Colour used for almost all text</span></span>
+<span id="cb41-12"><a aria-label="12"></a><span class="dt">textColor</span> <span class="op">=</span> <span class="st">"#05291F"</span></span>
+<span id="cb41-13"><a aria-label="13"></a></span>
+<span id="cb41-14"><a aria-label="14"></a><span class="co"># Font family for all text in the app except code blocks, one of 3 options</span></span>
+<span id="cb41-15"><a aria-label="15"></a><span class="dt">font</span> <span class="op">=</span> <span class="st">"sans-serif"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="awesome-streamlit-themes" class="slide level2">
 <h2><code>awesome-streamlit-themes</code></h2>
@@ -2045,8 +2120,8 @@
 <section id="css" class="slide level2">
 <h2>CSS</h2>
 <p>For additional customisation, we can use CSS. CSS means “cascading style sheets”. It’s a language used for themeing much of the web! We can create our own <code>.css</code> and force Streamlit to load it in.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a aria-label="1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"style.css"</span>) <span class="im">as</span> css:</span>
-<span id="cb40-2"><a aria-label="2"></a>  st.markdown(<span class="ss">f"&lt;style&gt;</span><span class="sc">{</span>css<span class="sc">.</span>read()<span class="sc">}</span><span class="ss">&lt;/style&gt;"</span>, unsafe_allow_html<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a aria-label="1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"style.css"</span>) <span class="im">as</span> css:</span>
+<span id="cb42-2"><a aria-label="2"></a>  st.markdown(<span class="ss">f"&lt;style&gt;</span><span class="sc">{</span>css<span class="sc">.</span>read()<span class="sc">}</span><span class="ss">&lt;/style&gt;"</span>, unsafe_allow_html<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section></section>
 <section>
 <section id="exercise-3" class="title-slide slide level1 center">

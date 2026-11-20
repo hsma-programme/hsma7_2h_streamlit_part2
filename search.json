@@ -406,6 +406,41 @@
     "text": "Enabling GitHub Pages\nUnder Source, select Deploy from a branch (if not already selected).\nThen select main and / (root) and click Save.\nIt should now say your site is “currently being built from the main branch”."
   },
   {
+    "objectID": "slides/index.html#deployed-site",
+    "href": "slides/index.html#deployed-site",
+    "title": "",
+    "section": "Deployed site",
+    "text": "Deployed site\nYour app should now be live on GitHub Pages. Click the github-pages deployment in your repository’s right sidebar to view the deployment details and website link."
+  },
+  {
+    "objectID": "slides/index.html#add-link-to-repository-home",
+    "href": "slides/index.html#add-link-to-repository-home",
+    "title": "",
+    "section": "Add link to repository home",
+    "text": "Add link to repository home\nWe’d recommend adding this link to your repository README.\nYou can also add it to the “About” panel by clicking the “⚙” symbol in the right sidebar, then clicking “Use your GitHub Pages website” and then “Save changes”."
+  },
+  {
+    "objectID": "slides/index.html#file-locations",
+    "href": "slides/index.html#file-locations",
+    "title": "",
+    "section": "File locations",
+    "text": "File locations\nThese instructions assume your app files are in the repository root (the top-level folder).\nThis is why we selected / (root) when setting up GitHub Pages.\nFor example:\nyour-repository/\n├── index.html\n├── app.py\n├── home.py\n├── model.py\n├── simulation.py\n├── results.py\n└── images/\n    └── logo.png"
+  },
+  {
+    "objectID": "slides/index.html#file-locations-1",
+    "href": "slides/index.html#file-locations-1",
+    "title": "",
+    "section": "File locations",
+    "text": "File locations\nYou can also organise your app files into subfolders.\nIf index.html stays in the root, the GitHub Pages settings stay the same. Just update the paths in index.html to match your file locations.\nFor example:\nyour-repository/\n├── index.html\n└── app/\n    ├── app.py\n    ├── home.py\n    ├── model.py\n    ├── simulation.py\n    ├── results.py\n    └── images/\n        └── logo.png"
+  },
+  {
+    "objectID": "slides/index.html#file-locations-2",
+    "href": "slides/index.html#file-locations-2",
+    "title": "",
+    "section": "File locations",
+    "text": "File locations\nIf you move index.html into a subfolder too, you have a few options:\n\n\n\n\n\n\n\n\nLocation\nWhat to do\n\n\n\n\ndocs/index.html\nSelect main → /docs as the publishing source.\n\n\napp/index.html\nPublish the repository root and access the app at https://USERNAME.github.io/REPOSITORY/app/.\n\n\napp/index.html\nUse a GitHub Actions workflow to publisht the contents of app/\n\n\n\n\nFor simplicity, we recommend keeping index.html in the repository root. The other files can be in subfolders - just make sure the paths in index.html match their locations."
+  },
+  {
     "objectID": "slides/index.html#exercise-2-1",
     "href": "slides/index.html#exercise-2-1",
     "title": "",
