@@ -1472,7 +1472,7 @@ GitHub Pages is a website hosting service. It takes HTML, CSS, and JavaScript fi
 
 It is **free** to use with public repositories.
 
-It is **easy** to set up because it integrates directly with your GitHub repository. We recommend setting it up with **GitHub Actions...**
+It is **easy** to set up because it integrates directly with your GitHub repository.
 
 :::
 
@@ -1483,40 +1483,6 @@ It is **easy** to set up because it integrates directly with your GitHub reposit
 :::
 
 ::::
-
-
-
-
-## GitHub Actions
-
-GitHub actions lets us run tasks on GitHub automatically in response to an event. For example, running everytime we push changes to the `main` branch.
-
-We will use it to publish our app on GitHub Pages, as it means we can automatically update the app whenever we push changes to `main`.
-
-![](images/app_github_actions.drawio.png)
-
-
-
-
-## Workflow files
-
-GitHub actions are defined using workflow files. These are written in YAML (filetype `.yml` or `.yaml`), which is a text format for organising settings and instructions using labels, lists, and indentation.
-
-::: {.fragment}
-
-The workflow file specifies:
-
-* When to run (e.g., after a push to `main`).
-* What computer to use (e.g., Windows, MacOS, Ubuntu).
-* What steps to carry out.
-
-:::
-
-::: {.fragment}
-
-Workflow files must be stored in a `.github/workflows` folder of the repository. For example: `.github/workflows/deploy.yml`.
-
-:::
 
 
 
@@ -1548,7 +1514,6 @@ From your GitHub repository, click on "Settings" and then in the sidebar click o
 
 
 
-
 ## Enabling GitHub Pages
 
 Under Source, select `Deploy from a branch` (if not already selected).
@@ -1558,10 +1523,6 @@ Then select `main` and `/ (root)` and click `Save`.
 It should now say your site is "currently being built from the `main` branch".
 
 ![](images/pages_source.png){height=320px}
-
-## GitHub action to deploy our stlite app
-
-TODO: Work through action
 
 
 
