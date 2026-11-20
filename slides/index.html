@@ -1935,10 +1935,44 @@
 <span id="cb38-28"><a aria-label="28"></a><span class="dt">&lt;/</span><span class="kw">html</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
+<section id="streamlit-versions-in-stlite" class="slide level2">
+<h2>Streamlit versions in stlite</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>stlite includes a modified version of Streamlit, adapted to run in the browser. This is why we do not add <code>streamlit</code> to <code>&lt;app-requirements&gt;</code>.</p>
+<div class="fragment">
+<p>The stlite developers periodically update this version to the latest version of Streamlit, but may not always be up-to-date. New Streamlit features may therefore not be available immediately in stlite. Check the <a href="https://github.com/whitphx/stlite/releases">stlite release notes</a>, and test your app before upgrading.</p>
+</div>
+<div class="fragment">
+<p><strong>Each stlite release is pinned to a particular version of streamlit</strong>. For example, stlite <code>1.12.2</code> includes a build based on Streamlit <code>1.65.0</code>.</p>
+</div>
+</div><div class="column" style="width:50%;">
+<p><img data-src="gif/thinking.gif"></p>
+</div></div>
+</section>
+<section id="finding-which-streamlit-version-is-in-use" class="slide level2">
+<h2>Finding which streamlit version is in use</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>Via GitHub:</p>
+<ol type="1">
+<li>Open the <a href="https://github.com/whitphx/stlite/tree/%40stlite/browser%401.12.2">stlite release you are using on GitHub</a>.</li>
+<li>Click the <code>streamlit</code> submodule link (e.g., <code>streamlit @ 9c524f4</code>). This opens the exact Streamlit source code included in that release.</li>
+<li>Open <code>lib/pyproject.toml</code> and find <code>version</code> under <code>[project]</code>.</li>
+</ol>
+</div><div class="column" style="width:10%;">
+
+</div><div class="column" style="width:45%;">
+<div class="fragment">
+<p>Alternatively, run your app using your chosen stlite version and include this command to see which Streamlit build it uses:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a aria-label="1"></a>st.write(<span class="st">"Streamlit version:"</span>, st.__version__)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div></div>
+</section>
 <section id="try-out-the-stlite-app-locally" class="slide level2">
 <h2>Try out the stlite app locally</h2>
 <p><code>index.html</code> serves as the website’s starting page. To view the app locally, open a terminal in the folder containing <code>index.html</code> and run:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a aria-label="1"></a><span class="ex">python</span> <span class="at">-m</span> http.server 8000</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a aria-label="1"></a><span class="ex">python</span> <span class="at">-m</span> http.server 8000</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Then open <code>http://localhost:8000</code> in your browser. This lets us test the app on our own computer.</p>
 <p>To share it with others through a web address, we need to host its files online. GitHub Pages can host <code>index.html</code> and the other files our app needs. When someone visits the website, their browser downloads these files and runs the app using stlite.</p>
 </section></section>
@@ -1995,31 +2029,31 @@
 <p>These instructions assume your app files are in the repository root (the top-level folder).</p>
 <p>This is why we selected <code>/ (root)</code> when setting up GitHub Pages.</p>
 <p>For example:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb40-1"><a aria-label="1"></a>your-repository/</span>
-<span id="cb40-2"><a aria-label="2"></a>├── index.html</span>
-<span id="cb40-3"><a aria-label="3"></a>├── app.py</span>
-<span id="cb40-4"><a aria-label="4"></a>├── home.py</span>
-<span id="cb40-5"><a aria-label="5"></a>├── model.py</span>
-<span id="cb40-6"><a aria-label="6"></a>├── simulation.py</span>
-<span id="cb40-7"><a aria-label="7"></a>├── results.py</span>
-<span id="cb40-8"><a aria-label="8"></a>└── images/</span>
-<span id="cb40-9"><a aria-label="9"></a>    └── logo.png</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb41-1"><a aria-label="1"></a>your-repository/</span>
+<span id="cb41-2"><a aria-label="2"></a>├── index.html</span>
+<span id="cb41-3"><a aria-label="3"></a>├── app.py</span>
+<span id="cb41-4"><a aria-label="4"></a>├── home.py</span>
+<span id="cb41-5"><a aria-label="5"></a>├── model.py</span>
+<span id="cb41-6"><a aria-label="6"></a>├── simulation.py</span>
+<span id="cb41-7"><a aria-label="7"></a>├── results.py</span>
+<span id="cb41-8"><a aria-label="8"></a>└── images/</span>
+<span id="cb41-9"><a aria-label="9"></a>    └── logo.png</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="file-locations-1" class="slide level2">
 <h2>File locations</h2>
 <p>You can also organise your app files into subfolders.</p>
 <p>If <code>index.html</code> stays in the root, the GitHub Pages settings stay the same. Just update the paths in <code>index.html</code> to match your file locations.</p>
 <p>For example:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41" data-code-line-numbers="3-10"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb41-1"><a aria-label="1"></a>your-repository/</span>
-<span id="cb41-2"><a aria-label="2"></a>├── index.html</span>
-<span id="cb41-3"><a aria-label="3"></a>└── app/</span>
-<span id="cb41-4"><a aria-label="4"></a>    ├── app.py</span>
-<span id="cb41-5"><a aria-label="5"></a>    ├── home.py</span>
-<span id="cb41-6"><a aria-label="6"></a>    ├── model.py</span>
-<span id="cb41-7"><a aria-label="7"></a>    ├── simulation.py</span>
-<span id="cb41-8"><a aria-label="8"></a>    ├── results.py</span>
-<span id="cb41-9"><a aria-label="9"></a>    └── images/</span>
-<span id="cb41-10"><a aria-label="10"></a>        └── logo.png</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42" data-code-line-numbers="3-10"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb42-1"><a aria-label="1"></a>your-repository/</span>
+<span id="cb42-2"><a aria-label="2"></a>├── index.html</span>
+<span id="cb42-3"><a aria-label="3"></a>└── app/</span>
+<span id="cb42-4"><a aria-label="4"></a>    ├── app.py</span>
+<span id="cb42-5"><a aria-label="5"></a>    ├── home.py</span>
+<span id="cb42-6"><a aria-label="6"></a>    ├── model.py</span>
+<span id="cb42-7"><a aria-label="7"></a>    ├── simulation.py</span>
+<span id="cb42-8"><a aria-label="8"></a>    ├── results.py</span>
+<span id="cb42-9"><a aria-label="9"></a>    └── images/</span>
+<span id="cb42-10"><a aria-label="10"></a>        └── logo.png</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="file-locations-2" class="slide level2">
 <h2>File locations</h2>
@@ -2116,12 +2150,12 @@
 <p><code>page_icon</code>: The favicon, which is a small icon beside the browser tab’s title. Use an image, emoji or Material Symbols icon.</p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42" data-code-line-numbers="3-6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a aria-label="1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
-<span id="cb42-2"><a aria-label="2"></a></span>
-<span id="cb42-3"><a aria-label="3"></a>st.set_page_config(</span>
-<span id="cb42-4"><a aria-label="4"></a>    page_title<span class="op">=</span><span class="st">"Nurse simulation"</span>,</span>
-<span id="cb42-5"><a aria-label="5"></a>    page_icon<span class="op">=</span><span class="st">"🏥"</span>,</span>
-<span id="cb42-6"><a aria-label="6"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43" data-code-line-numbers="3-6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a aria-label="1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb43-2"><a aria-label="2"></a></span>
+<span id="cb43-3"><a aria-label="3"></a>st.set_page_config(</span>
+<span id="cb43-4"><a aria-label="4"></a>    page_title<span class="op">=</span><span class="st">"Nurse simulation"</span>,</span>
+<span id="cb43-5"><a aria-label="5"></a>    page_icon<span class="op">=</span><span class="st">"🏥"</span>,</span>
+<span id="cb43-6"><a aria-label="6"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:50%;">
 <p><img data-src="images/set_page_config_tab.png"></p>
 </div></div>
@@ -2132,16 +2166,16 @@
 <p>This is what an app looks like with <code>layout="centered"</code>.</p>
 <div class="columns">
 <div class="column" style="width:40%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43" data-code-line-numbers="3-5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a aria-label="1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
-<span id="cb43-2"><a aria-label="2"></a></span>
-<span id="cb43-3"><a aria-label="3"></a>st.set_page_config(</span>
-<span id="cb43-4"><a aria-label="4"></a>    layout<span class="op">=</span><span class="st">"centered"</span></span>
-<span id="cb43-5"><a aria-label="5"></a>)</span>
-<span id="cb43-6"><a aria-label="6"></a></span>
-<span id="cb43-7"><a aria-label="7"></a><span class="cf">with</span> st.sidebar:</span>
-<span id="cb43-8"><a aria-label="8"></a>    st.title(<span class="st">"Layout demo"</span>)</span>
-<span id="cb43-9"><a aria-label="9"></a></span>
-<span id="cb43-10"><a aria-label="10"></a>st.image(<span class="st">"backtothefuture.png"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44" data-code-line-numbers="3-5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a aria-label="1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb44-2"><a aria-label="2"></a></span>
+<span id="cb44-3"><a aria-label="3"></a>st.set_page_config(</span>
+<span id="cb44-4"><a aria-label="4"></a>    layout<span class="op">=</span><span class="st">"centered"</span></span>
+<span id="cb44-5"><a aria-label="5"></a>)</span>
+<span id="cb44-6"><a aria-label="6"></a></span>
+<span id="cb44-7"><a aria-label="7"></a><span class="cf">with</span> st.sidebar:</span>
+<span id="cb44-8"><a aria-label="8"></a>    st.title(<span class="st">"Layout demo"</span>)</span>
+<span id="cb44-9"><a aria-label="9"></a></span>
+<span id="cb44-10"><a aria-label="10"></a>st.image(<span class="st">"backtothefuture.png"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:60%;">
 <p><img data-src="images/layout_centered.png"></p>
 </div></div>
@@ -2152,16 +2186,16 @@
 <p>This is what an app looks like with <code>layout="wide"</code>.</p>
 <div class="columns">
 <div class="column" style="width:40%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44" data-code-line-numbers="3-5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a aria-label="1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
-<span id="cb44-2"><a aria-label="2"></a></span>
-<span id="cb44-3"><a aria-label="3"></a>st.set_page_config(</span>
-<span id="cb44-4"><a aria-label="4"></a>    layout<span class="op">=</span><span class="st">"wide"</span></span>
-<span id="cb44-5"><a aria-label="5"></a>)</span>
-<span id="cb44-6"><a aria-label="6"></a></span>
-<span id="cb44-7"><a aria-label="7"></a><span class="cf">with</span> st.sidebar:</span>
-<span id="cb44-8"><a aria-label="8"></a>    st.title(<span class="st">"Layout demo"</span>)</span>
-<span id="cb44-9"><a aria-label="9"></a></span>
-<span id="cb44-10"><a aria-label="10"></a>st.image(<span class="st">"backtothefuture.png"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45" data-code-line-numbers="3-5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a aria-label="1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb45-2"><a aria-label="2"></a></span>
+<span id="cb45-3"><a aria-label="3"></a>st.set_page_config(</span>
+<span id="cb45-4"><a aria-label="4"></a>    layout<span class="op">=</span><span class="st">"wide"</span></span>
+<span id="cb45-5"><a aria-label="5"></a>)</span>
+<span id="cb45-6"><a aria-label="6"></a></span>
+<span id="cb45-7"><a aria-label="7"></a><span class="cf">with</span> st.sidebar:</span>
+<span id="cb45-8"><a aria-label="8"></a>    st.title(<span class="st">"Layout demo"</span>)</span>
+<span id="cb45-9"><a aria-label="9"></a></span>
+<span id="cb45-10"><a aria-label="10"></a>st.image(<span class="st">"backtothefuture.png"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:60%;">
 <p><img data-src="images/layout_wide.png"></p>
 </div></div>
@@ -2171,14 +2205,14 @@
 <p>This command creates a logo in the app. You can provide a path to an image, or an emoji or material symbols icon. For example:</p>
 <div class="columns">
 <div class="column" style="width:40%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45" data-code-line-numbers="3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a aria-label="1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
-<span id="cb45-2"><a aria-label="2"></a></span>
-<span id="cb45-3"><a aria-label="3"></a>st.logo(<span class="st">"nihr_logo.png"</span>)</span>
-<span id="cb45-4"><a aria-label="4"></a></span>
-<span id="cb45-5"><a aria-label="5"></a><span class="cf">with</span> st.sidebar:</span>
-<span id="cb45-6"><a aria-label="6"></a>    st.title(<span class="st">"Logo demo"</span>)</span>
-<span id="cb45-7"><a aria-label="7"></a></span>
-<span id="cb45-8"><a aria-label="8"></a>st.write(<span class="st">"This app has a logo in the sidebar"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46" data-code-line-numbers="3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a aria-label="1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb46-2"><a aria-label="2"></a></span>
+<span id="cb46-3"><a aria-label="3"></a>st.logo(<span class="st">"nihr_logo.png"</span>)</span>
+<span id="cb46-4"><a aria-label="4"></a></span>
+<span id="cb46-5"><a aria-label="5"></a><span class="cf">with</span> st.sidebar:</span>
+<span id="cb46-6"><a aria-label="6"></a>    st.title(<span class="st">"Logo demo"</span>)</span>
+<span id="cb46-7"><a aria-label="7"></a></span>
+<span id="cb46-8"><a aria-label="8"></a>st.write(<span class="st">"This app has a logo in the sidebar"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:60%;">
 <p><img data-src="images/logo.png"></p>
 </div></div>
@@ -2190,16 +2224,16 @@
 <div class="columns">
 <div class="column" style="width:40%;">
 <p><br></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46" data-code-line-numbers="8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a aria-label="1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
-<span id="cb46-2"><a aria-label="2"></a></span>
-<span id="cb46-3"><a aria-label="3"></a>pg <span class="op">=</span> st.navigation(</span>
-<span id="cb46-4"><a aria-label="4"></a>    pages<span class="op">=</span>[</span>
-<span id="cb46-5"><a aria-label="5"></a>        st.Page(<span class="st">"page1.py"</span>),</span>
-<span id="cb46-6"><a aria-label="6"></a>        st.Page(<span class="st">"page2.py"</span>),</span>
-<span id="cb46-7"><a aria-label="7"></a>    ],</span>
-<span id="cb46-8"><a aria-label="8"></a>    position<span class="op">=</span><span class="st">"top"</span>,</span>
-<span id="cb46-9"><a aria-label="9"></a>)</span>
-<span id="cb46-10"><a aria-label="10"></a>pg.run()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47" data-code-line-numbers="8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a aria-label="1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb47-2"><a aria-label="2"></a></span>
+<span id="cb47-3"><a aria-label="3"></a>pg <span class="op">=</span> st.navigation(</span>
+<span id="cb47-4"><a aria-label="4"></a>    pages<span class="op">=</span>[</span>
+<span id="cb47-5"><a aria-label="5"></a>        st.Page(<span class="st">"page1.py"</span>),</span>
+<span id="cb47-6"><a aria-label="6"></a>        st.Page(<span class="st">"page2.py"</span>),</span>
+<span id="cb47-7"><a aria-label="7"></a>    ],</span>
+<span id="cb47-8"><a aria-label="8"></a>    position<span class="op">=</span><span class="st">"top"</span>,</span>
+<span id="cb47-9"><a aria-label="9"></a>)</span>
+<span id="cb47-10"><a aria-label="10"></a>pg.run()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:60%;">
 <p><img data-src="images/navbar.png"></p>
 </div></div>
@@ -2207,10 +2241,10 @@
 <section id="config.toml" class="slide level2">
 <h2><code>config.toml</code></h2>
 <p>Create a <code>.streamlit</code> folder in your project folder, then add a <code>config.toml</code> file:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb47-1"><a aria-label="1"></a>your-app/</span>
-<span id="cb47-2"><a aria-label="2"></a>├── app.py</span>
-<span id="cb47-3"><a aria-label="3"></a>└── .streamlit/</span>
-<span id="cb47-4"><a aria-label="4"></a>    └── config.toml</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb48-1"><a aria-label="1"></a>your-app/</span>
+<span id="cb48-2"><a aria-label="2"></a>├── app.py</span>
+<span id="cb48-3"><a aria-label="3"></a>└── .streamlit/</span>
+<span id="cb48-4"><a aria-label="4"></a>    └── config.toml</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This is a configuration file. It can control things like logging, error messages, and caching.</p>
 <p>We’ll focus now on using it to customise the app’s theme.</p>
 </section>
@@ -2218,27 +2252,27 @@
 <h2><code>config.toml</code> theme</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb48-1"><a aria-label="1"></a><span class="kw">[theme]</span></span>
-<span id="cb48-2"><a aria-label="2"></a></span>
-<span id="cb48-3"><a aria-label="3"></a><span class="co"># Theme that your custom theme inherits from</span></span>
-<span id="cb48-4"><a aria-label="4"></a><span class="co"># Can be Streamlit's default light or dark theme</span></span>
-<span id="cb48-5"><a aria-label="5"></a><span class="co"># Or a local file path or URL to a custom theme.toml file</span></span>
-<span id="cb48-6"><a aria-label="6"></a><span class="dt">base</span> <span class="op">=</span> <span class="st">"light"</span></span>
-<span id="cb48-7"><a aria-label="7"></a></span>
-<span id="cb48-8"><a aria-label="8"></a><span class="co"># Primary accent colour for interactive elements</span></span>
-<span id="cb48-9"><a aria-label="9"></a><span class="dt">primaryColor</span> <span class="op">=</span> <span class="st">"#2563EB"</span></span>
-<span id="cb48-10"><a aria-label="10"></a></span>
-<span id="cb48-11"><a aria-label="11"></a><span class="co">#  Background colour for the main content area</span></span>
-<span id="cb48-12"><a aria-label="12"></a><span class="dt">backgroundColor</span> <span class="op">=</span> <span class="st">"#FFFCF5"</span></span>
-<span id="cb48-13"><a aria-label="13"></a></span>
-<span id="cb48-14"><a aria-label="14"></a><span class="co"># Secondary background colour, used for widgets and the sidebar</span></span>
-<span id="cb48-15"><a aria-label="15"></a><span class="dt">secondaryBackgroundColor</span> <span class="op">=</span> <span class="st">"#DEEAF6"</span></span>
-<span id="cb48-16"><a aria-label="16"></a></span>
-<span id="cb48-17"><a aria-label="17"></a><span class="co"># Default text colour</span></span>
-<span id="cb48-18"><a aria-label="18"></a><span class="dt">textColor</span> <span class="op">=</span> <span class="st">"#172B4D"</span></span>
-<span id="cb48-19"><a aria-label="19"></a></span>
-<span id="cb48-20"><a aria-label="20"></a><span class="co"># Default font, excluding code</span></span>
-<span id="cb48-21"><a aria-label="21"></a><span class="dt">font</span> <span class="op">=</span> <span class="st">"sans-serif"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb49-1"><a aria-label="1"></a><span class="kw">[theme]</span></span>
+<span id="cb49-2"><a aria-label="2"></a></span>
+<span id="cb49-3"><a aria-label="3"></a><span class="co"># Theme that your custom theme inherits from</span></span>
+<span id="cb49-4"><a aria-label="4"></a><span class="co"># Can be Streamlit's default light or dark theme</span></span>
+<span id="cb49-5"><a aria-label="5"></a><span class="co"># Or a local file path or URL to a custom theme.toml file</span></span>
+<span id="cb49-6"><a aria-label="6"></a><span class="dt">base</span> <span class="op">=</span> <span class="st">"light"</span></span>
+<span id="cb49-7"><a aria-label="7"></a></span>
+<span id="cb49-8"><a aria-label="8"></a><span class="co"># Primary accent colour for interactive elements</span></span>
+<span id="cb49-9"><a aria-label="9"></a><span class="dt">primaryColor</span> <span class="op">=</span> <span class="st">"#2563EB"</span></span>
+<span id="cb49-10"><a aria-label="10"></a></span>
+<span id="cb49-11"><a aria-label="11"></a><span class="co">#  Background colour for the main content area</span></span>
+<span id="cb49-12"><a aria-label="12"></a><span class="dt">backgroundColor</span> <span class="op">=</span> <span class="st">"#FFFCF5"</span></span>
+<span id="cb49-13"><a aria-label="13"></a></span>
+<span id="cb49-14"><a aria-label="14"></a><span class="co"># Secondary background colour, used for widgets and the sidebar</span></span>
+<span id="cb49-15"><a aria-label="15"></a><span class="dt">secondaryBackgroundColor</span> <span class="op">=</span> <span class="st">"#DEEAF6"</span></span>
+<span id="cb49-16"><a aria-label="16"></a></span>
+<span id="cb49-17"><a aria-label="17"></a><span class="co"># Default text colour</span></span>
+<span id="cb49-18"><a aria-label="18"></a><span class="dt">textColor</span> <span class="op">=</span> <span class="st">"#172B4D"</span></span>
+<span id="cb49-19"><a aria-label="19"></a></span>
+<span id="cb49-20"><a aria-label="20"></a><span class="co"># Default font, excluding code</span></span>
+<span id="cb49-21"><a aria-label="21"></a><span class="dt">font</span> <span class="op">=</span> <span class="st">"sans-serif"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:40%;">
 <p>Define your theme settings under <code>[theme]</code>. There are lots of options - we have included a few of the main ones here.</p>
 <p>Use <code>[theme.sidebar]</code> to override settings specifically for the sidebar.</p>
@@ -2250,12 +2284,12 @@
 <p>This is what the default light theme looks like.</p>
 <div class="columns">
 <div class="column" style="width:45%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb49-1"><a aria-label="1"></a><span class="kw">[theme]</span></span>
-<span id="cb49-2"><a aria-label="2"></a></span>
-<span id="cb49-3"><a aria-label="3"></a><span class="co"># Theme that your custom theme inherits from</span></span>
-<span id="cb49-4"><a aria-label="4"></a><span class="co"># Can be Streamlit's default light or dark theme</span></span>
-<span id="cb49-5"><a aria-label="5"></a><span class="co"># Or a local file path or URL to a custom theme.toml file</span></span>
-<span id="cb49-6"><a aria-label="6"></a><span class="dt">base</span> <span class="op">=</span> <span class="st">"light"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb50-1"><a aria-label="1"></a><span class="kw">[theme]</span></span>
+<span id="cb50-2"><a aria-label="2"></a></span>
+<span id="cb50-3"><a aria-label="3"></a><span class="co"># Theme that your custom theme inherits from</span></span>
+<span id="cb50-4"><a aria-label="4"></a><span class="co"># Can be Streamlit's default light or dark theme</span></span>
+<span id="cb50-5"><a aria-label="5"></a><span class="co"># Or a local file path or URL to a custom theme.toml file</span></span>
+<span id="cb50-6"><a aria-label="6"></a><span class="dt">base</span> <span class="op">=</span> <span class="st">"light"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:55%;">
 <p><img data-src="images/theme_light.png"></p>
 </div></div>
@@ -2265,12 +2299,12 @@
 <p>This is what the default dark theme looks like.</p>
 <div class="columns">
 <div class="column" style="width:45%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb50-1"><a aria-label="1"></a><span class="kw">[theme]</span></span>
-<span id="cb50-2"><a aria-label="2"></a></span>
-<span id="cb50-3"><a aria-label="3"></a><span class="co"># Theme that your custom theme inherits from</span></span>
-<span id="cb50-4"><a aria-label="4"></a><span class="co"># Can be Streamlit's default light or dark theme</span></span>
-<span id="cb50-5"><a aria-label="5"></a><span class="co"># Or a local file path or URL to a custom theme.toml file</span></span>
-<span id="cb50-6"><a aria-label="6"></a><span class="dt">base</span> <span class="op">=</span> <span class="st">"dark"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb51-1"><a aria-label="1"></a><span class="kw">[theme]</span></span>
+<span id="cb51-2"><a aria-label="2"></a></span>
+<span id="cb51-3"><a aria-label="3"></a><span class="co"># Theme that your custom theme inherits from</span></span>
+<span id="cb51-4"><a aria-label="4"></a><span class="co"># Can be Streamlit's default light or dark theme</span></span>
+<span id="cb51-5"><a aria-label="5"></a><span class="co"># Or a local file path or URL to a custom theme.toml file</span></span>
+<span id="cb51-6"><a aria-label="6"></a><span class="dt">base</span> <span class="op">=</span> <span class="st">"dark"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:55%;">
 <p><img data-src="images/theme_dark.png"></p>
 </div></div>
@@ -2280,27 +2314,27 @@
 <p>This is an example of a custom theme.</p>
 <div class="columns">
 <div class="column" style="width:45%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb51-1"><a aria-label="1"></a><span class="kw">[theme]</span></span>
-<span id="cb51-2"><a aria-label="2"></a></span>
-<span id="cb51-3"><a aria-label="3"></a><span class="co"># Theme that your custom theme inherits from</span></span>
-<span id="cb51-4"><a aria-label="4"></a><span class="co"># Can be Streamlit's default light or dark theme</span></span>
-<span id="cb51-5"><a aria-label="5"></a><span class="co"># Or a local file path or URL to a custom theme.toml file</span></span>
-<span id="cb51-6"><a aria-label="6"></a><span class="dt">base</span> <span class="op">=</span> <span class="st">"light"</span></span>
-<span id="cb51-7"><a aria-label="7"></a></span>
-<span id="cb51-8"><a aria-label="8"></a><span class="co"># Primary accent colour for interactive elements</span></span>
-<span id="cb51-9"><a aria-label="9"></a><span class="dt">primaryColor</span> <span class="op">=</span> <span class="st">"#2563EB"</span></span>
-<span id="cb51-10"><a aria-label="10"></a></span>
-<span id="cb51-11"><a aria-label="11"></a><span class="co">#  Background colour for the main content area</span></span>
-<span id="cb51-12"><a aria-label="12"></a><span class="dt">backgroundColor</span> <span class="op">=</span> <span class="st">"#FFFCF5"</span></span>
-<span id="cb51-13"><a aria-label="13"></a></span>
-<span id="cb51-14"><a aria-label="14"></a><span class="co"># Secondary background colour, used for widgets and the sidebar</span></span>
-<span id="cb51-15"><a aria-label="15"></a><span class="dt">secondaryBackgroundColor</span> <span class="op">=</span> <span class="st">"#DEEAF6"</span></span>
-<span id="cb51-16"><a aria-label="16"></a></span>
-<span id="cb51-17"><a aria-label="17"></a><span class="co"># Default text colour</span></span>
-<span id="cb51-18"><a aria-label="18"></a><span class="dt">textColor</span> <span class="op">=</span> <span class="st">"#172B4D"</span></span>
-<span id="cb51-19"><a aria-label="19"></a></span>
-<span id="cb51-20"><a aria-label="20"></a><span class="co"># Default font, excluding code</span></span>
-<span id="cb51-21"><a aria-label="21"></a><span class="dt">font</span> <span class="op">=</span> <span class="st">"sans-serif"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb52-1"><a aria-label="1"></a><span class="kw">[theme]</span></span>
+<span id="cb52-2"><a aria-label="2"></a></span>
+<span id="cb52-3"><a aria-label="3"></a><span class="co"># Theme that your custom theme inherits from</span></span>
+<span id="cb52-4"><a aria-label="4"></a><span class="co"># Can be Streamlit's default light or dark theme</span></span>
+<span id="cb52-5"><a aria-label="5"></a><span class="co"># Or a local file path or URL to a custom theme.toml file</span></span>
+<span id="cb52-6"><a aria-label="6"></a><span class="dt">base</span> <span class="op">=</span> <span class="st">"light"</span></span>
+<span id="cb52-7"><a aria-label="7"></a></span>
+<span id="cb52-8"><a aria-label="8"></a><span class="co"># Primary accent colour for interactive elements</span></span>
+<span id="cb52-9"><a aria-label="9"></a><span class="dt">primaryColor</span> <span class="op">=</span> <span class="st">"#2563EB"</span></span>
+<span id="cb52-10"><a aria-label="10"></a></span>
+<span id="cb52-11"><a aria-label="11"></a><span class="co">#  Background colour for the main content area</span></span>
+<span id="cb52-12"><a aria-label="12"></a><span class="dt">backgroundColor</span> <span class="op">=</span> <span class="st">"#FFFCF5"</span></span>
+<span id="cb52-13"><a aria-label="13"></a></span>
+<span id="cb52-14"><a aria-label="14"></a><span class="co"># Secondary background colour, used for widgets and the sidebar</span></span>
+<span id="cb52-15"><a aria-label="15"></a><span class="dt">secondaryBackgroundColor</span> <span class="op">=</span> <span class="st">"#DEEAF6"</span></span>
+<span id="cb52-16"><a aria-label="16"></a></span>
+<span id="cb52-17"><a aria-label="17"></a><span class="co"># Default text colour</span></span>
+<span id="cb52-18"><a aria-label="18"></a><span class="dt">textColor</span> <span class="op">=</span> <span class="st">"#172B4D"</span></span>
+<span id="cb52-19"><a aria-label="19"></a></span>
+<span id="cb52-20"><a aria-label="20"></a><span class="co"># Default font, excluding code</span></span>
+<span id="cb52-21"><a aria-label="21"></a><span class="dt">font</span> <span class="op">=</span> <span class="st">"sans-serif"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:55%;">
 <p><img data-src="images/theme_custom.png"></p>
 </div></div>
@@ -2310,10 +2344,10 @@
 <p>For additional customisation, we can use CSS (Cascading Style Sheets). CSS is a language that controls how web content look.</p>
 <p>Use config.toml for the overall theme, and Streamlit’s built-in options wherever possible. CSS is useful for more specific styling that these options don’t support.</p>
 <p>We can write these styles in a <code>.css</code> file and load them into our app using <code>st.html()</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a aria-label="1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
-<span id="cb52-2"><a aria-label="2"></a></span>
-<span id="cb52-3"><a aria-label="3"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"style.css"</span>) <span class="im">as</span> css:</span>
-<span id="cb52-4"><a aria-label="4"></a>    st.html(<span class="ss">f"&lt;style&gt;</span><span class="sc">{</span>css<span class="sc">.</span>read()<span class="sc">}</span><span class="ss">&lt;/style&gt;"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a aria-label="1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb53-2"><a aria-label="2"></a></span>
+<span id="cb53-3"><a aria-label="3"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"style.css"</span>) <span class="im">as</span> css:</span>
+<span id="cb53-4"><a aria-label="4"></a>    st.html(<span class="ss">f"&lt;style&gt;</span><span class="sc">{</span>css<span class="sc">.</span>read()<span class="sc">}</span><span class="ss">&lt;/style&gt;"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Streamlit has introduced lots of new features over the last few years. You may find older tutorial using CSS, but those features are now supported directly by Streamlit, so it’s always worth checking the current documentaiton.</p>
 </section></section>
 <section>
