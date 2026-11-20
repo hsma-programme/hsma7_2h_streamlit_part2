@@ -1362,6 +1362,37 @@ The closing tags at the end mark where the app, page body and HTML document fini
 
 ::: {.column width="50%"}
 
+Having said that, you'll notice these are pinned to a particular version of stlite: `@stlite/browser@1.12.2`.
+
+If a new version is released since the development of these slides, you may wish to upgrade to that - you can see the latest version in the stlite GitHub releases: <https://github.com/whitphx/stlite/releases>.
+
+stlite recommend pinning to a version as they say their API may change without backwards compatability in future releases.
+
+:::
+
+::: {.column width="50%"}
+
+```{.html code-line-numbers="7-8"}
+{{< include ../app/index.html >}}
+```
+
+:::
+
+::::
+
+
+
+
+## Running a Streamlit app with stlite
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+<br>
+
+Moving on, these are things you'll want to amend for your own app...
+
 <br>
 
 `<title>` sets the browser tab's initial title.
@@ -1612,47 +1643,90 @@ For simplicity, we recommend keeping `index.html` in the repository root. The ot
 
 
 
+# Other hosting options
 
-# Exercise 2
-
-
-
-
-## Exercise 2
+## All aboard the Enterprise
 
 :::: {.columns}
 
-::: {.column width="45%"}
+::: {.column width="60%"}
 
 <br>
 
-Deploy your app using stlite and GitHub pages.
+If you're lucky enough to be working in a progressive organisation, you may have access to a service like **Posit Connect**, **Plotly Dash Enterprise** or **Snowflake**.
 
 :::
 
-::: {.column width="5%"}
+::: {.column width="40%"}
+
+![](images/enterprise.jpg){height=200px}
+
+:::
+
+::::
+
+These services massively simplify the deployment and hosting of Streamlit apps, along with a series of bells and whistles like permission management/user authentication support.
+
+It usually means someone else has already dealt with (most of) the messy stuff around secure sharing of data.
+
+
+
+
+
+## All aboard the Enterprise
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+![](images/posit_connect.png)
 
 :::
 
 ::: {.column width="50%"}
 
-::: {style="display: flex; justify-content: flex-end;"}
-::: {.value-box icon="fa-solid fa-clock" icon-position="left" icon-size="2em" min-height="0" padding="0.4rem 1rem" width="350px"}
-?? minutes + ?? minute break
-:::
-:::
-
-::: {style="font-size: 80%"}
-
-> **Extensions**
-> 
-> * .
-
-:::
+For example, from Posit Connect, you can deploy Streamlit apps with just a few lines - as well as Shiny apps (in R or Python), Quarto documents (with scheduled refresh), Dash apps...
 
 :::
 
 ::::
+
+
+
+
+## Name your price
+
+:::: {.columns}
+
+::: {.column width="60%"}
+
+Price - and/or the way pricing is calculated - can often be a barrier for organisations. 
+
+![](images/posit_connect_enhanced.png){height=200px}
+
+E.g., the "enhanced" tier of Posit Connect
+
+However, the efficiency savings by working with a tool like this have the potential to be **huge**.
+
+Posit in particular have some history of working with NHS organisations to make pricing available that will work.
+
+:::
+
+::: {.column width="10%"}
+:::
+
+::: {.column width="30%"}
+
+> ![](gif/looking.gif)
+> 
+> Anyone using these? Shout out or pop it in the chat!
+
+:::
+
+::::
+
+
+
 
 
 # Customising app appearance
@@ -1949,12 +2023,12 @@ Streamlit has introduced lots of new features over the last few years. You may f
 
 
 
-# Exercise 3
+# Exercise 2
 
 
 
 
-## Exercise 3
+## Exercise 2
 
 :::: {.columns}
 
@@ -1962,12 +2036,16 @@ Streamlit has introduced lots of new features over the last few years. You may f
 
 <br>
 
-Customise your app. You could try:
+Deploy your app using stlite and GitHub pages.
+
+Then customise your app. You could try:
 
 * Setting `st.set_page_config`.
 * Adding `st.logo()`.
 * Moving navigation menu to top of screen.
 * Adding `config.toml` with a custom theme.
+
+Remember if add new files will need to add those to `index.html`.
 
 :::
 
