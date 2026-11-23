@@ -240,7 +240,7 @@ We'll add new code to:
 
 ::: {.column width="50%"}
 
-```{.python code-line-numbers="79-100"}
+```{.python code-line-numbers="92,109-130"}
 {{< include code/page_sim/simulation.py >}}
 {{< include code/page_sim/simulation_save.py >}}
 ```
