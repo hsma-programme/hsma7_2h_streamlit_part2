@@ -36,8 +36,8 @@ fig.update_layout(
 st.plotly_chart(fig)
 
 with st.expander("View underlying data from each replication"):
-    st.dataframe(
-        results["df"][
+
+    underlying = results["df"][
             [
                 "replication_id",
                 "patient_counter",
@@ -46,4 +46,10 @@ with st.expander("View underlying data from each replication"):
                 "perc_90_q_time_nurse",
             ]
         ]
+
+    st.dataframe(underlying)
+
+    st.download_button(
+        label="Download table as CSV",
+        data=underlying.to_csv().encode("utf-8"),
     )
