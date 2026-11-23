@@ -344,106 +344,136 @@
 <li><p>Save its settings and results in <code>st.session_state.scenarios</code>.</p></li>
 </ol>
 </div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-code-line-numbers="79-100"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-label="1"></a><span class="co">"""Simple single-page app."""</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-code-line-numbers="92,109-130"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-label="1"></a><span class="co">"""Simple single-page app."""</span></span>
 <span id="cb4-2"><a aria-label="2"></a></span>
 <span id="cb4-3"><a aria-label="3"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
 <span id="cb4-4"><a aria-label="4"></a><span class="im">from</span> model <span class="im">import</span> Param, Trial</span>
 <span id="cb4-5"><a aria-label="5"></a></span>
-<span id="cb4-6"><a aria-label="6"></a><span class="cf">with</span> st.container(border<span class="op">=</span><span class="va">True</span>):</span>
-<span id="cb4-7"><a aria-label="7"></a>    st.subheader(<span class="st">"Patients"</span>)</span>
-<span id="cb4-8"><a aria-label="8"></a></span>
-<span id="cb4-9"><a aria-label="9"></a>    st.slider(</span>
-<span id="cb4-10"><a aria-label="10"></a>        label<span class="op">=</span><span class="st">"Mean patient inter-arrival time (minutes)"</span>,</span>
-<span id="cb4-11"><a aria-label="11"></a>        min_value<span class="op">=</span><span class="fl">3.0</span>,</span>
-<span id="cb4-12"><a aria-label="12"></a>        max_value<span class="op">=</span><span class="fl">7.0</span>,</span>
-<span id="cb4-13"><a aria-label="13"></a>        value<span class="op">=</span><span class="fl">5.0</span>,</span>
-<span id="cb4-14"><a aria-label="14"></a>        step<span class="op">=</span><span class="fl">0.25</span>,</span>
-<span id="cb4-15"><a aria-label="15"></a>        key<span class="op">=</span><span class="st">"mean_patient_inter"</span>,</span>
-<span id="cb4-16"><a aria-label="16"></a>    )</span>
+<span id="cb4-6"><a aria-label="6"></a></span>
+<span id="cb4-7"><a aria-label="7"></a>DEFAULTS <span class="op">=</span> {</span>
+<span id="cb4-8"><a aria-label="8"></a>    <span class="st">"mean_patient_inter"</span>: <span class="fl">5.0</span>,</span>
+<span id="cb4-9"><a aria-label="9"></a>    <span class="st">"mean_nurse_consult_time"</span>: <span class="fl">6.0</span>,</span>
+<span id="cb4-10"><a aria-label="10"></a>    <span class="st">"sd_nurse_consult_time"</span>: <span class="fl">1.0</span>,</span>
+<span id="cb4-11"><a aria-label="11"></a>    <span class="st">"num_nurses"</span>: <span class="dv">1</span>,</span>
+<span id="cb4-12"><a aria-label="12"></a>    <span class="st">"nurse_cost_per_hour"</span>: <span class="fl">30.0</span>,</span>
+<span id="cb4-13"><a aria-label="13"></a>    <span class="st">"sim_duration"</span>: <span class="dv">120</span>,</span>
+<span id="cb4-14"><a aria-label="14"></a>    <span class="st">"num_replications"</span>: <span class="dv">30</span>,</span>
+<span id="cb4-15"><a aria-label="15"></a>}</span>
+<span id="cb4-16"><a aria-label="16"></a></span>
 <span id="cb4-17"><a aria-label="17"></a></span>
-<span id="cb4-18"><a aria-label="18"></a>    st.subheader(<span class="st">"Nurses"</span>)</span>
-<span id="cb4-19"><a aria-label="19"></a></span>
-<span id="cb4-20"><a aria-label="20"></a>    st.number_input(</span>
-<span id="cb4-21"><a aria-label="21"></a>        label<span class="op">=</span><span class="st">"Mean nurse consultation length (minutes)"</span>,</span>
-<span id="cb4-22"><a aria-label="22"></a>        min_value<span class="op">=</span><span class="fl">3.0</span>,</span>
-<span id="cb4-23"><a aria-label="23"></a>        max_value<span class="op">=</span><span class="fl">9.0</span>,</span>
-<span id="cb4-24"><a aria-label="24"></a>        value<span class="op">=</span><span class="fl">6.0</span>,</span>
-<span id="cb4-25"><a aria-label="25"></a>        key<span class="op">=</span><span class="st">"mean_nurse_consult_time"</span>,</span>
-<span id="cb4-26"><a aria-label="26"></a>    )</span>
-<span id="cb4-27"><a aria-label="27"></a></span>
-<span id="cb4-28"><a aria-label="28"></a>    st.number_input(</span>
-<span id="cb4-29"><a aria-label="29"></a>        label<span class="op">=</span><span class="st">"Standard deviation of nurse consultation length (minutes)"</span>,</span>
-<span id="cb4-30"><a aria-label="30"></a>        min_value<span class="op">=</span><span class="fl">0.0</span>,</span>
-<span id="cb4-31"><a aria-label="31"></a>        value<span class="op">=</span><span class="fl">1.0</span>,</span>
-<span id="cb4-32"><a aria-label="32"></a>        key<span class="op">=</span><span class="st">"sd_nurse_consult_time"</span>,</span>
+<span id="cb4-18"><a aria-label="18"></a><span class="kw">def</span> reset_widgets():</span>
+<span id="cb4-19"><a aria-label="19"></a>    <span class="cf">for</span> key, value <span class="kw">in</span> DEFAULTS.items():</span>
+<span id="cb4-20"><a aria-label="20"></a>        st.session_state[key] <span class="op">=</span> value</span>
+<span id="cb4-21"><a aria-label="21"></a></span>
+<span id="cb4-22"><a aria-label="22"></a></span>
+<span id="cb4-23"><a aria-label="23"></a><span class="cf">with</span> st.container(border<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb4-24"><a aria-label="24"></a>    st.subheader(<span class="st">"Patients"</span>)</span>
+<span id="cb4-25"><a aria-label="25"></a></span>
+<span id="cb4-26"><a aria-label="26"></a>    st.slider(</span>
+<span id="cb4-27"><a aria-label="27"></a>        label<span class="op">=</span><span class="st">"Mean patient inter-arrival time (minutes)"</span>,</span>
+<span id="cb4-28"><a aria-label="28"></a>        min_value<span class="op">=</span><span class="fl">3.0</span>,</span>
+<span id="cb4-29"><a aria-label="29"></a>        max_value<span class="op">=</span><span class="fl">7.0</span>,</span>
+<span id="cb4-30"><a aria-label="30"></a>        value<span class="op">=</span>DEFAULTS[<span class="st">"mean_patient_inter"</span>],</span>
+<span id="cb4-31"><a aria-label="31"></a>        step<span class="op">=</span><span class="fl">0.25</span>,</span>
+<span id="cb4-32"><a aria-label="32"></a>        key<span class="op">=</span><span class="st">"mean_patient_inter"</span>,</span>
 <span id="cb4-33"><a aria-label="33"></a>    )</span>
 <span id="cb4-34"><a aria-label="34"></a></span>
-<span id="cb4-35"><a aria-label="35"></a>    st.pills(label<span class="op">=</span><span class="st">"Number of nurses"</span>, options<span class="op">=</span><span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">5</span>), default<span class="op">=</span><span class="dv">1</span>, key<span class="op">=</span><span class="st">"num_nurses"</span>)</span>
+<span id="cb4-35"><a aria-label="35"></a>    st.subheader(<span class="st">"Nurses"</span>)</span>
 <span id="cb4-36"><a aria-label="36"></a></span>
-<span id="cb4-37"><a aria-label="37"></a>    st.number_input(</span>
-<span id="cb4-38"><a aria-label="38"></a>        label<span class="op">=</span><span class="st">"Cost per nurse per hour (£)"</span>,</span>
-<span id="cb4-39"><a aria-label="39"></a>        min_value<span class="op">=</span><span class="fl">0.0</span>,</span>
-<span id="cb4-40"><a aria-label="40"></a>        value<span class="op">=</span><span class="fl">30.0</span>,</span>
-<span id="cb4-41"><a aria-label="41"></a>        step<span class="op">=</span><span class="fl">1.0</span>,</span>
-<span id="cb4-42"><a aria-label="42"></a>        key<span class="op">=</span><span class="st">"nurse_cost_per_hour"</span>,</span>
-<span id="cb4-43"><a aria-label="43"></a>        <span class="bu">help</span><span class="op">=</span><span class="st">"Nurses are costed for the full simulation duration, including time when they are not seeing patients"</span>,</span>
-<span id="cb4-44"><a aria-label="44"></a>    )</span>
-<span id="cb4-45"><a aria-label="45"></a></span>
-<span id="cb4-46"><a aria-label="46"></a>    st.space(size<span class="op">=</span><span class="st">"xxsmall"</span>)</span>
-<span id="cb4-47"><a aria-label="47"></a>    st.subheader(<span class="st">"Simulation"</span>)</span>
-<span id="cb4-48"><a aria-label="48"></a></span>
-<span id="cb4-49"><a aria-label="49"></a>    st.slider(</span>
-<span id="cb4-50"><a aria-label="50"></a>        label<span class="op">=</span><span class="st">"Simulation duration (minutes)"</span>,</span>
-<span id="cb4-51"><a aria-label="51"></a>        min_value<span class="op">=</span><span class="dv">50</span>,</span>
-<span id="cb4-52"><a aria-label="52"></a>        max_value<span class="op">=</span><span class="dv">200</span>,</span>
-<span id="cb4-53"><a aria-label="53"></a>        value<span class="op">=</span><span class="dv">120</span>,</span>
-<span id="cb4-54"><a aria-label="54"></a>        key<span class="op">=</span><span class="st">"sim_duration"</span>,</span>
-<span id="cb4-55"><a aria-label="55"></a>    )</span>
-<span id="cb4-56"><a aria-label="56"></a></span>
-<span id="cb4-57"><a aria-label="57"></a>    st.slider(</span>
-<span id="cb4-58"><a aria-label="58"></a>        label<span class="op">=</span><span class="st">"Number of replications"</span>,</span>
-<span id="cb4-59"><a aria-label="59"></a>        min_value<span class="op">=</span><span class="dv">10</span>,</span>
-<span id="cb4-60"><a aria-label="60"></a>        max_value<span class="op">=</span><span class="dv">50</span>,</span>
-<span id="cb4-61"><a aria-label="61"></a>        value<span class="op">=</span><span class="dv">30</span>,</span>
-<span id="cb4-62"><a aria-label="62"></a>        key<span class="op">=</span><span class="st">"num_replications"</span>,</span>
-<span id="cb4-63"><a aria-label="63"></a>    )</span>
-<span id="cb4-64"><a aria-label="64"></a></span>
-<span id="cb4-65"><a aria-label="65"></a><span class="cf">if</span> st.button(<span class="st">"Run simulation"</span>, <span class="bu">type</span><span class="op">=</span><span class="st">"primary"</span>):</span>
-<span id="cb4-66"><a aria-label="66"></a>    params <span class="op">=</span> Param(</span>
-<span id="cb4-67"><a aria-label="67"></a>        mean_patient_inter<span class="op">=</span>st.session_state.mean_patient_inter,</span>
-<span id="cb4-68"><a aria-label="68"></a>        mean_nurse_consult_time<span class="op">=</span>st.session_state.mean_nurse_consult_time,</span>
-<span id="cb4-69"><a aria-label="69"></a>        sd_nurse_consult_time<span class="op">=</span>st.session_state.sd_nurse_consult_time,</span>
-<span id="cb4-70"><a aria-label="70"></a>        num_nurses<span class="op">=</span>st.session_state.num_nurses,</span>
-<span id="cb4-71"><a aria-label="71"></a>        sim_duration<span class="op">=</span>st.session_state.sim_duration,</span>
-<span id="cb4-72"><a aria-label="72"></a>        num_replications<span class="op">=</span>st.session_state.num_replications,</span>
-<span id="cb4-73"><a aria-label="73"></a>        nurse_cost_per_hour<span class="op">=</span>st.session_state.nurse_cost_per_hour,</span>
-<span id="cb4-74"><a aria-label="74"></a>    )</span>
-<span id="cb4-75"><a aria-label="75"></a>    trial <span class="op">=</span> Trial(param<span class="op">=</span>params)</span>
-<span id="cb4-76"><a aria-label="76"></a>    trial.run_trial()</span>
-<span id="cb4-77"><a aria-label="77"></a>    trial.calculate_trial_results()</span>
-<span id="cb4-78"><a aria-label="78"></a></span>
-<span id="cb4-79"><a aria-label="79"></a>    <span class="co"># Save results to session state to allow comparison between scenarios</span></span>
-<span id="cb4-80"><a aria-label="80"></a>    scenario_name <span class="op">=</span> <span class="ss">f"Scenario </span><span class="sc">{</span><span class="bu">len</span>(st.session_state.scenarios) <span class="op">+</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb4-81"><a aria-label="81"></a>    st.session_state.scenarios[scenario_name] <span class="op">=</span> {</span>
-<span id="cb4-82"><a aria-label="82"></a>        <span class="st">"settings"</span>: {</span>
-<span id="cb4-83"><a aria-label="83"></a>            <span class="st">"Scenario"</span>: scenario_name,</span>
-<span id="cb4-84"><a aria-label="84"></a>            <span class="st">"Inter-arrival"</span>: st.session_state.mean_patient_inter,</span>
-<span id="cb4-85"><a aria-label="85"></a>            <span class="st">"Consultation mean"</span>: st.session_state.mean_nurse_consult_time,</span>
-<span id="cb4-86"><a aria-label="86"></a>            <span class="st">"Consultation SD"</span>: st.session_state.sd_nurse_consult_time,</span>
-<span id="cb4-87"><a aria-label="87"></a>            <span class="st">"Nurses"</span>: st.session_state.num_nurses,</span>
-<span id="cb4-88"><a aria-label="88"></a>            <span class="st">"Cost per hour"</span>: st.session_state.nurse_cost_per_hour,</span>
-<span id="cb4-89"><a aria-label="89"></a>            <span class="st">"Duration"</span>: st.session_state.sim_duration,</span>
-<span id="cb4-90"><a aria-label="90"></a>            <span class="st">"Replications"</span>: st.session_state.num_replications,</span>
-<span id="cb4-91"><a aria-label="91"></a>        },</span>
-<span id="cb4-92"><a aria-label="92"></a>        <span class="st">"mean"</span>: trial.trial_mean_q_time_nurse,</span>
-<span id="cb4-93"><a aria-label="93"></a>        <span class="st">"sd"</span>: trial.trial_sd_q_time_nurse,</span>
-<span id="cb4-94"><a aria-label="94"></a>        <span class="st">"p90"</span>: trial.trial_perc_90_q_time_nurse,</span>
-<span id="cb4-95"><a aria-label="95"></a>        <span class="st">"se"</span>: trial.se_q_time_nurse,</span>
-<span id="cb4-96"><a aria-label="96"></a>        <span class="st">"ci_lower"</span>: trial.ci_lower_q_time_nurse,</span>
-<span id="cb4-97"><a aria-label="97"></a>        <span class="st">"ci_upper"</span>: trial.ci_upper_q_time_nurse,</span>
-<span id="cb4-98"><a aria-label="98"></a>        <span class="st">"cost"</span>: trial.total_nurse_cost,</span>
-<span id="cb4-99"><a aria-label="99"></a>        <span class="st">"df"</span>: trial.replication_df,</span>
-<span id="cb4-100"><a aria-label="100"></a>    }</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-37"><a aria-label="37"></a>    mean_col, sd_col <span class="op">=</span> st.columns(<span class="dv">2</span>)</span>
+<span id="cb4-38"><a aria-label="38"></a></span>
+<span id="cb4-39"><a aria-label="39"></a>    <span class="cf">with</span> mean_col:</span>
+<span id="cb4-40"><a aria-label="40"></a>        st.number_input(</span>
+<span id="cb4-41"><a aria-label="41"></a>            label<span class="op">=</span><span class="st">"Mean consultation length (minutes)"</span>,</span>
+<span id="cb4-42"><a aria-label="42"></a>            min_value<span class="op">=</span><span class="fl">3.0</span>,</span>
+<span id="cb4-43"><a aria-label="43"></a>            max_value<span class="op">=</span><span class="fl">9.0</span>,</span>
+<span id="cb4-44"><a aria-label="44"></a>            value<span class="op">=</span>DEFAULTS[<span class="st">"mean_nurse_consult_time"</span>],</span>
+<span id="cb4-45"><a aria-label="45"></a>            key<span class="op">=</span><span class="st">"mean_nurse_consult_time"</span>,</span>
+<span id="cb4-46"><a aria-label="46"></a>        )</span>
+<span id="cb4-47"><a aria-label="47"></a></span>
+<span id="cb4-48"><a aria-label="48"></a>    <span class="cf">with</span> sd_col:</span>
+<span id="cb4-49"><a aria-label="49"></a>        st.number_input(</span>
+<span id="cb4-50"><a aria-label="50"></a>            label<span class="op">=</span><span class="st">"Standard deviation of consultation length (minutes)"</span>,</span>
+<span id="cb4-51"><a aria-label="51"></a>            min_value<span class="op">=</span><span class="fl">0.0</span>,</span>
+<span id="cb4-52"><a aria-label="52"></a>            value<span class="op">=</span>DEFAULTS[<span class="st">"sd_nurse_consult_time"</span>],</span>
+<span id="cb4-53"><a aria-label="53"></a>            key<span class="op">=</span><span class="st">"sd_nurse_consult_time"</span>,</span>
+<span id="cb4-54"><a aria-label="54"></a>        )</span>
+<span id="cb4-55"><a aria-label="55"></a></span>
+<span id="cb4-56"><a aria-label="56"></a>    st.pills(</span>
+<span id="cb4-57"><a aria-label="57"></a>        label<span class="op">=</span><span class="st">"Number of nurses"</span>,</span>
+<span id="cb4-58"><a aria-label="58"></a>        options<span class="op">=</span><span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">5</span>),</span>
+<span id="cb4-59"><a aria-label="59"></a>        default<span class="op">=</span>DEFAULTS[<span class="st">"num_nurses"</span>],</span>
+<span id="cb4-60"><a aria-label="60"></a>        key<span class="op">=</span><span class="st">"num_nurses"</span></span>
+<span id="cb4-61"><a aria-label="61"></a>    )</span>
+<span id="cb4-62"><a aria-label="62"></a></span>
+<span id="cb4-63"><a aria-label="63"></a>    st.number_input(</span>
+<span id="cb4-64"><a aria-label="64"></a>        label<span class="op">=</span><span class="st">"Cost per nurse per hour (£)"</span>,</span>
+<span id="cb4-65"><a aria-label="65"></a>        min_value<span class="op">=</span><span class="fl">0.0</span>,</span>
+<span id="cb4-66"><a aria-label="66"></a>        value<span class="op">=</span>DEFAULTS[<span class="st">"nurse_cost_per_hour"</span>],</span>
+<span id="cb4-67"><a aria-label="67"></a>        step<span class="op">=</span><span class="fl">1.0</span>,</span>
+<span id="cb4-68"><a aria-label="68"></a>        key<span class="op">=</span><span class="st">"nurse_cost_per_hour"</span>,</span>
+<span id="cb4-69"><a aria-label="69"></a>        <span class="bu">help</span><span class="op">=</span><span class="st">"Nurses are costed for the full simulation duration, including time when they are not seeing patients"</span>,</span>
+<span id="cb4-70"><a aria-label="70"></a>    )</span>
+<span id="cb4-71"><a aria-label="71"></a></span>
+<span id="cb4-72"><a aria-label="72"></a>    st.space(size<span class="op">=</span><span class="st">"xxsmall"</span>)</span>
+<span id="cb4-73"><a aria-label="73"></a>    st.subheader(<span class="st">"Simulation"</span>)</span>
+<span id="cb4-74"><a aria-label="74"></a></span>
+<span id="cb4-75"><a aria-label="75"></a>    st.slider(</span>
+<span id="cb4-76"><a aria-label="76"></a>        label<span class="op">=</span><span class="st">"Simulation duration (minutes)"</span>,</span>
+<span id="cb4-77"><a aria-label="77"></a>        min_value<span class="op">=</span><span class="dv">50</span>,</span>
+<span id="cb4-78"><a aria-label="78"></a>        max_value<span class="op">=</span><span class="dv">200</span>,</span>
+<span id="cb4-79"><a aria-label="79"></a>        value<span class="op">=</span>DEFAULTS[<span class="st">"sim_duration"</span>],</span>
+<span id="cb4-80"><a aria-label="80"></a>        key<span class="op">=</span><span class="st">"sim_duration"</span>,</span>
+<span id="cb4-81"><a aria-label="81"></a>    )</span>
+<span id="cb4-82"><a aria-label="82"></a></span>
+<span id="cb4-83"><a aria-label="83"></a>    st.slider(</span>
+<span id="cb4-84"><a aria-label="84"></a>        label<span class="op">=</span><span class="st">"Number of replications"</span>,</span>
+<span id="cb4-85"><a aria-label="85"></a>        min_value<span class="op">=</span><span class="dv">10</span>,</span>
+<span id="cb4-86"><a aria-label="86"></a>        max_value<span class="op">=</span><span class="dv">50</span>,</span>
+<span id="cb4-87"><a aria-label="87"></a>        value<span class="op">=</span>DEFAULTS[<span class="st">"num_replications"</span>],</span>
+<span id="cb4-88"><a aria-label="88"></a>        key<span class="op">=</span><span class="st">"num_replications"</span>,</span>
+<span id="cb4-89"><a aria-label="89"></a>    )</span>
+<span id="cb4-90"><a aria-label="90"></a></span>
+<span id="cb4-91"><a aria-label="91"></a><span class="cf">with</span> st.container(horizontal<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb4-92"><a aria-label="92"></a>    run <span class="op">=</span> st.button(<span class="st">"Run and save scenario"</span>, <span class="bu">type</span><span class="op">=</span><span class="st">"primary"</span>)</span>
+<span id="cb4-93"><a aria-label="93"></a>    st.button(<span class="st">"Reset to defaults"</span>, on_click<span class="op">=</span>reset_widgets)</span>
+<span id="cb4-94"><a aria-label="94"></a></span>
+<span id="cb4-95"><a aria-label="95"></a><span class="cf">if</span> run:</span>
+<span id="cb4-96"><a aria-label="96"></a>    params <span class="op">=</span> Param(</span>
+<span id="cb4-97"><a aria-label="97"></a>        mean_patient_inter<span class="op">=</span>st.session_state.mean_patient_inter,</span>
+<span id="cb4-98"><a aria-label="98"></a>        mean_nurse_consult_time<span class="op">=</span>st.session_state.mean_nurse_consult_time,</span>
+<span id="cb4-99"><a aria-label="99"></a>        sd_nurse_consult_time<span class="op">=</span>st.session_state.sd_nurse_consult_time,</span>
+<span id="cb4-100"><a aria-label="100"></a>        num_nurses<span class="op">=</span>st.session_state.num_nurses,</span>
+<span id="cb4-101"><a aria-label="101"></a>        sim_duration<span class="op">=</span>st.session_state.sim_duration,</span>
+<span id="cb4-102"><a aria-label="102"></a>        num_replications<span class="op">=</span>st.session_state.num_replications,</span>
+<span id="cb4-103"><a aria-label="103"></a>        nurse_cost_per_hour<span class="op">=</span>st.session_state.nurse_cost_per_hour,</span>
+<span id="cb4-104"><a aria-label="104"></a>    )</span>
+<span id="cb4-105"><a aria-label="105"></a>    trial <span class="op">=</span> Trial(param<span class="op">=</span>params)</span>
+<span id="cb4-106"><a aria-label="106"></a>    trial.run_trial()</span>
+<span id="cb4-107"><a aria-label="107"></a>    trial.calculate_trial_results()</span>
+<span id="cb4-108"><a aria-label="108"></a></span>
+<span id="cb4-109"><a aria-label="109"></a>    <span class="co"># Save results to session state to allow comparison between scenarios</span></span>
+<span id="cb4-110"><a aria-label="110"></a>    scenario_name <span class="op">=</span> <span class="ss">f"Scenario </span><span class="sc">{</span><span class="bu">len</span>(st.session_state.scenarios) <span class="op">+</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb4-111"><a aria-label="111"></a>    st.session_state.scenarios[scenario_name] <span class="op">=</span> {</span>
+<span id="cb4-112"><a aria-label="112"></a>        <span class="st">"settings"</span>: {</span>
+<span id="cb4-113"><a aria-label="113"></a>            <span class="st">"Scenario"</span>: scenario_name,</span>
+<span id="cb4-114"><a aria-label="114"></a>            <span class="st">"Inter-arrival"</span>: st.session_state.mean_patient_inter,</span>
+<span id="cb4-115"><a aria-label="115"></a>            <span class="st">"Consultation mean"</span>: st.session_state.mean_nurse_consult_time,</span>
+<span id="cb4-116"><a aria-label="116"></a>            <span class="st">"Consultation SD"</span>: st.session_state.sd_nurse_consult_time,</span>
+<span id="cb4-117"><a aria-label="117"></a>            <span class="st">"Nurses"</span>: st.session_state.num_nurses,</span>
+<span id="cb4-118"><a aria-label="118"></a>            <span class="st">"Cost per hour"</span>: st.session_state.nurse_cost_per_hour,</span>
+<span id="cb4-119"><a aria-label="119"></a>            <span class="st">"Duration"</span>: st.session_state.sim_duration,</span>
+<span id="cb4-120"><a aria-label="120"></a>            <span class="st">"Replications"</span>: st.session_state.num_replications,</span>
+<span id="cb4-121"><a aria-label="121"></a>        },</span>
+<span id="cb4-122"><a aria-label="122"></a>        <span class="st">"mean"</span>: trial.trial_mean_q_time_nurse,</span>
+<span id="cb4-123"><a aria-label="123"></a>        <span class="st">"sd"</span>: trial.trial_sd_q_time_nurse,</span>
+<span id="cb4-124"><a aria-label="124"></a>        <span class="st">"p90"</span>: trial.trial_perc_90_q_time_nurse,</span>
+<span id="cb4-125"><a aria-label="125"></a>        <span class="st">"se"</span>: trial.se_q_time_nurse,</span>
+<span id="cb4-126"><a aria-label="126"></a>        <span class="st">"ci_lower"</span>: trial.ci_lower_q_time_nurse,</span>
+<span id="cb4-127"><a aria-label="127"></a>        <span class="st">"ci_upper"</span>: trial.ci_upper_q_time_nurse,</span>
+<span id="cb4-128"><a aria-label="128"></a>        <span class="st">"cost"</span>: trial.total_nurse_cost,</span>
+<span id="cb4-129"><a aria-label="129"></a>        <span class="st">"df"</span>: trial.replication_df,</span>
+<span id="cb4-130"><a aria-label="130"></a>    }</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
 <section id="run-and-save-the-results-1" class="slide level2">
@@ -562,8 +592,8 @@
 <span id="cb9-30"><a aria-hidden="true" tabindex="-1"></a>st.plotly_chart(fig)</span>
 <span id="cb9-31"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-32"><a aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> st.expander(<span class="st">"View underlying data from each replication"</span>):</span>
-<span id="cb9-33"><a aria-hidden="true" tabindex="-1"></a>    st.dataframe(</span>
-<span id="cb9-34"><a aria-hidden="true" tabindex="-1"></a>        trial.replication_df[</span>
+<span id="cb9-33"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-34"><a aria-hidden="true" tabindex="-1"></a>    underlying <span class="op">=</span> trial.replication_df[</span>
 <span id="cb9-35"><a aria-hidden="true" tabindex="-1"></a>            [</span>
 <span id="cb9-36"><a aria-hidden="true" tabindex="-1"></a>                <span class="st">"replication_id"</span>,</span>
 <span id="cb9-37"><a aria-hidden="true" tabindex="-1"></a>                <span class="st">"patient_counter"</span>,</span>
@@ -572,7 +602,13 @@
 <span id="cb9-40"><a aria-hidden="true" tabindex="-1"></a>                <span class="st">"perc_90_q_time_nurse"</span>,</span>
 <span id="cb9-41"><a aria-hidden="true" tabindex="-1"></a>            ]</span>
 <span id="cb9-42"><a aria-hidden="true" tabindex="-1"></a>        ]</span>
-<span id="cb9-43"><a aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-43"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-44"><a aria-hidden="true" tabindex="-1"></a>    st.dataframe(underlying)</span>
+<span id="cb9-45"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-46"><a aria-hidden="true" tabindex="-1"></a>    st.download_button(</span>
+<span id="cb9-47"><a aria-hidden="true" tabindex="-1"></a>        label<span class="op">=</span><span class="st">"Download table as CSV"</span>,</span>
+<span id="cb9-48"><a aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>underlying.to_csv().encode(<span class="st">"utf-8"</span>),</span>
+<span id="cb9-49"><a aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
 <section id="required-changes" class="slide level2">
@@ -621,8 +657,8 @@
 <span id="cb10-36"><a aria-label="36"></a>st.plotly_chart(fig)</span>
 <span id="cb10-37"><a aria-label="37"></a></span>
 <span id="cb10-38"><a aria-label="38"></a><span class="cf">with</span> st.expander(<span class="st">"View underlying data from each replication"</span>):</span>
-<span id="cb10-39"><a aria-label="39"></a>    st.dataframe(</span>
-<span id="cb10-40"><a aria-label="40"></a>        results[<span class="st">"df"</span>][</span>
+<span id="cb10-39"><a aria-label="39"></a></span>
+<span id="cb10-40"><a aria-label="40"></a>    underlying <span class="op">=</span> results[<span class="st">"df"</span>][</span>
 <span id="cb10-41"><a aria-label="41"></a>            [</span>
 <span id="cb10-42"><a aria-label="42"></a>                <span class="st">"replication_id"</span>,</span>
 <span id="cb10-43"><a aria-label="43"></a>                <span class="st">"patient_counter"</span>,</span>
@@ -631,7 +667,13 @@
 <span id="cb10-46"><a aria-label="46"></a>                <span class="st">"perc_90_q_time_nurse"</span>,</span>
 <span id="cb10-47"><a aria-label="47"></a>            ]</span>
 <span id="cb10-48"><a aria-label="48"></a>        ]</span>
-<span id="cb10-49"><a aria-label="49"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-49"><a aria-label="49"></a></span>
+<span id="cb10-50"><a aria-label="50"></a>    st.dataframe(underlying)</span>
+<span id="cb10-51"><a aria-label="51"></a></span>
+<span id="cb10-52"><a aria-label="52"></a>    st.download_button(</span>
+<span id="cb10-53"><a aria-label="53"></a>        label<span class="op">=</span><span class="st">"Download table as CSV"</span>,</span>
+<span id="cb10-54"><a aria-label="54"></a>        data<span class="op">=</span>underlying.to_csv().encode(<span class="st">"utf-8"</span>),</span>
+<span id="cb10-55"><a aria-label="55"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
 <section id="required-changes-1" class="slide level2">
@@ -682,8 +724,8 @@
 <span id="cb11-36"><a aria-label="36"></a>st.plotly_chart(fig)</span>
 <span id="cb11-37"><a aria-label="37"></a></span>
 <span id="cb11-38"><a aria-label="38"></a><span class="cf">with</span> st.expander(<span class="st">"View underlying data from each replication"</span>):</span>
-<span id="cb11-39"><a aria-label="39"></a>    st.dataframe(</span>
-<span id="cb11-40"><a aria-label="40"></a>        results[<span class="st">"df"</span>][</span>
+<span id="cb11-39"><a aria-label="39"></a></span>
+<span id="cb11-40"><a aria-label="40"></a>    underlying <span class="op">=</span> results[<span class="st">"df"</span>][</span>
 <span id="cb11-41"><a aria-label="41"></a>            [</span>
 <span id="cb11-42"><a aria-label="42"></a>                <span class="st">"replication_id"</span>,</span>
 <span id="cb11-43"><a aria-label="43"></a>                <span class="st">"patient_counter"</span>,</span>
@@ -692,7 +734,13 @@
 <span id="cb11-46"><a aria-label="46"></a>                <span class="st">"perc_90_q_time_nurse"</span>,</span>
 <span id="cb11-47"><a aria-label="47"></a>            ]</span>
 <span id="cb11-48"><a aria-label="48"></a>        ]</span>
-<span id="cb11-49"><a aria-label="49"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb11-49"><a aria-label="49"></a></span>
+<span id="cb11-50"><a aria-label="50"></a>    st.dataframe(underlying)</span>
+<span id="cb11-51"><a aria-label="51"></a></span>
+<span id="cb11-52"><a aria-label="52"></a>    st.download_button(</span>
+<span id="cb11-53"><a aria-label="53"></a>        label<span class="op">=</span><span class="st">"Download table as CSV"</span>,</span>
+<span id="cb11-54"><a aria-label="54"></a>        data<span class="op">=</span>underlying.to_csv().encode(<span class="st">"utf-8"</span>),</span>
+<span id="cb11-55"><a aria-label="55"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
 <section id="required-changes-2" class="slide level2">
@@ -741,8 +789,8 @@
 <span id="cb12-36"><a aria-label="36"></a>st.plotly_chart(fig)</span>
 <span id="cb12-37"><a aria-label="37"></a></span>
 <span id="cb12-38"><a aria-label="38"></a><span class="cf">with</span> st.expander(<span class="st">"View underlying data from each replication"</span>):</span>
-<span id="cb12-39"><a aria-label="39"></a>    st.dataframe(</span>
-<span id="cb12-40"><a aria-label="40"></a>        results[<span class="st">"df"</span>][</span>
+<span id="cb12-39"><a aria-label="39"></a></span>
+<span id="cb12-40"><a aria-label="40"></a>    underlying <span class="op">=</span> results[<span class="st">"df"</span>][</span>
 <span id="cb12-41"><a aria-label="41"></a>            [</span>
 <span id="cb12-42"><a aria-label="42"></a>                <span class="st">"replication_id"</span>,</span>
 <span id="cb12-43"><a aria-label="43"></a>                <span class="st">"patient_counter"</span>,</span>
@@ -751,7 +799,13 @@
 <span id="cb12-46"><a aria-label="46"></a>                <span class="st">"perc_90_q_time_nurse"</span>,</span>
 <span id="cb12-47"><a aria-label="47"></a>            ]</span>
 <span id="cb12-48"><a aria-label="48"></a>        ]</span>
-<span id="cb12-49"><a aria-label="49"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb12-49"><a aria-label="49"></a></span>
+<span id="cb12-50"><a aria-label="50"></a>    st.dataframe(underlying)</span>
+<span id="cb12-51"><a aria-label="51"></a></span>
+<span id="cb12-52"><a aria-label="52"></a>    st.download_button(</span>
+<span id="cb12-53"><a aria-label="53"></a>        label<span class="op">=</span><span class="st">"Download table as CSV"</span>,</span>
+<span id="cb12-54"><a aria-label="54"></a>        data<span class="op">=</span>underlying.to_csv().encode(<span class="st">"utf-8"</span>),</span>
+<span id="cb12-55"><a aria-label="55"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
 <section id="required-changes-3" class="slide level2">
@@ -799,8 +853,8 @@
 <span id="cb13-36"><a aria-label="36"></a>st.plotly_chart(fig)</span>
 <span id="cb13-37"><a aria-label="37"></a></span>
 <span id="cb13-38"><a aria-label="38"></a><span class="cf">with</span> st.expander(<span class="st">"View underlying data from each replication"</span>):</span>
-<span id="cb13-39"><a aria-label="39"></a>    st.dataframe(</span>
-<span id="cb13-40"><a aria-label="40"></a>        results[<span class="st">"df"</span>][</span>
+<span id="cb13-39"><a aria-label="39"></a></span>
+<span id="cb13-40"><a aria-label="40"></a>    underlying <span class="op">=</span> results[<span class="st">"df"</span>][</span>
 <span id="cb13-41"><a aria-label="41"></a>            [</span>
 <span id="cb13-42"><a aria-label="42"></a>                <span class="st">"replication_id"</span>,</span>
 <span id="cb13-43"><a aria-label="43"></a>                <span class="st">"patient_counter"</span>,</span>
@@ -809,7 +863,13 @@
 <span id="cb13-46"><a aria-label="46"></a>                <span class="st">"perc_90_q_time_nurse"</span>,</span>
 <span id="cb13-47"><a aria-label="47"></a>            ]</span>
 <span id="cb13-48"><a aria-label="48"></a>        ]</span>
-<span id="cb13-49"><a aria-label="49"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb13-49"><a aria-label="49"></a></span>
+<span id="cb13-50"><a aria-label="50"></a>    st.dataframe(underlying)</span>
+<span id="cb13-51"><a aria-label="51"></a></span>
+<span id="cb13-52"><a aria-label="52"></a>    st.download_button(</span>
+<span id="cb13-53"><a aria-label="53"></a>        label<span class="op">=</span><span class="st">"Download table as CSV"</span>,</span>
+<span id="cb13-54"><a aria-label="54"></a>        data<span class="op">=</span>underlying.to_csv().encode(<span class="st">"utf-8"</span>),</span>
+<span id="cb13-55"><a aria-label="55"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
 <section id="choose-a-scenario" class="slide level2">
