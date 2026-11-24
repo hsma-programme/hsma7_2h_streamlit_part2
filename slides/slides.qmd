@@ -2175,35 +2175,89 @@ See the [Streamlit documentation](https://docs.streamlit.io/develop/api-referenc
 
 ## `st.metric()`
 
+:::: {.columns}
+
+::: {.column width="60%"}
+
+Display a key value (`value`) with an optional indicator of change (`delta`).
+
+By default, positive changes are green and negative changes are red, but this can be inverted or set manually.
+
+```{.python}
+{{< include code/features/metric.py >}}
+```
+
+:::
+
+::: {.column width="40%"}
+
+![](images/metric.png)
+
+:::
+
+::::
+
+
+
+
 ## `st.grid()`
 
-## Fragments
+:::: {.columns}
 
-## Caching
+::: {.column width="60%"}
 
-## User authentication
+`st.grid()` is a responsive container that works well for displaying metrics side by side. Elements reflow into fewer columns when less width is available, so the layout can adapt to different screen sizes.
 
-## Database linkage
+```{.python code-line-numbers="3,5,12"}
+{{< include code/features/grid.py >}}
+```
 
-## App testing
+:::
 
-## Custom components
+::: {.column width="40%"}
 
-## `st.toast`
+![](images/grid.png)
 
-## `st.data_editor`
+:::
 
-## Built-in streamlit charts
+::::
+
+
+
+## Input widgets
+
+There are several other input widgets beyond those we've used, including:
 
 ::: {.api-images}
 
-![](images/st_area_chart.png)
-![](images/st_bar_chart.png)
-![](images/st_line_chart.png)
-![](images/st_scatter_chart.png)
-![](images/st_map.png)
+![](images/st_checkbox.png)
+![](images/st_color_picker.png)
+![](images/st_feedback.png)
+![](images/st_menu_button.png)
+
+![](images/st_select_slider.png)
+![](images/st_toggle.png)
+![](images/st_date_input.png)
+![](images/st_file_uploader.png)
 
 :::
+
+
+
+
+## Status elements
+
+If your simulation takes a while to run, status elements can be helpful for reassuring users that they app is working and that they should wait.
+
+<br>
+
+::: {.api-images}
+
+![](images/st_progress.png)
+![](images/st_spinner.png)
+
+:::
+
 
 
 
@@ -2227,16 +2281,55 @@ We used `st.plotly_chart`, but there are several others...
 
 
 
-## Maps
 
-## `st.form`
+## Built-in streamlit charts
 
-## Other input widget types
+Streamlit also has some built-in plotting functions.
+
+<br>
 
 ::: {.api-images}
 
-![](images/st_checkbox.png)
-![](images/st_color_picker.png)
-![](images/st_feedback.png)
+![](images/st_area_chart.png)
+![](images/st_bar_chart.png)
+![](images/st_line_chart.png)
+![](images/st_scatter_chart.png)
+![](images/st_map.png)
 
 :::
+
+
+
+
+## Maps
+
+
+## Fragments
+
+## Caching
+
+## User authentication
+
+## Database linkage
+
+## App testing
+
+## Custom components
+
+## `st.toast`
+
+## `st.popover`
+
+## `st.bottom`
+
+## `st.data_editor`
+
+
+
+
+
+
+
+## Maps
+
+## `st.form`
