@@ -103,6 +103,7 @@
     code span.wa { color: #dcc6e0; } /* Warning */
   </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-85c9fbf6f7392447b33c857e2094ad8e.css">
+  <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="template/styles.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -485,28 +486,28 @@
 <p><strong>Settings</strong> record the inputs used for each scenario, so we can interpret and compare its results.</p>
 <p><strong>Results</strong> are the summary statistics, saved using shorter keys like <code>mean</code> and <code>sd</code> so they are easier to access later.</p>
 </div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>    <span class="co"># Save results to session state to allow comparison between scenarios</span></span>
-<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>    scenario_name <span class="op">=</span> <span class="ss">f"Scenario </span><span class="sc">{</span><span class="bu">len</span>(st.session_state.scenarios) <span class="op">+</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>    st.session_state.scenarios[scenario_name] <span class="op">=</span> {</span>
-<span id="cb5-4"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"settings"</span>: {</span>
-<span id="cb5-5"><a aria-hidden="true" tabindex="-1"></a>            <span class="st">"Scenario"</span>: scenario_name,</span>
-<span id="cb5-6"><a aria-hidden="true" tabindex="-1"></a>            <span class="st">"Inter-arrival"</span>: st.session_state.mean_patient_inter,</span>
-<span id="cb5-7"><a aria-hidden="true" tabindex="-1"></a>            <span class="st">"Consultation mean"</span>: st.session_state.mean_nurse_consult_time,</span>
-<span id="cb5-8"><a aria-hidden="true" tabindex="-1"></a>            <span class="st">"Consultation SD"</span>: st.session_state.sd_nurse_consult_time,</span>
-<span id="cb5-9"><a aria-hidden="true" tabindex="-1"></a>            <span class="st">"Nurses"</span>: st.session_state.num_nurses,</span>
-<span id="cb5-10"><a aria-hidden="true" tabindex="-1"></a>            <span class="st">"Cost per hour"</span>: st.session_state.nurse_cost_per_hour,</span>
-<span id="cb5-11"><a aria-hidden="true" tabindex="-1"></a>            <span class="st">"Duration"</span>: st.session_state.sim_duration,</span>
-<span id="cb5-12"><a aria-hidden="true" tabindex="-1"></a>            <span class="st">"Replications"</span>: st.session_state.num_replications,</span>
-<span id="cb5-13"><a aria-hidden="true" tabindex="-1"></a>        },</span>
-<span id="cb5-14"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"mean"</span>: trial.trial_mean_q_time_nurse,</span>
-<span id="cb5-15"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"sd"</span>: trial.trial_sd_q_time_nurse,</span>
-<span id="cb5-16"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"p90"</span>: trial.trial_perc_90_q_time_nurse,</span>
-<span id="cb5-17"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"se"</span>: trial.se_q_time_nurse,</span>
-<span id="cb5-18"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"ci_lower"</span>: trial.ci_lower_q_time_nurse,</span>
-<span id="cb5-19"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"ci_upper"</span>: trial.ci_upper_q_time_nurse,</span>
-<span id="cb5-20"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"cost"</span>: trial.total_nurse_cost,</span>
-<span id="cb5-21"><a aria-hidden="true" tabindex="-1"></a>        <span class="st">"df"</span>: trial.replication_df,</span>
-<span id="cb5-22"><a aria-hidden="true" tabindex="-1"></a>    }</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-label="1"></a>    <span class="co"># Save results to session state to allow comparison between scenarios</span></span>
+<span id="cb5-2"><a aria-label="2"></a>    scenario_name <span class="op">=</span> <span class="ss">f"Scenario </span><span class="sc">{</span><span class="bu">len</span>(st.session_state.scenarios) <span class="op">+</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb5-3"><a aria-label="3"></a>    st.session_state.scenarios[scenario_name] <span class="op">=</span> {</span>
+<span id="cb5-4"><a aria-label="4"></a>        <span class="st">"settings"</span>: {</span>
+<span id="cb5-5"><a aria-label="5"></a>            <span class="st">"Scenario"</span>: scenario_name,</span>
+<span id="cb5-6"><a aria-label="6"></a>            <span class="st">"Inter-arrival"</span>: st.session_state.mean_patient_inter,</span>
+<span id="cb5-7"><a aria-label="7"></a>            <span class="st">"Consultation mean"</span>: st.session_state.mean_nurse_consult_time,</span>
+<span id="cb5-8"><a aria-label="8"></a>            <span class="st">"Consultation SD"</span>: st.session_state.sd_nurse_consult_time,</span>
+<span id="cb5-9"><a aria-label="9"></a>            <span class="st">"Nurses"</span>: st.session_state.num_nurses,</span>
+<span id="cb5-10"><a aria-label="10"></a>            <span class="st">"Cost per hour"</span>: st.session_state.nurse_cost_per_hour,</span>
+<span id="cb5-11"><a aria-label="11"></a>            <span class="st">"Duration"</span>: st.session_state.sim_duration,</span>
+<span id="cb5-12"><a aria-label="12"></a>            <span class="st">"Replications"</span>: st.session_state.num_replications,</span>
+<span id="cb5-13"><a aria-label="13"></a>        },</span>
+<span id="cb5-14"><a aria-label="14"></a>        <span class="st">"mean"</span>: trial.trial_mean_q_time_nurse,</span>
+<span id="cb5-15"><a aria-label="15"></a>        <span class="st">"sd"</span>: trial.trial_sd_q_time_nurse,</span>
+<span id="cb5-16"><a aria-label="16"></a>        <span class="st">"p90"</span>: trial.trial_perc_90_q_time_nurse,</span>
+<span id="cb5-17"><a aria-label="17"></a>        <span class="st">"se"</span>: trial.se_q_time_nurse,</span>
+<span id="cb5-18"><a aria-label="18"></a>        <span class="st">"ci_lower"</span>: trial.ci_lower_q_time_nurse,</span>
+<span id="cb5-19"><a aria-label="19"></a>        <span class="st">"ci_upper"</span>: trial.ci_upper_q_time_nurse,</span>
+<span id="cb5-20"><a aria-label="20"></a>        <span class="st">"cost"</span>: trial.total_nurse_cost,</span>
+<span id="cb5-21"><a aria-label="21"></a>        <span class="st">"df"</span>: trial.replication_df,</span>
+<span id="cb5-22"><a aria-label="22"></a>    }</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
 <section id="run-and-save-the-results-2" class="slide level2">
@@ -514,12 +515,12 @@
 <p>We then set <code>chosen_scenario</code> to this scenario, making it the default selection when the user opens the results page.</p>
 <p>We also show a success message to confirm that the scenario has run and its results have been saved.</p>
 <p><br></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a>    <span class="co"># Select the newly saved scenario and show confirmation</span></span>
-<span id="cb6-3"><a aria-hidden="true" tabindex="-1"></a>    st.session_state.chosen_scenario <span class="op">=</span> scenario_name</span>
-<span id="cb6-4"><a aria-hidden="true" tabindex="-1"></a>    st.success(<span class="ss">f"""</span></span>
-<span id="cb6-5"><a aria-hidden="true" tabindex="-1"></a><span class="ss">    </span><span class="sc">{</span>scenario_name<span class="sc">}</span><span class="ss"> ran successfully and was saved for this sesssion.</span></span>
-<span id="cb6-6"><a aria-hidden="true" tabindex="-1"></a><span class="ss">    """</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-label="1"></a></span>
+<span id="cb6-2"><a aria-label="2"></a>    <span class="co"># Select the newly saved scenario and show confirmation</span></span>
+<span id="cb6-3"><a aria-label="3"></a>    st.session_state.chosen_scenario <span class="op">=</span> scenario_name</span>
+<span id="cb6-4"><a aria-label="4"></a>    st.success(<span class="ss">f"""</span></span>
+<span id="cb6-5"><a aria-label="5"></a><span class="ss">    </span><span class="sc">{</span>scenario_name<span class="sc">}</span><span class="ss"> ran successfully and was saved for this sesssion.</span></span>
+<span id="cb6-6"><a aria-label="6"></a><span class="ss">    """</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="keeping-track-of-scenarios" class="slide level2">
 <h2>Keeping track of scenarios</h2>
@@ -528,25 +529,40 @@
 <p>We take the settings from each saved scenario and display them as a row in the table.</p>
 <p>A caption reminds users that these scenarios are saved for the current session only.</p>
 <p><br></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> st.session_state.scenarios:</span>
-<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>    st.divider()</span>
-<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a>    st.header(<span class="st">"Saved scenarios"</span>)</span>
-<span id="cb7-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a aria-hidden="true" tabindex="-1"></a>    st.dataframe(</span>
-<span id="cb7-6"><a aria-hidden="true" tabindex="-1"></a>        [scenario[<span class="st">"settings"</span>] <span class="cf">for</span> scenario <span class="kw">in</span> st.session_state.scenarios.values()],</span>
-<span id="cb7-7"><a aria-hidden="true" tabindex="-1"></a>        hide_index<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb7-8"><a aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb7-9"><a aria-hidden="true" tabindex="-1"></a>    st.caption(<span class="st">"Scenarios are saved for the current session only."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-label="1"></a><span class="cf">if</span> st.session_state.scenarios:</span>
+<span id="cb7-2"><a aria-label="2"></a>    st.divider()</span>
+<span id="cb7-3"><a aria-label="3"></a>    st.header(<span class="st">"Saved scenarios"</span>)</span>
+<span id="cb7-4"><a aria-label="4"></a></span>
+<span id="cb7-5"><a aria-label="5"></a>    st.dataframe(</span>
+<span id="cb7-6"><a aria-label="6"></a>        [scenario[<span class="st">"settings"</span>] <span class="cf">for</span> scenario <span class="kw">in</span> st.session_state.scenarios.values()],</span>
+<span id="cb7-7"><a aria-label="7"></a>        hide_index<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb7-8"><a aria-label="8"></a>    )</span>
+<span id="cb7-9"><a aria-label="9"></a>    st.caption(<span class="st">"Scenarios are saved for the current session only."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="st.divider" class="slide level2">
+<h2><code>st.divider()</code></h2>
+<p>You may’ve noticed we used a new Streamlit element here - <code>st.divider()</code>.</p>
+<p>This displays a horizontal line on the app.</p>
+<p><br></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" data-code-line-numbers="2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-label="1"></a><span class="cf">if</span> st.session_state.scenarios:</span>
+<span id="cb8-2"><a aria-label="2"></a>    st.divider()</span>
+<span id="cb8-3"><a aria-label="3"></a>    st.header(<span class="st">"Saved scenarios"</span>)</span>
+<span id="cb8-4"><a aria-label="4"></a></span>
+<span id="cb8-5"><a aria-label="5"></a>    st.dataframe(</span>
+<span id="cb8-6"><a aria-label="6"></a>        [scenario[<span class="st">"settings"</span>] <span class="cf">for</span> scenario <span class="kw">in</span> st.session_state.scenarios.values()],</span>
+<span id="cb8-7"><a aria-label="7"></a>        hide_index<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb8-8"><a aria-label="8"></a>    )</span>
+<span id="cb8-9"><a aria-label="9"></a>    st.caption(<span class="st">"Scenarios are saved for the current session only."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="linking-to-results-page" class="slide level2">
 <h2>Linking to results page</h2>
 <p>At the end of <code>simulation.py</code>, we’ll add a button linking to <code>results.py</code>, which we’ll create next.</p>
 <p>Clicking the button calls <code>st.switch_page</code> to take the user to the results page.</p>
 <p><br></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>    st.divider()</span>
-<span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a>    st.header(<span class="st">"Results"</span>)</span>
-<span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> st.button(label<span class="op">=</span><span class="st">"Go to results page"</span>, <span class="bu">type</span><span class="op">=</span><span class="st">"primary"</span>):</span>
-<span id="cb8-4"><a aria-hidden="true" tabindex="-1"></a>        st.switch_page(<span class="st">"results.py"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>    st.divider()</span>
+<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>    st.header(<span class="st">"Results"</span>)</span>
+<span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> st.button(label<span class="op">=</span><span class="st">"Go to results page"</span>, <span class="bu">type</span><span class="op">=</span><span class="st">"primary"</span>):</span>
+<span id="cb9-4"><a aria-hidden="true" tabindex="-1"></a>        st.switch_page(<span class="st">"results.py"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="results-from-one-scenario" class="slide level2">
 <h2>Results from one scenario</h2>
@@ -560,55 +576,55 @@
 <p><br></p>
 <p>However, we’ll need to make some changes so it can work…</p>
 </div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>st.space()</span>
-<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>st.subheader(<span class="st">"Scenario summary"</span>)</span>
-<span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a>st.write(<span class="ss">f"""</span></span>
-<span id="cb9-4"><a aria-hidden="true" tabindex="-1"></a><span class="ss">Summary of nurse queue times across **all** replications.</span></span>
-<span id="cb9-5"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a aria-hidden="true" tabindex="-1"></a><span class="ss">* Mean: </span><span class="sc">{</span>trial<span class="sc">.</span>trial_mean_q_time_nurse<span class="sc">:.2f}</span><span class="ss"> minutes.</span></span>
-<span id="cb9-7"><a aria-hidden="true" tabindex="-1"></a><span class="ss">* SD: </span><span class="sc">{</span>trial<span class="sc">.</span>trial_sd_q_time_nurse<span class="sc">:.2f}</span><span class="ss"> minutes.</span></span>
-<span id="cb9-8"><a aria-hidden="true" tabindex="-1"></a><span class="ss">* 90th Perc: </span><span class="sc">{</span>trial<span class="sc">.</span>trial_perc_90_q_time_nurse<span class="sc">:.2f}</span><span class="ss"> minutes.</span></span>
-<span id="cb9-9"><a aria-hidden="true" tabindex="-1"></a><span class="ss">* Standard error: </span><span class="sc">{</span>trial<span class="sc">.</span>se_q_time_nurse<span class="sc">:.2f}</span></span>
-<span id="cb9-10"><a aria-hidden="true" tabindex="-1"></a><span class="ss">* 95% CI: (</span><span class="sc">{</span>trial<span class="sc">.</span>ci_lower_q_time_nurse<span class="sc">:.2f}</span><span class="ss">,</span></span>
-<span id="cb9-11"><a aria-hidden="true" tabindex="-1"></a><span class="sc">{</span>trial<span class="sc">.</span>ci_upper_q_time_nurse<span class="sc">:.2f}</span><span class="ss">) minutes.</span></span>
-<span id="cb9-12"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-13"><a aria-hidden="true" tabindex="-1"></a><span class="ss">Total nurse staffing cost: £</span><span class="sc">{</span>trial<span class="sc">.</span>total_nurse_cost<span class="sc">:,.2f}</span></span>
-<span id="cb9-14"><a aria-hidden="true" tabindex="-1"></a><span class="ss">"""</span>)</span>
-<span id="cb9-15"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-16"><a aria-hidden="true" tabindex="-1"></a>st.space()</span>
-<span id="cb9-17"><a aria-hidden="true" tabindex="-1"></a>st.subheader(<span class="st">"Results from individual replications"</span>)</span>
-<span id="cb9-18"><a aria-hidden="true" tabindex="-1"></a>st.write(</span>
-<span id="cb9-19"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"The chart shows how the mean nurse queue time varies between **individual** replications."</span></span>
-<span id="cb9-20"><a aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-21"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-22"><a aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.histogram(</span>
-<span id="cb9-23"><a aria-hidden="true" tabindex="-1"></a>    data_frame<span class="op">=</span>trial.replication_df,</span>
-<span id="cb9-24"><a aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"mean_q_time_nurse"</span>,</span>
-<span id="cb9-25"><a aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-26"><a aria-hidden="true" tabindex="-1"></a>fig.update_layout(</span>
-<span id="cb9-27"><a aria-hidden="true" tabindex="-1"></a>    xaxis_title<span class="op">=</span><span class="st">"Mean nurse queue time"</span>,</span>
-<span id="cb9-28"><a aria-hidden="true" tabindex="-1"></a>    yaxis_title<span class="op">=</span><span class="st">"Number of replications"</span></span>
-<span id="cb9-29"><a aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-30"><a aria-hidden="true" tabindex="-1"></a>st.plotly_chart(fig)</span>
-<span id="cb9-31"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-32"><a aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> st.expander(<span class="st">"View underlying data from each replication"</span>):</span>
-<span id="cb9-33"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-34"><a aria-hidden="true" tabindex="-1"></a>    underlying <span class="op">=</span> trial.replication_df[</span>
-<span id="cb9-35"><a aria-hidden="true" tabindex="-1"></a>            [</span>
-<span id="cb9-36"><a aria-hidden="true" tabindex="-1"></a>                <span class="st">"replication_id"</span>,</span>
-<span id="cb9-37"><a aria-hidden="true" tabindex="-1"></a>                <span class="st">"patient_counter"</span>,</span>
-<span id="cb9-38"><a aria-hidden="true" tabindex="-1"></a>                <span class="st">"mean_q_time_nurse"</span>,</span>
-<span id="cb9-39"><a aria-hidden="true" tabindex="-1"></a>                <span class="st">"sd_q_time_nurse"</span>,</span>
-<span id="cb9-40"><a aria-hidden="true" tabindex="-1"></a>                <span class="st">"perc_90_q_time_nurse"</span>,</span>
-<span id="cb9-41"><a aria-hidden="true" tabindex="-1"></a>            ]</span>
-<span id="cb9-42"><a aria-hidden="true" tabindex="-1"></a>        ]</span>
-<span id="cb9-43"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-44"><a aria-hidden="true" tabindex="-1"></a>    st.dataframe(underlying)</span>
-<span id="cb9-45"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-46"><a aria-hidden="true" tabindex="-1"></a>    st.download_button(</span>
-<span id="cb9-47"><a aria-hidden="true" tabindex="-1"></a>        label<span class="op">=</span><span class="st">"Download table as CSV"</span>,</span>
-<span id="cb9-48"><a aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>underlying.to_csv().encode(<span class="st">"utf-8"</span>),</span>
-<span id="cb9-49"><a aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>st.space()</span>
+<span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a>st.subheader(<span class="st">"Scenario summary"</span>)</span>
+<span id="cb10-3"><a aria-hidden="true" tabindex="-1"></a>st.write(<span class="ss">f"""</span></span>
+<span id="cb10-4"><a aria-hidden="true" tabindex="-1"></a><span class="ss">Summary of nurse queue times across **all** replications.</span></span>
+<span id="cb10-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a aria-hidden="true" tabindex="-1"></a><span class="ss">* Mean: </span><span class="sc">{</span>trial<span class="sc">.</span>trial_mean_q_time_nurse<span class="sc">:.2f}</span><span class="ss"> minutes.</span></span>
+<span id="cb10-7"><a aria-hidden="true" tabindex="-1"></a><span class="ss">* SD: </span><span class="sc">{</span>trial<span class="sc">.</span>trial_sd_q_time_nurse<span class="sc">:.2f}</span><span class="ss"> minutes.</span></span>
+<span id="cb10-8"><a aria-hidden="true" tabindex="-1"></a><span class="ss">* 90th Perc: </span><span class="sc">{</span>trial<span class="sc">.</span>trial_perc_90_q_time_nurse<span class="sc">:.2f}</span><span class="ss"> minutes.</span></span>
+<span id="cb10-9"><a aria-hidden="true" tabindex="-1"></a><span class="ss">* Standard error: </span><span class="sc">{</span>trial<span class="sc">.</span>se_q_time_nurse<span class="sc">:.2f}</span></span>
+<span id="cb10-10"><a aria-hidden="true" tabindex="-1"></a><span class="ss">* 95% CI: (</span><span class="sc">{</span>trial<span class="sc">.</span>ci_lower_q_time_nurse<span class="sc">:.2f}</span><span class="ss">,</span></span>
+<span id="cb10-11"><a aria-hidden="true" tabindex="-1"></a><span class="sc">{</span>trial<span class="sc">.</span>ci_upper_q_time_nurse<span class="sc">:.2f}</span><span class="ss">) minutes.</span></span>
+<span id="cb10-12"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a aria-hidden="true" tabindex="-1"></a><span class="ss">Total nurse staffing cost: £</span><span class="sc">{</span>trial<span class="sc">.</span>total_nurse_cost<span class="sc">:,.2f}</span></span>
+<span id="cb10-14"><a aria-hidden="true" tabindex="-1"></a><span class="ss">"""</span>)</span>
+<span id="cb10-15"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a aria-hidden="true" tabindex="-1"></a>st.space()</span>
+<span id="cb10-17"><a aria-hidden="true" tabindex="-1"></a>st.subheader(<span class="st">"Results from individual replications"</span>)</span>
+<span id="cb10-18"><a aria-hidden="true" tabindex="-1"></a>st.write(</span>
+<span id="cb10-19"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"The chart shows how the mean nurse queue time varies between **individual** replications."</span></span>
+<span id="cb10-20"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-21"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-22"><a aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.histogram(</span>
+<span id="cb10-23"><a aria-hidden="true" tabindex="-1"></a>    data_frame<span class="op">=</span>trial.replication_df,</span>
+<span id="cb10-24"><a aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"mean_q_time_nurse"</span>,</span>
+<span id="cb10-25"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-26"><a aria-hidden="true" tabindex="-1"></a>fig.update_layout(</span>
+<span id="cb10-27"><a aria-hidden="true" tabindex="-1"></a>    xaxis_title<span class="op">=</span><span class="st">"Mean nurse queue time"</span>,</span>
+<span id="cb10-28"><a aria-hidden="true" tabindex="-1"></a>    yaxis_title<span class="op">=</span><span class="st">"Number of replications"</span></span>
+<span id="cb10-29"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-30"><a aria-hidden="true" tabindex="-1"></a>st.plotly_chart(fig)</span>
+<span id="cb10-31"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-32"><a aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> st.expander(<span class="st">"View underlying data from each replication"</span>):</span>
+<span id="cb10-33"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-34"><a aria-hidden="true" tabindex="-1"></a>    underlying <span class="op">=</span> trial.replication_df[</span>
+<span id="cb10-35"><a aria-hidden="true" tabindex="-1"></a>            [</span>
+<span id="cb10-36"><a aria-hidden="true" tabindex="-1"></a>                <span class="st">"replication_id"</span>,</span>
+<span id="cb10-37"><a aria-hidden="true" tabindex="-1"></a>                <span class="st">"patient_counter"</span>,</span>
+<span id="cb10-38"><a aria-hidden="true" tabindex="-1"></a>                <span class="st">"mean_q_time_nurse"</span>,</span>
+<span id="cb10-39"><a aria-hidden="true" tabindex="-1"></a>                <span class="st">"sd_q_time_nurse"</span>,</span>
+<span id="cb10-40"><a aria-hidden="true" tabindex="-1"></a>                <span class="st">"perc_90_q_time_nurse"</span>,</span>
+<span id="cb10-41"><a aria-hidden="true" tabindex="-1"></a>            ]</span>
+<span id="cb10-42"><a aria-hidden="true" tabindex="-1"></a>        ]</span>
+<span id="cb10-43"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-44"><a aria-hidden="true" tabindex="-1"></a>    st.dataframe(underlying)</span>
+<span id="cb10-45"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-46"><a aria-hidden="true" tabindex="-1"></a>    st.download_button(</span>
+<span id="cb10-47"><a aria-hidden="true" tabindex="-1"></a>        label<span class="op">=</span><span class="st">"Download table as CSV"</span>,</span>
+<span id="cb10-48"><a aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>underlying.to_csv().encode(<span class="st">"utf-8"</span>),</span>
+<span id="cb10-49"><a aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
 <section id="required-changes" class="slide level2">
@@ -619,74 +635,7 @@
 <p><strong>1. Import the packages</strong></p>
 <p>Import <code>pandas</code>, <code>plotly.express</code> and <code>streamlit</code> for this page.</p>
 </div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" data-code-line-numbers="1-3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-label="1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb10-2"><a aria-label="2"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
-<span id="cb10-3"><a aria-label="3"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
-<span id="cb10-4"><a aria-label="4"></a></span>
-<span id="cb10-5"><a aria-label="5"></a><span class="co"># Get results of chosen scenario</span></span>
-<span id="cb10-6"><a aria-label="6"></a>results <span class="op">=</span> st.session_state.scenarios[st.session_state.chosen_scenario]</span>
-<span id="cb10-7"><a aria-label="7"></a></span>
-<span id="cb10-8"><a aria-label="8"></a>st.space()</span>
-<span id="cb10-9"><a aria-label="9"></a>st.subheader(<span class="st">"Scenario summary"</span>)</span>
-<span id="cb10-10"><a aria-label="10"></a>st.write(<span class="ss">f"""</span></span>
-<span id="cb10-11"><a aria-label="11"></a><span class="ss">Summary of nurse queue times across **all** replications.</span></span>
-<span id="cb10-12"><a aria-label="12"></a></span>
-<span id="cb10-13"><a aria-label="13"></a><span class="ss">* Mean: </span><span class="sc">{</span>results[<span class="st">"mean"</span>]<span class="sc">:.2f}</span><span class="ss"> minutes.</span></span>
-<span id="cb10-14"><a aria-label="14"></a><span class="ss">* SD: </span><span class="sc">{</span>results[<span class="st">"sd"</span>]<span class="sc">:.2f}</span><span class="ss"> minutes.</span></span>
-<span id="cb10-15"><a aria-label="15"></a><span class="ss">* 90th Perc: </span><span class="sc">{</span>results[<span class="st">"p90"</span>]<span class="sc">:.2f}</span><span class="ss"> minutes.</span></span>
-<span id="cb10-16"><a aria-label="16"></a><span class="ss">* Standard error: </span><span class="sc">{</span>results[<span class="st">"se"</span>]<span class="sc">:.2f}</span></span>
-<span id="cb10-17"><a aria-label="17"></a><span class="ss">* 95% CI: (</span><span class="sc">{</span>results[<span class="st">"ci_lower"</span>]<span class="sc">:.2f}</span><span class="ss">, </span><span class="sc">{</span>results[<span class="st">"ci_upper"</span>]<span class="sc">:.2f}</span><span class="ss">) minutes</span></span>
-<span id="cb10-18"><a aria-label="18"></a></span>
-<span id="cb10-19"><a aria-label="19"></a><span class="ss">Total nurse staffing cost: £</span><span class="sc">{</span>results[<span class="st">"cost"</span>]<span class="sc">:,.2f}</span></span>
-<span id="cb10-20"><a aria-label="20"></a><span class="ss">"""</span>)</span>
-<span id="cb10-21"><a aria-label="21"></a></span>
-<span id="cb10-22"><a aria-label="22"></a>st.space()</span>
-<span id="cb10-23"><a aria-label="23"></a>st.subheader(<span class="st">"Results from individual replications"</span>)</span>
-<span id="cb10-24"><a aria-label="24"></a>st.write(</span>
-<span id="cb10-25"><a aria-label="25"></a>    <span class="st">"The chart shows how the mean nurse queue time varies between **individual** replications."</span></span>
-<span id="cb10-26"><a aria-label="26"></a>)</span>
-<span id="cb10-27"><a aria-label="27"></a></span>
-<span id="cb10-28"><a aria-label="28"></a>fig <span class="op">=</span> px.histogram(</span>
-<span id="cb10-29"><a aria-label="29"></a>    data_frame<span class="op">=</span>results[<span class="st">"df"</span>],</span>
-<span id="cb10-30"><a aria-label="30"></a>    x<span class="op">=</span><span class="st">"mean_q_time_nurse"</span>,</span>
-<span id="cb10-31"><a aria-label="31"></a>)</span>
-<span id="cb10-32"><a aria-label="32"></a>fig.update_layout(</span>
-<span id="cb10-33"><a aria-label="33"></a>    xaxis_title<span class="op">=</span><span class="st">"Mean nurse queue time"</span>,</span>
-<span id="cb10-34"><a aria-label="34"></a>    yaxis_title<span class="op">=</span><span class="st">"Number of replications"</span></span>
-<span id="cb10-35"><a aria-label="35"></a>)</span>
-<span id="cb10-36"><a aria-label="36"></a>st.plotly_chart(fig)</span>
-<span id="cb10-37"><a aria-label="37"></a></span>
-<span id="cb10-38"><a aria-label="38"></a><span class="cf">with</span> st.expander(<span class="st">"View underlying data from each replication"</span>):</span>
-<span id="cb10-39"><a aria-label="39"></a></span>
-<span id="cb10-40"><a aria-label="40"></a>    underlying <span class="op">=</span> results[<span class="st">"df"</span>][</span>
-<span id="cb10-41"><a aria-label="41"></a>            [</span>
-<span id="cb10-42"><a aria-label="42"></a>                <span class="st">"replication_id"</span>,</span>
-<span id="cb10-43"><a aria-label="43"></a>                <span class="st">"patient_counter"</span>,</span>
-<span id="cb10-44"><a aria-label="44"></a>                <span class="st">"mean_q_time_nurse"</span>,</span>
-<span id="cb10-45"><a aria-label="45"></a>                <span class="st">"sd_q_time_nurse"</span>,</span>
-<span id="cb10-46"><a aria-label="46"></a>                <span class="st">"perc_90_q_time_nurse"</span>,</span>
-<span id="cb10-47"><a aria-label="47"></a>            ]</span>
-<span id="cb10-48"><a aria-label="48"></a>        ]</span>
-<span id="cb10-49"><a aria-label="49"></a></span>
-<span id="cb10-50"><a aria-label="50"></a>    st.dataframe(underlying)</span>
-<span id="cb10-51"><a aria-label="51"></a></span>
-<span id="cb10-52"><a aria-label="52"></a>    st.download_button(</span>
-<span id="cb10-53"><a aria-label="53"></a>        label<span class="op">=</span><span class="st">"Download table as CSV"</span>,</span>
-<span id="cb10-54"><a aria-label="54"></a>        data<span class="op">=</span>underlying.to_csv().encode(<span class="st">"utf-8"</span>),</span>
-<span id="cb10-55"><a aria-label="55"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div></div>
-</section>
-<section id="required-changes-1" class="slide level2">
-<h2>Required changes</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><br><br></p>
-<p><strong>2. Retrieve the chosen scenario</strong></p>
-<p>Use <code>chosen_scenario</code> to look up the saved scenario in <code>scenarios</code> and store it as <code>results</code>.</p>
-<p><br></p>
-<p><em>For now, this is the most recently run scenario. We’ll add a way for users to choose a different scenario in a moment.</em></p>
-</div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" data-code-line-numbers="5-6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-label="1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" data-code-line-numbers="1-3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-label="1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb11-2"><a aria-label="2"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
 <span id="cb11-3"><a aria-label="3"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
 <span id="cb11-4"><a aria-label="4"></a></span>
@@ -743,15 +692,17 @@
 <span id="cb11-55"><a aria-label="55"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
-<section id="required-changes-2" class="slide level2">
+<section id="required-changes-1" class="slide level2">
 <h2>Required changes</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><br><br></p>
-<p><strong>3. Display the saved results</strong></p>
-<p>Read the summary statistics and cost from <code>results</code>, rather than directly from the simulation <code>trial</code> object.</p>
+<p><strong>2. Retrieve the chosen scenario</strong></p>
+<p>Use <code>chosen_scenario</code> to look up the saved scenario in <code>scenarios</code> and store it as <code>results</code>.</p>
+<p><br></p>
+<p><em>For now, this is the most recently run scenario. We’ll add a way for users to choose a different scenario in a moment.</em></p>
 </div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" data-code-line-numbers="13-21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-label="1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" data-code-line-numbers="5-6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-label="1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb12-2"><a aria-label="2"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
 <span id="cb12-3"><a aria-label="3"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
 <span id="cb12-4"><a aria-label="4"></a></span>
@@ -808,14 +759,15 @@
 <span id="cb12-55"><a aria-label="55"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
-<section id="required-changes-3" class="slide level2">
+<section id="required-changes-2" class="slide level2">
 <h2>Required changes</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><br><br> <strong>4. Use saved data in histogram and table</strong></p>
-<p>Use <code>results["df"]</code> as the data source for both the histogram and the table of individual replications.</p>
+<p><br><br></p>
+<p><strong>3. Display the saved results</strong></p>
+<p>Read the summary statistics and cost from <code>results</code>, rather than directly from the simulation <code>trial</code> object.</p>
 </div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" data-code-line-numbers="29,40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a aria-label="1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" data-code-line-numbers="13-21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a aria-label="1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb13-2"><a aria-label="2"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
 <span id="cb13-3"><a aria-label="3"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
 <span id="cb13-4"><a aria-label="4"></a></span>
@@ -872,6 +824,70 @@
 <span id="cb13-55"><a aria-label="55"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
+<section id="required-changes-3" class="slide level2">
+<h2>Required changes</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><br><br> <strong>4. Use saved data in histogram and table</strong></p>
+<p>Use <code>results["df"]</code> as the data source for both the histogram and the table of individual replications.</p>
+</div><div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14" data-code-line-numbers="29,40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a aria-label="1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb14-2"><a aria-label="2"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
+<span id="cb14-3"><a aria-label="3"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb14-4"><a aria-label="4"></a></span>
+<span id="cb14-5"><a aria-label="5"></a><span class="co"># Get results of chosen scenario</span></span>
+<span id="cb14-6"><a aria-label="6"></a>results <span class="op">=</span> st.session_state.scenarios[st.session_state.chosen_scenario]</span>
+<span id="cb14-7"><a aria-label="7"></a></span>
+<span id="cb14-8"><a aria-label="8"></a>st.space()</span>
+<span id="cb14-9"><a aria-label="9"></a>st.subheader(<span class="st">"Scenario summary"</span>)</span>
+<span id="cb14-10"><a aria-label="10"></a>st.write(<span class="ss">f"""</span></span>
+<span id="cb14-11"><a aria-label="11"></a><span class="ss">Summary of nurse queue times across **all** replications.</span></span>
+<span id="cb14-12"><a aria-label="12"></a></span>
+<span id="cb14-13"><a aria-label="13"></a><span class="ss">* Mean: </span><span class="sc">{</span>results[<span class="st">"mean"</span>]<span class="sc">:.2f}</span><span class="ss"> minutes.</span></span>
+<span id="cb14-14"><a aria-label="14"></a><span class="ss">* SD: </span><span class="sc">{</span>results[<span class="st">"sd"</span>]<span class="sc">:.2f}</span><span class="ss"> minutes.</span></span>
+<span id="cb14-15"><a aria-label="15"></a><span class="ss">* 90th Perc: </span><span class="sc">{</span>results[<span class="st">"p90"</span>]<span class="sc">:.2f}</span><span class="ss"> minutes.</span></span>
+<span id="cb14-16"><a aria-label="16"></a><span class="ss">* Standard error: </span><span class="sc">{</span>results[<span class="st">"se"</span>]<span class="sc">:.2f}</span></span>
+<span id="cb14-17"><a aria-label="17"></a><span class="ss">* 95% CI: (</span><span class="sc">{</span>results[<span class="st">"ci_lower"</span>]<span class="sc">:.2f}</span><span class="ss">, </span><span class="sc">{</span>results[<span class="st">"ci_upper"</span>]<span class="sc">:.2f}</span><span class="ss">) minutes</span></span>
+<span id="cb14-18"><a aria-label="18"></a></span>
+<span id="cb14-19"><a aria-label="19"></a><span class="ss">Total nurse staffing cost: £</span><span class="sc">{</span>results[<span class="st">"cost"</span>]<span class="sc">:,.2f}</span></span>
+<span id="cb14-20"><a aria-label="20"></a><span class="ss">"""</span>)</span>
+<span id="cb14-21"><a aria-label="21"></a></span>
+<span id="cb14-22"><a aria-label="22"></a>st.space()</span>
+<span id="cb14-23"><a aria-label="23"></a>st.subheader(<span class="st">"Results from individual replications"</span>)</span>
+<span id="cb14-24"><a aria-label="24"></a>st.write(</span>
+<span id="cb14-25"><a aria-label="25"></a>    <span class="st">"The chart shows how the mean nurse queue time varies between **individual** replications."</span></span>
+<span id="cb14-26"><a aria-label="26"></a>)</span>
+<span id="cb14-27"><a aria-label="27"></a></span>
+<span id="cb14-28"><a aria-label="28"></a>fig <span class="op">=</span> px.histogram(</span>
+<span id="cb14-29"><a aria-label="29"></a>    data_frame<span class="op">=</span>results[<span class="st">"df"</span>],</span>
+<span id="cb14-30"><a aria-label="30"></a>    x<span class="op">=</span><span class="st">"mean_q_time_nurse"</span>,</span>
+<span id="cb14-31"><a aria-label="31"></a>)</span>
+<span id="cb14-32"><a aria-label="32"></a>fig.update_layout(</span>
+<span id="cb14-33"><a aria-label="33"></a>    xaxis_title<span class="op">=</span><span class="st">"Mean nurse queue time"</span>,</span>
+<span id="cb14-34"><a aria-label="34"></a>    yaxis_title<span class="op">=</span><span class="st">"Number of replications"</span></span>
+<span id="cb14-35"><a aria-label="35"></a>)</span>
+<span id="cb14-36"><a aria-label="36"></a>st.plotly_chart(fig)</span>
+<span id="cb14-37"><a aria-label="37"></a></span>
+<span id="cb14-38"><a aria-label="38"></a><span class="cf">with</span> st.expander(<span class="st">"View underlying data from each replication"</span>):</span>
+<span id="cb14-39"><a aria-label="39"></a></span>
+<span id="cb14-40"><a aria-label="40"></a>    underlying <span class="op">=</span> results[<span class="st">"df"</span>][</span>
+<span id="cb14-41"><a aria-label="41"></a>            [</span>
+<span id="cb14-42"><a aria-label="42"></a>                <span class="st">"replication_id"</span>,</span>
+<span id="cb14-43"><a aria-label="43"></a>                <span class="st">"patient_counter"</span>,</span>
+<span id="cb14-44"><a aria-label="44"></a>                <span class="st">"mean_q_time_nurse"</span>,</span>
+<span id="cb14-45"><a aria-label="45"></a>                <span class="st">"sd_q_time_nurse"</span>,</span>
+<span id="cb14-46"><a aria-label="46"></a>                <span class="st">"perc_90_q_time_nurse"</span>,</span>
+<span id="cb14-47"><a aria-label="47"></a>            ]</span>
+<span id="cb14-48"><a aria-label="48"></a>        ]</span>
+<span id="cb14-49"><a aria-label="49"></a></span>
+<span id="cb14-50"><a aria-label="50"></a>    st.dataframe(underlying)</span>
+<span id="cb14-51"><a aria-label="51"></a></span>
+<span id="cb14-52"><a aria-label="52"></a>    st.download_button(</span>
+<span id="cb14-53"><a aria-label="53"></a>        label<span class="op">=</span><span class="st">"Download table as CSV"</span>,</span>
+<span id="cb14-54"><a aria-label="54"></a>        data<span class="op">=</span>underlying.to_csv().encode(<span class="st">"utf-8"</span>),</span>
+<span id="cb14-55"><a aria-label="55"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+</section>
 <section id="choose-a-scenario" class="slide level2">
 <h2>Choose a scenario</h2>
 <p>Now we can let users choosen their <code>chosen_scenario</code> to view.</p>
@@ -893,41 +909,7 @@
 <div class="column" style="width:50%;">
 <p>Let’s work through the code to do that…</p>
 </div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a aria-label="1"></a><span class="cf">with</span> st.container(border<span class="op">=</span><span class="va">True</span>):</span>
-<span id="cb14-2"><a aria-label="2"></a>    st.selectbox(</span>
-<span id="cb14-3"><a aria-label="3"></a>        label<span class="op">=</span><span class="st">"**Choose a scenario to view:**"</span>,</span>
-<span id="cb14-4"><a aria-label="4"></a>        options<span class="op">=</span><span class="bu">list</span>(st.session_state.scenarios),</span>
-<span id="cb14-5"><a aria-label="5"></a>        key<span class="op">=</span><span class="st">"chosen_scenario"</span>,</span>
-<span id="cb14-6"><a aria-label="6"></a>    )</span>
-<span id="cb14-7"><a aria-label="7"></a></span>
-<span id="cb14-8"><a aria-label="8"></a>    <span class="co"># Convert the settings dictionary into a dataframe</span></span>
-<span id="cb14-9"><a aria-label="9"></a>    settings <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb14-10"><a aria-label="10"></a>        [</span>
-<span id="cb14-11"><a aria-label="11"></a>            scenario[<span class="st">"settings"</span>]</span>
-<span id="cb14-12"><a aria-label="12"></a>            <span class="cf">for</span> scenario <span class="kw">in</span> st.session_state.scenarios.values()</span>
-<span id="cb14-13"><a aria-label="13"></a>        ]</span>
-<span id="cb14-14"><a aria-label="14"></a>    )</span>
-<span id="cb14-15"><a aria-label="15"></a></span>
-<span id="cb14-16"><a aria-label="16"></a>    <span class="co"># Show dataframe of saved scenarios, with chosen scenario highlighted</span></span>
-<span id="cb14-17"><a aria-label="17"></a>    st.caption(<span class="st">"The selected scenario is highlighted below."</span>)</span>
-<span id="cb14-18"><a aria-label="18"></a>    st.dataframe(</span>
-<span id="cb14-19"><a aria-label="19"></a>        style_settings(</span>
-<span id="cb14-20"><a aria-label="20"></a>            settings<span class="op">=</span>settings,</span>
-<span id="cb14-21"><a aria-label="21"></a>            chosen_scenarios<span class="op">=</span>[st.session_state.chosen_scenario],</span>
-<span id="cb14-22"><a aria-label="22"></a>        ),</span>
-<span id="cb14-23"><a aria-label="23"></a>        hide_index<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb14-24"><a aria-label="24"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div></div>
-</section>
-<section id="choose-a-scenario-2" class="slide level2">
-<h2>Choose a scenario</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><br><br></p>
-<p><strong>1. Use <code>st.container(border=True)</code></strong></p>
-<p>This keeps the scenario selection area visually separate from the results.</p>
-</div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15" data-code-line-numbers="1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a aria-label="1"></a><span class="cf">with</span> st.container(border<span class="op">=</span><span class="va">True</span>):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a aria-label="1"></a><span class="cf">with</span> st.container(border<span class="op">=</span><span class="va">True</span>):</span>
 <span id="cb15-2"><a aria-label="2"></a>    st.selectbox(</span>
 <span id="cb15-3"><a aria-label="3"></a>        label<span class="op">=</span><span class="st">"**Choose a scenario to view:**"</span>,</span>
 <span id="cb15-4"><a aria-label="4"></a>        options<span class="op">=</span><span class="bu">list</span>(st.session_state.scenarios),</span>
@@ -953,16 +935,15 @@
 <span id="cb15-24"><a aria-label="24"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
-<section id="choose-a-scenario-3" class="slide level2">
+<section id="choose-a-scenario-2" class="slide level2">
 <h2>Choose a scenario</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><br><br></p>
-<p><strong>2. Select a scenario</strong></p>
-<p>Use <code>st.selectbox()</code> to create a dropdown with the names of save scenarios.</p>
-<p>Using <code>key="chosen_scenario"</code> means the selection is saved as and overwrites the last <code>chosen_scenario</code> in session state.</p>
+<p><strong>1. Use <code>st.container(border=True)</code></strong></p>
+<p>This keeps the scenario selection area visually separate from the results.</p>
 </div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16" data-code-line-numbers="2-6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a aria-label="1"></a><span class="cf">with</span> st.container(border<span class="op">=</span><span class="va">True</span>):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16" data-code-line-numbers="1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a aria-label="1"></a><span class="cf">with</span> st.container(border<span class="op">=</span><span class="va">True</span>):</span>
 <span id="cb16-2"><a aria-label="2"></a>    st.selectbox(</span>
 <span id="cb16-3"><a aria-label="3"></a>        label<span class="op">=</span><span class="st">"**Choose a scenario to view:**"</span>,</span>
 <span id="cb16-4"><a aria-label="4"></a>        options<span class="op">=</span><span class="bu">list</span>(st.session_state.scenarios),</span>
@@ -988,15 +969,16 @@
 <span id="cb16-24"><a aria-label="24"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
-<section id="choose-a-scenario-4" class="slide level2">
+<section id="choose-a-scenario-3" class="slide level2">
 <h2>Choose a scenario</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><br><br></p>
-<p><strong>3. Create a settings dataframe</strong></p>
-<p>Extract the settings dictionary for each saved scenario and combined them into a dataframe, with one row per scenario.</p>
+<p><strong>2. Select a scenario</strong></p>
+<p>Use <code>st.selectbox()</code> to create a dropdown with the names of save scenarios.</p>
+<p>Using <code>key="chosen_scenario"</code> means the selection is saved as and overwrites the last <code>chosen_scenario</code> in session state.</p>
 </div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17" data-code-line-numbers="8-14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a aria-label="1"></a><span class="cf">with</span> st.container(border<span class="op">=</span><span class="va">True</span>):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17" data-code-line-numbers="2-6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a aria-label="1"></a><span class="cf">with</span> st.container(border<span class="op">=</span><span class="va">True</span>):</span>
 <span id="cb17-2"><a aria-label="2"></a>    st.selectbox(</span>
 <span id="cb17-3"><a aria-label="3"></a>        label<span class="op">=</span><span class="st">"**Choose a scenario to view:**"</span>,</span>
 <span id="cb17-4"><a aria-label="4"></a>        options<span class="op">=</span><span class="bu">list</span>(st.session_state.scenarios),</span>
@@ -1022,16 +1004,15 @@
 <span id="cb17-24"><a aria-label="24"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
-<section id="choose-a-scenario-5" class="slide level2">
+<section id="choose-a-scenario-4" class="slide level2">
 <h2>Choose a scenario</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><br><br></p>
-<p><strong>4. Display the settings dataframe</strong></p>
-<p>Use <code>st.dataframe()</code> to display <code>settings</code>.</p>
-<p>We’ll write a function <code>style_settings()</code> which we can apply to the dataframe to highlight the chosen scenario row…</p>
+<p><strong>3. Create a settings dataframe</strong></p>
+<p>Extract the settings dictionary for each saved scenario and combined them into a dataframe, with one row per scenario.</p>
 </div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18" data-code-line-numbers="16-24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a aria-label="1"></a><span class="cf">with</span> st.container(border<span class="op">=</span><span class="va">True</span>):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18" data-code-line-numbers="8-14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a aria-label="1"></a><span class="cf">with</span> st.container(border<span class="op">=</span><span class="va">True</span>):</span>
 <span id="cb18-2"><a aria-label="2"></a>    st.selectbox(</span>
 <span id="cb18-3"><a aria-label="3"></a>        label<span class="op">=</span><span class="st">"**Choose a scenario to view:**"</span>,</span>
 <span id="cb18-4"><a aria-label="4"></a>        options<span class="op">=</span><span class="bu">list</span>(st.session_state.scenarios),</span>
@@ -1057,21 +1038,56 @@
 <span id="cb18-24"><a aria-label="24"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
+<section id="choose-a-scenario-5" class="slide level2">
+<h2>Choose a scenario</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><br><br></p>
+<p><strong>4. Display the settings dataframe</strong></p>
+<p>Use <code>st.dataframe()</code> to display <code>settings</code>.</p>
+<p>We’ll write a function <code>style_settings()</code> which we can apply to the dataframe to highlight the chosen scenario row…</p>
+</div><div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19" data-code-line-numbers="16-24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a aria-label="1"></a><span class="cf">with</span> st.container(border<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb19-2"><a aria-label="2"></a>    st.selectbox(</span>
+<span id="cb19-3"><a aria-label="3"></a>        label<span class="op">=</span><span class="st">"**Choose a scenario to view:**"</span>,</span>
+<span id="cb19-4"><a aria-label="4"></a>        options<span class="op">=</span><span class="bu">list</span>(st.session_state.scenarios),</span>
+<span id="cb19-5"><a aria-label="5"></a>        key<span class="op">=</span><span class="st">"chosen_scenario"</span>,</span>
+<span id="cb19-6"><a aria-label="6"></a>    )</span>
+<span id="cb19-7"><a aria-label="7"></a></span>
+<span id="cb19-8"><a aria-label="8"></a>    <span class="co"># Convert the settings dictionary into a dataframe</span></span>
+<span id="cb19-9"><a aria-label="9"></a>    settings <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb19-10"><a aria-label="10"></a>        [</span>
+<span id="cb19-11"><a aria-label="11"></a>            scenario[<span class="st">"settings"</span>]</span>
+<span id="cb19-12"><a aria-label="12"></a>            <span class="cf">for</span> scenario <span class="kw">in</span> st.session_state.scenarios.values()</span>
+<span id="cb19-13"><a aria-label="13"></a>        ]</span>
+<span id="cb19-14"><a aria-label="14"></a>    )</span>
+<span id="cb19-15"><a aria-label="15"></a></span>
+<span id="cb19-16"><a aria-label="16"></a>    <span class="co"># Show dataframe of saved scenarios, with chosen scenario highlighted</span></span>
+<span id="cb19-17"><a aria-label="17"></a>    st.caption(<span class="st">"The selected scenario is highlighted below."</span>)</span>
+<span id="cb19-18"><a aria-label="18"></a>    st.dataframe(</span>
+<span id="cb19-19"><a aria-label="19"></a>        style_settings(</span>
+<span id="cb19-20"><a aria-label="20"></a>            settings<span class="op">=</span>settings,</span>
+<span id="cb19-21"><a aria-label="21"></a>            chosen_scenarios<span class="op">=</span>[st.session_state.chosen_scenario],</span>
+<span id="cb19-22"><a aria-label="22"></a>        ),</span>
+<span id="cb19-23"><a aria-label="23"></a>        hide_index<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb19-24"><a aria-label="24"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+</section>
 <section id="style_settings" class="slide level2">
 <h2><code>style_settings()</code></h2>
 <p>We’ll write this function near the start of our <code>results.py</code> script.</p>
 <p>It checks each row’s scenario name against <code>chosen_scenarios</code>. Matching rows get a pale blue background. We use <code>.style.apply()</code> to apply this formatting row by row, then <code>.format(precision=2)</code> to display decimal values to two decimal places.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a aria-label="1"></a><span class="co"># Function for highlighting the row/s with the chosen scenario/s</span></span>
-<span id="cb19-2"><a aria-label="2"></a><span class="kw">def</span> style_settings(settings, chosen_scenarios):</span>
-<span id="cb19-3"><a aria-label="3"></a>    <span class="kw">def</span> highlight(row):</span>
-<span id="cb19-4"><a aria-label="4"></a>        style <span class="op">=</span> (</span>
-<span id="cb19-5"><a aria-label="5"></a>            <span class="st">"background-color: #dbeafe; color: #111827"</span></span>
-<span id="cb19-6"><a aria-label="6"></a>            <span class="cf">if</span> row[<span class="st">"Scenario"</span>] <span class="kw">in</span> chosen_scenarios</span>
-<span id="cb19-7"><a aria-label="7"></a>            <span class="cf">else</span> <span class="st">""</span></span>
-<span id="cb19-8"><a aria-label="8"></a>        )</span>
-<span id="cb19-9"><a aria-label="9"></a>        <span class="cf">return</span> [style] <span class="op">*</span> <span class="bu">len</span>(row)</span>
-<span id="cb19-10"><a aria-label="10"></a></span>
-<span id="cb19-11"><a aria-label="11"></a>    <span class="cf">return</span> settings.style.<span class="bu">apply</span>(highlight, axis<span class="op">=</span><span class="dv">1</span>).<span class="bu">format</span>(precision<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a aria-label="1"></a><span class="co"># Function for highlighting the row/s with the chosen scenario/s</span></span>
+<span id="cb20-2"><a aria-label="2"></a><span class="kw">def</span> style_settings(settings, chosen_scenarios):</span>
+<span id="cb20-3"><a aria-label="3"></a>    <span class="kw">def</span> highlight(row):</span>
+<span id="cb20-4"><a aria-label="4"></a>        style <span class="op">=</span> (</span>
+<span id="cb20-5"><a aria-label="5"></a>            <span class="st">"background-color: #dbeafe; color: #111827"</span></span>
+<span id="cb20-6"><a aria-label="6"></a>            <span class="cf">if</span> row[<span class="st">"Scenario"</span>] <span class="kw">in</span> chosen_scenarios</span>
+<span id="cb20-7"><a aria-label="7"></a>            <span class="cf">else</span> <span class="st">""</span></span>
+<span id="cb20-8"><a aria-label="8"></a>        )</span>
+<span id="cb20-9"><a aria-label="9"></a>        <span class="cf">return</span> [style] <span class="op">*</span> <span class="bu">len</span>(row)</span>
+<span id="cb20-10"><a aria-label="10"></a></span>
+<span id="cb20-11"><a aria-label="11"></a>    <span class="cf">return</span> settings.style.<span class="bu">apply</span>(highlight, axis<span class="op">=</span><span class="dv">1</span>).<span class="bu">format</span>(precision<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="no-scenarios-to-view" class="slide level2">
 <h2>No scenarios to view</h2>
@@ -1087,19 +1103,19 @@
 <p>If it is, we show a message using <code>st.info()</code>.</p>
 <p>Otherwise, we display the results page as before.</p>
 </div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20" data-code-line-numbers="1-4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a aria-label="1"></a><span class="cf">if</span> <span class="kw">not</span> st.session_state.scenarios:</span>
-<span id="cb20-2"><a aria-label="2"></a>    st.info(<span class="st">"Run and save scenarios to view results here."</span>, icon<span class="op">=</span><span class="st">"ℹ️"</span>)</span>
-<span id="cb20-3"><a aria-label="3"></a></span>
-<span id="cb20-4"><a aria-label="4"></a><span class="cf">else</span>:</span>
-<span id="cb20-5"><a aria-label="5"></a>    st.space()</span>
-<span id="cb20-6"><a aria-label="6"></a>    <span class="cf">with</span> st.container(border<span class="op">=</span><span class="va">True</span>):</span>
-<span id="cb20-7"><a aria-label="7"></a>        st.selectbox(</span>
-<span id="cb20-8"><a aria-label="8"></a>            label<span class="op">=</span><span class="st">"**Choose a scenario to view:**"</span>,</span>
-<span id="cb20-9"><a aria-label="9"></a>            options<span class="op">=</span><span class="bu">list</span>(st.session_state.scenarios),</span>
-<span id="cb20-10"><a aria-label="10"></a>            key<span class="op">=</span><span class="st">"chosen_scenario"</span>,</span>
-<span id="cb20-11"><a aria-label="11"></a>        )</span>
-<span id="cb20-12"><a aria-label="12"></a>    </span>
-<span id="cb20-13"><a aria-label="13"></a>    ...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21" data-code-line-numbers="1-4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a aria-label="1"></a><span class="cf">if</span> <span class="kw">not</span> st.session_state.scenarios:</span>
+<span id="cb21-2"><a aria-label="2"></a>    st.info(<span class="st">"Run and save scenarios to view results here."</span>, icon<span class="op">=</span><span class="st">"ℹ️"</span>)</span>
+<span id="cb21-3"><a aria-label="3"></a></span>
+<span id="cb21-4"><a aria-label="4"></a><span class="cf">else</span>:</span>
+<span id="cb21-5"><a aria-label="5"></a>    st.space()</span>
+<span id="cb21-6"><a aria-label="6"></a>    <span class="cf">with</span> st.container(border<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb21-7"><a aria-label="7"></a>        st.selectbox(</span>
+<span id="cb21-8"><a aria-label="8"></a>            label<span class="op">=</span><span class="st">"**Choose a scenario to view:**"</span>,</span>
+<span id="cb21-9"><a aria-label="9"></a>            options<span class="op">=</span><span class="bu">list</span>(st.session_state.scenarios),</span>
+<span id="cb21-10"><a aria-label="10"></a>            key<span class="op">=</span><span class="st">"chosen_scenario"</span>,</span>
+<span id="cb21-11"><a aria-label="11"></a>        )</span>
+<span id="cb21-12"><a aria-label="12"></a>    </span>
+<span id="cb21-13"><a aria-label="13"></a>    ...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 <p><br></p>
 <p>This avoids trying to display results when none are available.</p>
@@ -1130,29 +1146,29 @@
 <p><br></p>
 <p>We then use a <code>with</code> block to add content to each tab.</p>
 </div><div class="column" style="width:60%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21" data-code-line-numbers="11-15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a aria-label="1"></a>st.title(<span class="st">"View results"</span>)</span>
-<span id="cb21-2"><a aria-label="2"></a></span>
-<span id="cb21-3"><a aria-label="3"></a><span class="cf">if</span> <span class="kw">not</span> st.session_state.scenarios:</span>
-<span id="cb21-4"><a aria-label="4"></a>    st.info(<span class="st">"Run and save scenarios to view results here."</span>, icon<span class="op">=</span><span class="st">"ℹ️"</span>)</span>
-<span id="cb21-5"><a aria-label="5"></a></span>
-<span id="cb21-6"><a aria-label="6"></a><span class="cf">else</span>:</span>
-<span id="cb21-7"><a aria-label="7"></a>    st.write(</span>
-<span id="cb21-8"><a aria-label="8"></a>        <span class="st">"You can either view results from a **single scenario**, or **compare across scenarios**."</span></span>
-<span id="cb21-9"><a aria-label="9"></a>    )</span>
-<span id="cb21-10"><a aria-label="10"></a></span>
-<span id="cb21-11"><a aria-label="11"></a>    tab_single, tab_compare <span class="op">=</span> st.tabs(</span>
-<span id="cb21-12"><a aria-label="12"></a>        [<span class="st">"View single scenario"</span>, <span class="st">"Compare scenarios"</span>]</span>
-<span id="cb21-13"><a aria-label="13"></a>    )</span>
-<span id="cb21-14"><a aria-label="14"></a></span>
-<span id="cb21-15"><a aria-label="15"></a>    <span class="cf">with</span> tab_single:</span>
-<span id="cb21-16"><a aria-label="16"></a>        st.space()</span>
-<span id="cb21-17"><a aria-label="17"></a>        <span class="cf">with</span> st.container(border<span class="op">=</span><span class="va">True</span>):</span>
-<span id="cb21-18"><a aria-label="18"></a>            st.selectbox(</span>
-<span id="cb21-19"><a aria-label="19"></a>                label<span class="op">=</span><span class="st">"**Choose a scenario to view:**"</span>,</span>
-<span id="cb21-20"><a aria-label="20"></a>                options<span class="op">=</span><span class="bu">list</span>(st.session_state.scenarios),</span>
-<span id="cb21-21"><a aria-label="21"></a>                key<span class="op">=</span><span class="st">"chosen_scenario"</span>,</span>
-<span id="cb21-22"><a aria-label="22"></a>            )</span>
-<span id="cb21-23"><a aria-label="23"></a>            ...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22" data-code-line-numbers="11-15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a aria-label="1"></a>st.title(<span class="st">"View results"</span>)</span>
+<span id="cb22-2"><a aria-label="2"></a></span>
+<span id="cb22-3"><a aria-label="3"></a><span class="cf">if</span> <span class="kw">not</span> st.session_state.scenarios:</span>
+<span id="cb22-4"><a aria-label="4"></a>    st.info(<span class="st">"Run and save scenarios to view results here."</span>, icon<span class="op">=</span><span class="st">"ℹ️"</span>)</span>
+<span id="cb22-5"><a aria-label="5"></a></span>
+<span id="cb22-6"><a aria-label="6"></a><span class="cf">else</span>:</span>
+<span id="cb22-7"><a aria-label="7"></a>    st.write(</span>
+<span id="cb22-8"><a aria-label="8"></a>        <span class="st">"You can either view results from a **single scenario**, or **compare across scenarios**."</span></span>
+<span id="cb22-9"><a aria-label="9"></a>    )</span>
+<span id="cb22-10"><a aria-label="10"></a></span>
+<span id="cb22-11"><a aria-label="11"></a>    tab_single, tab_compare <span class="op">=</span> st.tabs(</span>
+<span id="cb22-12"><a aria-label="12"></a>        [<span class="st">"View single scenario"</span>, <span class="st">"Compare scenarios"</span>]</span>
+<span id="cb22-13"><a aria-label="13"></a>    )</span>
+<span id="cb22-14"><a aria-label="14"></a></span>
+<span id="cb22-15"><a aria-label="15"></a>    <span class="cf">with</span> tab_single:</span>
+<span id="cb22-16"><a aria-label="16"></a>        st.space()</span>
+<span id="cb22-17"><a aria-label="17"></a>        <span class="cf">with</span> st.container(border<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb22-18"><a aria-label="18"></a>            st.selectbox(</span>
+<span id="cb22-19"><a aria-label="19"></a>                label<span class="op">=</span><span class="st">"**Choose a scenario to view:**"</span>,</span>
+<span id="cb22-20"><a aria-label="20"></a>                options<span class="op">=</span><span class="bu">list</span>(st.session_state.scenarios),</span>
+<span id="cb22-21"><a aria-label="21"></a>                key<span class="op">=</span><span class="st">"chosen_scenario"</span>,</span>
+<span id="cb22-22"><a aria-label="22"></a>            )</span>
+<span id="cb22-23"><a aria-label="23"></a>            ...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
 <section id="choosing-scenarios-to-compare" class="slide level2">
@@ -1172,41 +1188,7 @@
 <div class="column" style="width:50%;">
 <p>Let’s work through the code to do that…</p>
 </div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a aria-label="1"></a><span class="cf">with</span> tab_compare:</span>
-<span id="cb22-2"><a aria-label="2"></a>    <span class="cf">if</span> <span class="bu">len</span>(st.session_state.scenarios) <span class="op">&lt;</span> <span class="dv">2</span>:</span>
-<span id="cb22-3"><a aria-label="3"></a>        st.info(<span class="st">"Run at least two scenarios to enable comparison"</span>, icon<span class="op">=</span><span class="st">"ℹ️"</span>)</span>
-<span id="cb22-4"><a aria-label="4"></a></span>
-<span id="cb22-5"><a aria-label="5"></a>    <span class="cf">else</span>:</span>
-<span id="cb22-6"><a aria-label="6"></a>        st.space()</span>
-<span id="cb22-7"><a aria-label="7"></a>        <span class="cf">with</span> st.container(border<span class="op">=</span><span class="va">True</span>):</span>
-<span id="cb22-8"><a aria-label="8"></a>            chosen_compare <span class="op">=</span> st.multiselect(</span>
-<span id="cb22-9"><a aria-label="9"></a>                label<span class="op">=</span><span class="st">"**Choose scenarios to compare**"</span>,</span>
-<span id="cb22-10"><a aria-label="10"></a>                options<span class="op">=</span><span class="bu">list</span>(st.session_state.scenarios),</span>
-<span id="cb22-11"><a aria-label="11"></a>            )</span>
-<span id="cb22-12"><a aria-label="12"></a></span>
-<span id="cb22-13"><a aria-label="13"></a>            st.caption(<span class="st">"The selected scenarios are highlighted below."</span>)</span>
-<span id="cb22-14"><a aria-label="14"></a></span>
-<span id="cb22-15"><a aria-label="15"></a>            st.dataframe(</span>
-<span id="cb22-16"><a aria-label="16"></a>                style_settings(settings<span class="op">=</span>settings, chosen_scenarios<span class="op">=</span>chosen_compare),</span>
-<span id="cb22-17"><a aria-label="17"></a>                hide_index<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb22-18"><a aria-label="18"></a>            )</span>
-<span id="cb22-19"><a aria-label="19"></a></span>
-<span id="cb22-20"><a aria-label="20"></a>        <span class="cf">if</span> <span class="bu">len</span>(chosen_compare) <span class="op">&lt;</span> <span class="dv">2</span>:</span>
-<span id="cb22-21"><a aria-label="21"></a>            st.info(<span class="st">"Choose at least two scenario to compare"</span>, icon<span class="op">=</span><span class="st">"ℹ️"</span>)</span>
-<span id="cb22-22"><a aria-label="22"></a></span>
-<span id="cb22-23"><a aria-label="23"></a>        <span class="cf">else</span>:</span>
-<span id="cb22-24"><a aria-label="24"></a>            <span class="co"># Results - will write next</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div></div>
-</section>
-<section id="choosing-scenarios-to-compare-2" class="slide level2">
-<h2>Choosing scenarios to compare</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><br><br></p>
-<p><strong>1. Use <code>tab_compare</code> and warn for insufficient scenarios</strong></p>
-<p>If <code>scenarios</code> in session state only has zero or one saved scenarios, a message is displayed using <code>st.info()</code>.</p>
-</div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23" data-code-line-numbers="1-3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a aria-label="1"></a><span class="cf">with</span> tab_compare:</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a aria-label="1"></a><span class="cf">with</span> tab_compare:</span>
 <span id="cb23-2"><a aria-label="2"></a>    <span class="cf">if</span> <span class="bu">len</span>(st.session_state.scenarios) <span class="op">&lt;</span> <span class="dv">2</span>:</span>
 <span id="cb23-3"><a aria-label="3"></a>        st.info(<span class="st">"Run at least two scenarios to enable comparison"</span>, icon<span class="op">=</span><span class="st">"ℹ️"</span>)</span>
 <span id="cb23-4"><a aria-label="4"></a></span>
@@ -1232,16 +1214,15 @@
 <span id="cb23-24"><a aria-label="24"></a>            <span class="co"># Results - will write next</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
-<section id="choosing-scenarios-to-compare-3" class="slide level2">
+<section id="choosing-scenarios-to-compare-2" class="slide level2">
 <h2>Choosing scenarios to compare</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><br><br></p>
-<p><strong>2. Multiselect</strong></p>
-<p>Once there are at least two scenarios, we set up a container and create <code>st.multiselect()</code>.</p>
-<p>This is similar to <code>selectbox</code>, but allows users to choose multiple options at once.</p>
+<p><strong>1. Use <code>tab_compare</code> and warn for insufficient scenarios</strong></p>
+<p>If <code>scenarios</code> in session state only has zero or one saved scenarios, a message is displayed using <code>st.info()</code>.</p>
 </div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24" data-code-line-numbers="5-11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a aria-label="1"></a><span class="cf">with</span> tab_compare:</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24" data-code-line-numbers="1-3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a aria-label="1"></a><span class="cf">with</span> tab_compare:</span>
 <span id="cb24-2"><a aria-label="2"></a>    <span class="cf">if</span> <span class="bu">len</span>(st.session_state.scenarios) <span class="op">&lt;</span> <span class="dv">2</span>:</span>
 <span id="cb24-3"><a aria-label="3"></a>        st.info(<span class="st">"Run at least two scenarios to enable comparison"</span>, icon<span class="op">=</span><span class="st">"ℹ️"</span>)</span>
 <span id="cb24-4"><a aria-label="4"></a></span>
@@ -1267,15 +1248,16 @@
 <span id="cb24-24"><a aria-label="24"></a>            <span class="co"># Results - will write next</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
-<section id="choosing-scenarios-to-compare-4" class="slide level2">
+<section id="choosing-scenarios-to-compare-3" class="slide level2">
 <h2>Choosing scenarios to compare</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><br><br></p>
-<p><strong>3. Show saved scenarios</strong></p>
-<p>Like before, we can show the saved scenarios and highlighted those selected using <code>style_settings()</code>.</p>
+<p><strong>2. Multiselect</strong></p>
+<p>Once there are at least two scenarios, we set up a container and create <code>st.multiselect()</code>.</p>
+<p>This is similar to <code>selectbox</code>, but allows users to choose multiple options at once.</p>
 </div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25" data-code-line-numbers="13-18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a aria-label="1"></a><span class="cf">with</span> tab_compare:</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25" data-code-line-numbers="5-11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a aria-label="1"></a><span class="cf">with</span> tab_compare:</span>
 <span id="cb25-2"><a aria-label="2"></a>    <span class="cf">if</span> <span class="bu">len</span>(st.session_state.scenarios) <span class="op">&lt;</span> <span class="dv">2</span>:</span>
 <span id="cb25-3"><a aria-label="3"></a>        st.info(<span class="st">"Run at least two scenarios to enable comparison"</span>, icon<span class="op">=</span><span class="st">"ℹ️"</span>)</span>
 <span id="cb25-4"><a aria-label="4"></a></span>
@@ -1301,15 +1283,15 @@
 <span id="cb25-24"><a aria-label="24"></a>            <span class="co"># Results - will write next</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
-<section id="choosing-scenarios-to-compare-5" class="slide level2">
+<section id="choosing-scenarios-to-compare-4" class="slide level2">
 <h2>Choosing scenarios to compare</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><br><br></p>
-<p><strong>4. Check chosen scenarios</strong></p>
-<p>Show a message until at least two scenarios have been chosen. Then, results can be shown.</p>
+<p><strong>3. Show saved scenarios</strong></p>
+<p>Like before, we can show the saved scenarios and highlighted those selected using <code>style_settings()</code>.</p>
 </div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26" data-code-line-numbers="20-24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a aria-label="1"></a><span class="cf">with</span> tab_compare:</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26" data-code-line-numbers="13-18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a aria-label="1"></a><span class="cf">with</span> tab_compare:</span>
 <span id="cb26-2"><a aria-label="2"></a>    <span class="cf">if</span> <span class="bu">len</span>(st.session_state.scenarios) <span class="op">&lt;</span> <span class="dv">2</span>:</span>
 <span id="cb26-3"><a aria-label="3"></a>        st.info(<span class="st">"Run at least two scenarios to enable comparison"</span>, icon<span class="op">=</span><span class="st">"ℹ️"</span>)</span>
 <span id="cb26-4"><a aria-label="4"></a></span>
@@ -1335,6 +1317,40 @@
 <span id="cb26-24"><a aria-label="24"></a>            <span class="co"># Results - will write next</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
+<section id="choosing-scenarios-to-compare-5" class="slide level2">
+<h2>Choosing scenarios to compare</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><br><br></p>
+<p><strong>4. Check chosen scenarios</strong></p>
+<p>Show a message until at least two scenarios have been chosen. Then, results can be shown.</p>
+</div><div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27" data-code-line-numbers="20-24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a aria-label="1"></a><span class="cf">with</span> tab_compare:</span>
+<span id="cb27-2"><a aria-label="2"></a>    <span class="cf">if</span> <span class="bu">len</span>(st.session_state.scenarios) <span class="op">&lt;</span> <span class="dv">2</span>:</span>
+<span id="cb27-3"><a aria-label="3"></a>        st.info(<span class="st">"Run at least two scenarios to enable comparison"</span>, icon<span class="op">=</span><span class="st">"ℹ️"</span>)</span>
+<span id="cb27-4"><a aria-label="4"></a></span>
+<span id="cb27-5"><a aria-label="5"></a>    <span class="cf">else</span>:</span>
+<span id="cb27-6"><a aria-label="6"></a>        st.space()</span>
+<span id="cb27-7"><a aria-label="7"></a>        <span class="cf">with</span> st.container(border<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb27-8"><a aria-label="8"></a>            chosen_compare <span class="op">=</span> st.multiselect(</span>
+<span id="cb27-9"><a aria-label="9"></a>                label<span class="op">=</span><span class="st">"**Choose scenarios to compare**"</span>,</span>
+<span id="cb27-10"><a aria-label="10"></a>                options<span class="op">=</span><span class="bu">list</span>(st.session_state.scenarios),</span>
+<span id="cb27-11"><a aria-label="11"></a>            )</span>
+<span id="cb27-12"><a aria-label="12"></a></span>
+<span id="cb27-13"><a aria-label="13"></a>            st.caption(<span class="st">"The selected scenarios are highlighted below."</span>)</span>
+<span id="cb27-14"><a aria-label="14"></a></span>
+<span id="cb27-15"><a aria-label="15"></a>            st.dataframe(</span>
+<span id="cb27-16"><a aria-label="16"></a>                style_settings(settings<span class="op">=</span>settings, chosen_scenarios<span class="op">=</span>chosen_compare),</span>
+<span id="cb27-17"><a aria-label="17"></a>                hide_index<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb27-18"><a aria-label="18"></a>            )</span>
+<span id="cb27-19"><a aria-label="19"></a></span>
+<span id="cb27-20"><a aria-label="20"></a>        <span class="cf">if</span> <span class="bu">len</span>(chosen_compare) <span class="op">&lt;</span> <span class="dv">2</span>:</span>
+<span id="cb27-21"><a aria-label="21"></a>            st.info(<span class="st">"Choose at least two scenario to compare"</span>, icon<span class="op">=</span><span class="st">"ℹ️"</span>)</span>
+<span id="cb27-22"><a aria-label="22"></a></span>
+<span id="cb27-23"><a aria-label="23"></a>        <span class="cf">else</span>:</span>
+<span id="cb27-24"><a aria-label="24"></a>            <span class="co"># Results - will write next</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+</section>
 <section id="boxplot" class="slide level2">
 <h2>Boxplot</h2>
 <div class="columns">
@@ -1354,53 +1370,7 @@
 <p><strong>1. Introduce figure</strong></p>
 <p>We’ll start by using <code>st.subheader()</code> and <code>st.write()</code> to introduce the figure and explain what it is showing.</p>
 </div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27" data-code-line-numbers="1-5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a aria-label="1"></a>st.subheader(<span class="st">"Mean nurse queue time"</span>)</span>
-<span id="cb27-2"><a aria-label="2"></a>st.write(</span>
-<span id="cb27-3"><a aria-label="3"></a>    <span class="st">"Compare the mean nurse queue times across replications. "</span></span>
-<span id="cb27-4"><a aria-label="4"></a>    <span class="st">"Each point represents one replication."</span></span>
-<span id="cb27-5"><a aria-label="5"></a>)</span>
-<span id="cb27-6"><a aria-label="6"></a></span>
-<span id="cb27-7"><a aria-label="7"></a><span class="co"># Combine replication results, adding a scenario label.</span></span>
-<span id="cb27-8"><a aria-label="8"></a>replications <span class="op">=</span> pd.concat(</span>
-<span id="cb27-9"><a aria-label="9"></a>    [</span>
-<span id="cb27-10"><a aria-label="10"></a>        st.session_state.scenarios[name][<span class="st">"df"</span>].assign(Scenario<span class="op">=</span>name)</span>
-<span id="cb27-11"><a aria-label="11"></a>        <span class="cf">for</span> name <span class="kw">in</span> chosen_compare</span>
-<span id="cb27-12"><a aria-label="12"></a>    ],</span>
-<span id="cb27-13"><a aria-label="13"></a>    ignore_index<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb27-14"><a aria-label="14"></a>)</span>
-<span id="cb27-15"><a aria-label="15"></a></span>
-<span id="cb27-16"><a aria-label="16"></a>fig <span class="op">=</span> px.box(</span>
-<span id="cb27-17"><a aria-label="17"></a>    replications,</span>
-<span id="cb27-18"><a aria-label="18"></a>    x<span class="op">=</span><span class="st">"Scenario"</span>,</span>
-<span id="cb27-19"><a aria-label="19"></a>    y<span class="op">=</span><span class="st">"mean_q_time_nurse"</span>,</span>
-<span id="cb27-20"><a aria-label="20"></a>    color<span class="op">=</span><span class="st">"Scenario"</span>,</span>
-<span id="cb27-21"><a aria-label="21"></a>    points<span class="op">=</span><span class="st">"all"</span>,</span>
-<span id="cb27-22"><a aria-label="22"></a>    category_orders<span class="op">=</span>{</span>
-<span id="cb27-23"><a aria-label="23"></a>        <span class="st">"Scenario"</span>: [</span>
-<span id="cb27-24"><a aria-label="24"></a>            name</span>
-<span id="cb27-25"><a aria-label="25"></a>            <span class="cf">for</span> name <span class="kw">in</span> st.session_state.scenarios</span>
-<span id="cb27-26"><a aria-label="26"></a>            <span class="cf">if</span> name <span class="kw">in</span> chosen_compare</span>
-<span id="cb27-27"><a aria-label="27"></a>        ]</span>
-<span id="cb27-28"><a aria-label="28"></a>    },</span>
-<span id="cb27-29"><a aria-label="29"></a>    hover_data<span class="op">=</span>[<span class="st">"replication_id"</span>],</span>
-<span id="cb27-30"><a aria-label="30"></a>)</span>
-<span id="cb27-31"><a aria-label="31"></a>fig.update_layout(</span>
-<span id="cb27-32"><a aria-label="32"></a>    yaxis_title<span class="op">=</span><span class="st">"Mean nurse queue time"</span>,</span>
-<span id="cb27-33"><a aria-label="33"></a>    showlegend<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb27-34"><a aria-label="34"></a>)</span>
-<span id="cb27-35"><a aria-label="35"></a>st.plotly_chart(fig)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div></div>
-</section>
-<section id="boxplot-2" class="slide level2">
-<h2>Boxplot</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><br><br></p>
-<p><strong>2. Create single results dataframe</strong></p>
-<p>Next, we use <code>pd.concat()</code> to stack the replication-level results from each scenario into a single dataframe called <code>replications</code>.</p>
-<p>We also add a <code>Scenario</code> column to identify which scenario each row belongs to.</p>
-</div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28" data-code-line-numbers="7-14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a aria-label="1"></a>st.subheader(<span class="st">"Mean nurse queue time"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28" data-code-line-numbers="1-5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a aria-label="1"></a>st.subheader(<span class="st">"Mean nurse queue time"</span>)</span>
 <span id="cb28-2"><a aria-label="2"></a>st.write(</span>
 <span id="cb28-3"><a aria-label="3"></a>    <span class="st">"Compare the mean nurse queue times across replications. "</span></span>
 <span id="cb28-4"><a aria-label="4"></a>    <span class="st">"Each point represents one replication."</span></span>
@@ -1437,21 +1407,16 @@
 <span id="cb28-35"><a aria-label="35"></a>st.plotly_chart(fig)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
-<section id="boxplot-3" class="slide level2">
+<section id="boxplot-2" class="slide level2">
 <h2>Boxplot</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><strong>3. Create boxplot</strong></p>
-<p>We create the figure using <code>plotly.express.box()</code>:</p>
-<ul>
-<li><code>color</code>: group and color by scenario.</li>
-<li><code>points</code>: show each replication as a dot.</li>
-<li><code>category_orders</code>: keeps scenarios in the order they were saved.</li>
-<li><code>hover_data</code>: include replication IDs.</li>
-</ul>
-<p>It’s displayed with <code>st.plotly_chart()</code>.</p>
+<p><br><br></p>
+<p><strong>2. Create single results dataframe</strong></p>
+<p>Next, we use <code>pd.concat()</code> to stack the replication-level results from each scenario into a single dataframe called <code>replications</code>.</p>
+<p>We also add a <code>Scenario</code> column to identify which scenario each row belongs to.</p>
 </div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29" data-code-line-numbers="16-32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a aria-label="1"></a>st.subheader(<span class="st">"Mean nurse queue time"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29" data-code-line-numbers="7-14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a aria-label="1"></a>st.subheader(<span class="st">"Mean nurse queue time"</span>)</span>
 <span id="cb29-2"><a aria-label="2"></a>st.write(</span>
 <span id="cb29-3"><a aria-label="3"></a>    <span class="st">"Compare the mean nurse queue times across replications. "</span></span>
 <span id="cb29-4"><a aria-label="4"></a>    <span class="st">"Each point represents one replication."</span></span>
@@ -1488,6 +1453,57 @@
 <span id="cb29-35"><a aria-label="35"></a>st.plotly_chart(fig)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
+<section id="boxplot-3" class="slide level2">
+<h2>Boxplot</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>3. Create boxplot</strong></p>
+<p>We create the figure using <code>plotly.express.box()</code>:</p>
+<ul>
+<li><code>color</code>: group and color by scenario.</li>
+<li><code>points</code>: show each replication as a dot.</li>
+<li><code>category_orders</code>: keeps scenarios in the order they were saved.</li>
+<li><code>hover_data</code>: include replication IDs.</li>
+</ul>
+<p>It’s displayed with <code>st.plotly_chart()</code>.</p>
+</div><div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30" data-code-line-numbers="16-32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a aria-label="1"></a>st.subheader(<span class="st">"Mean nurse queue time"</span>)</span>
+<span id="cb30-2"><a aria-label="2"></a>st.write(</span>
+<span id="cb30-3"><a aria-label="3"></a>    <span class="st">"Compare the mean nurse queue times across replications. "</span></span>
+<span id="cb30-4"><a aria-label="4"></a>    <span class="st">"Each point represents one replication."</span></span>
+<span id="cb30-5"><a aria-label="5"></a>)</span>
+<span id="cb30-6"><a aria-label="6"></a></span>
+<span id="cb30-7"><a aria-label="7"></a><span class="co"># Combine replication results, adding a scenario label.</span></span>
+<span id="cb30-8"><a aria-label="8"></a>replications <span class="op">=</span> pd.concat(</span>
+<span id="cb30-9"><a aria-label="9"></a>    [</span>
+<span id="cb30-10"><a aria-label="10"></a>        st.session_state.scenarios[name][<span class="st">"df"</span>].assign(Scenario<span class="op">=</span>name)</span>
+<span id="cb30-11"><a aria-label="11"></a>        <span class="cf">for</span> name <span class="kw">in</span> chosen_compare</span>
+<span id="cb30-12"><a aria-label="12"></a>    ],</span>
+<span id="cb30-13"><a aria-label="13"></a>    ignore_index<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb30-14"><a aria-label="14"></a>)</span>
+<span id="cb30-15"><a aria-label="15"></a></span>
+<span id="cb30-16"><a aria-label="16"></a>fig <span class="op">=</span> px.box(</span>
+<span id="cb30-17"><a aria-label="17"></a>    replications,</span>
+<span id="cb30-18"><a aria-label="18"></a>    x<span class="op">=</span><span class="st">"Scenario"</span>,</span>
+<span id="cb30-19"><a aria-label="19"></a>    y<span class="op">=</span><span class="st">"mean_q_time_nurse"</span>,</span>
+<span id="cb30-20"><a aria-label="20"></a>    color<span class="op">=</span><span class="st">"Scenario"</span>,</span>
+<span id="cb30-21"><a aria-label="21"></a>    points<span class="op">=</span><span class="st">"all"</span>,</span>
+<span id="cb30-22"><a aria-label="22"></a>    category_orders<span class="op">=</span>{</span>
+<span id="cb30-23"><a aria-label="23"></a>        <span class="st">"Scenario"</span>: [</span>
+<span id="cb30-24"><a aria-label="24"></a>            name</span>
+<span id="cb30-25"><a aria-label="25"></a>            <span class="cf">for</span> name <span class="kw">in</span> st.session_state.scenarios</span>
+<span id="cb30-26"><a aria-label="26"></a>            <span class="cf">if</span> name <span class="kw">in</span> chosen_compare</span>
+<span id="cb30-27"><a aria-label="27"></a>        ]</span>
+<span id="cb30-28"><a aria-label="28"></a>    },</span>
+<span id="cb30-29"><a aria-label="29"></a>    hover_data<span class="op">=</span>[<span class="st">"replication_id"</span>],</span>
+<span id="cb30-30"><a aria-label="30"></a>)</span>
+<span id="cb30-31"><a aria-label="31"></a>fig.update_layout(</span>
+<span id="cb30-32"><a aria-label="32"></a>    yaxis_title<span class="op">=</span><span class="st">"Mean nurse queue time"</span>,</span>
+<span id="cb30-33"><a aria-label="33"></a>    showlegend<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb30-34"><a aria-label="34"></a>)</span>
+<span id="cb30-35"><a aria-label="35"></a>st.plotly_chart(fig)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+</section>
 <section id="comparison-table" class="slide level2">
 <h2>Comparison table</h2>
 <p>We could also use tables to compare results.</p>
@@ -1501,60 +1517,7 @@
 <p><strong>1. Construct summary table for nurse queue time</strong></p>
 <p>Here, we are creating a table with the descriptive statistics from each scenario.</p>
 </div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30" data-code-line-numbers="4-21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a aria-label="1"></a>st.space()</span>
-<span id="cb30-2"><a aria-label="2"></a>st.subheader(<span class="st">"Summary statistics"</span>)</span>
-<span id="cb30-3"><a aria-label="3"></a></span>
-<span id="cb30-4"><a aria-label="4"></a>summary <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb30-5"><a aria-label="5"></a>    [</span>
-<span id="cb30-6"><a aria-label="6"></a>        {</span>
-<span id="cb30-7"><a aria-label="7"></a>            <span class="st">"Scenario"</span>: name,</span>
-<span id="cb30-8"><a aria-label="8"></a>            <span class="st">"Mean"</span>: st.session_state.scenarios[name][<span class="st">"mean"</span>],</span>
-<span id="cb30-9"><a aria-label="9"></a>            <span class="st">"SD"</span>: st.session_state.scenarios[name][<span class="st">"sd"</span>],</span>
-<span id="cb30-10"><a aria-label="10"></a>            <span class="st">"90th percentile"</span>: st.session_state.scenarios[name][<span class="st">"p90"</span>],</span>
-<span id="cb30-11"><a aria-label="11"></a>            <span class="st">"Standard error"</span>: st.session_state.scenarios[name][<span class="st">"se"</span>],</span>
-<span id="cb30-12"><a aria-label="12"></a>            <span class="st">"95% CI lower"</span>: st.session_state.scenarios[name][</span>
-<span id="cb30-13"><a aria-label="13"></a>                <span class="st">"ci_lower"</span></span>
-<span id="cb30-14"><a aria-label="14"></a>            ],</span>
-<span id="cb30-15"><a aria-label="15"></a>            <span class="st">"95% CI upper"</span>: st.session_state.scenarios[name][</span>
-<span id="cb30-16"><a aria-label="16"></a>                <span class="st">"ci_upper"</span></span>
-<span id="cb30-17"><a aria-label="17"></a>            ],</span>
-<span id="cb30-18"><a aria-label="18"></a>        }</span>
-<span id="cb30-19"><a aria-label="19"></a>        <span class="cf">for</span> name <span class="kw">in</span> chosen_compare</span>
-<span id="cb30-20"><a aria-label="20"></a>    ]</span>
-<span id="cb30-21"><a aria-label="21"></a>)</span>
-<span id="cb30-22"><a aria-label="22"></a></span>
-<span id="cb30-23"><a aria-label="23"></a>st.caption(<span class="st">"Nurse queue time summary statistics, in minutes:"</span>)</span>
-<span id="cb30-24"><a aria-label="24"></a></span>
-<span id="cb30-25"><a aria-label="25"></a>st.dataframe(</span>
-<span id="cb30-26"><a aria-label="26"></a>    summary.style.<span class="bu">format</span>(precision<span class="op">=</span><span class="dv">2</span>),</span>
-<span id="cb30-27"><a aria-label="27"></a>    hide_index<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb30-28"><a aria-label="28"></a>)</span>
-<span id="cb30-29"><a aria-label="29"></a></span>
-<span id="cb30-30"><a aria-label="30"></a>costs <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb30-31"><a aria-label="31"></a>    [</span>
-<span id="cb30-32"><a aria-label="32"></a>        {</span>
-<span id="cb30-33"><a aria-label="33"></a>            <span class="st">"Scenario"</span>: name,</span>
-<span id="cb30-34"><a aria-label="34"></a>            <span class="st">"Total cost (£)"</span>: st.session_state.scenarios[name][<span class="st">"cost"</span>],</span>
-<span id="cb30-35"><a aria-label="35"></a>        }</span>
-<span id="cb30-36"><a aria-label="36"></a>        <span class="cf">for</span> name <span class="kw">in</span> chosen_compare</span>
-<span id="cb30-37"><a aria-label="37"></a>    ]</span>
-<span id="cb30-38"><a aria-label="38"></a>)</span>
-<span id="cb30-39"><a aria-label="39"></a></span>
-<span id="cb30-40"><a aria-label="40"></a>st.caption(<span class="st">"Total nurse staffing costs:"</span>)</span>
-<span id="cb30-41"><a aria-label="41"></a></span>
-<span id="cb30-42"><a aria-label="42"></a>st.dataframe(costs, hide_index<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div></div>
-</section>
-<section id="comparison-table-2" class="slide level2">
-<h2>Comparison table</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><br><br></p>
-<p><strong>2. Display summary table</strong></p>
-<p>We then display it using <code>st.dataframe()</code>, with <code>style.format()</code> to round the numbers.</p>
-<p><code>st.caption()</code> provides some helpful context.</p>
-</div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31" data-code-line-numbers="23-28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a aria-label="1"></a>st.space()</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31" data-code-line-numbers="4-21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a aria-label="1"></a>st.space()</span>
 <span id="cb31-2"><a aria-label="2"></a>st.subheader(<span class="st">"Summary statistics"</span>)</span>
 <span id="cb31-3"><a aria-label="3"></a></span>
 <span id="cb31-4"><a aria-label="4"></a>summary <span class="op">=</span> pd.DataFrame(</span>
@@ -1598,15 +1561,16 @@
 <span id="cb31-42"><a aria-label="42"></a>st.dataframe(costs, hide_index<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
-<section id="comparison-table-3" class="slide level2">
+<section id="comparison-table-2" class="slide level2">
 <h2>Comparison table</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><br><br></p>
-<p><strong>3. Repeat for costs</strong></p>
-<p>We can repeat this to show the nurse costs for each scenario. These are deterministic, just based on the number of resources in the simulation, so a single number is presented for each scenario.</p>
+<p><strong>2. Display summary table</strong></p>
+<p>We then display it using <code>st.dataframe()</code>, with <code>style.format()</code> to round the numbers.</p>
+<p><code>st.caption()</code> provides some helpful context.</p>
 </div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32" data-code-line-numbers="30-42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a aria-label="1"></a>st.space()</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32" data-code-line-numbers="23-28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a aria-label="1"></a>st.space()</span>
 <span id="cb32-2"><a aria-label="2"></a>st.subheader(<span class="st">"Summary statistics"</span>)</span>
 <span id="cb32-3"><a aria-label="3"></a></span>
 <span id="cb32-4"><a aria-label="4"></a>summary <span class="op">=</span> pd.DataFrame(</span>
@@ -1648,6 +1612,58 @@
 <span id="cb32-40"><a aria-label="40"></a>st.caption(<span class="st">"Total nurse staffing costs:"</span>)</span>
 <span id="cb32-41"><a aria-label="41"></a></span>
 <span id="cb32-42"><a aria-label="42"></a>st.dataframe(costs, hide_index<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+</section>
+<section id="comparison-table-3" class="slide level2">
+<h2>Comparison table</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><br><br></p>
+<p><strong>3. Repeat for costs</strong></p>
+<p>We can repeat this to show the nurse costs for each scenario. These are deterministic, just based on the number of resources in the simulation, so a single number is presented for each scenario.</p>
+</div><div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33" data-code-line-numbers="30-42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a aria-label="1"></a>st.space()</span>
+<span id="cb33-2"><a aria-label="2"></a>st.subheader(<span class="st">"Summary statistics"</span>)</span>
+<span id="cb33-3"><a aria-label="3"></a></span>
+<span id="cb33-4"><a aria-label="4"></a>summary <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb33-5"><a aria-label="5"></a>    [</span>
+<span id="cb33-6"><a aria-label="6"></a>        {</span>
+<span id="cb33-7"><a aria-label="7"></a>            <span class="st">"Scenario"</span>: name,</span>
+<span id="cb33-8"><a aria-label="8"></a>            <span class="st">"Mean"</span>: st.session_state.scenarios[name][<span class="st">"mean"</span>],</span>
+<span id="cb33-9"><a aria-label="9"></a>            <span class="st">"SD"</span>: st.session_state.scenarios[name][<span class="st">"sd"</span>],</span>
+<span id="cb33-10"><a aria-label="10"></a>            <span class="st">"90th percentile"</span>: st.session_state.scenarios[name][<span class="st">"p90"</span>],</span>
+<span id="cb33-11"><a aria-label="11"></a>            <span class="st">"Standard error"</span>: st.session_state.scenarios[name][<span class="st">"se"</span>],</span>
+<span id="cb33-12"><a aria-label="12"></a>            <span class="st">"95% CI lower"</span>: st.session_state.scenarios[name][</span>
+<span id="cb33-13"><a aria-label="13"></a>                <span class="st">"ci_lower"</span></span>
+<span id="cb33-14"><a aria-label="14"></a>            ],</span>
+<span id="cb33-15"><a aria-label="15"></a>            <span class="st">"95% CI upper"</span>: st.session_state.scenarios[name][</span>
+<span id="cb33-16"><a aria-label="16"></a>                <span class="st">"ci_upper"</span></span>
+<span id="cb33-17"><a aria-label="17"></a>            ],</span>
+<span id="cb33-18"><a aria-label="18"></a>        }</span>
+<span id="cb33-19"><a aria-label="19"></a>        <span class="cf">for</span> name <span class="kw">in</span> chosen_compare</span>
+<span id="cb33-20"><a aria-label="20"></a>    ]</span>
+<span id="cb33-21"><a aria-label="21"></a>)</span>
+<span id="cb33-22"><a aria-label="22"></a></span>
+<span id="cb33-23"><a aria-label="23"></a>st.caption(<span class="st">"Nurse queue time summary statistics, in minutes:"</span>)</span>
+<span id="cb33-24"><a aria-label="24"></a></span>
+<span id="cb33-25"><a aria-label="25"></a>st.dataframe(</span>
+<span id="cb33-26"><a aria-label="26"></a>    summary.style.<span class="bu">format</span>(precision<span class="op">=</span><span class="dv">2</span>),</span>
+<span id="cb33-27"><a aria-label="27"></a>    hide_index<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb33-28"><a aria-label="28"></a>)</span>
+<span id="cb33-29"><a aria-label="29"></a></span>
+<span id="cb33-30"><a aria-label="30"></a>costs <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb33-31"><a aria-label="31"></a>    [</span>
+<span id="cb33-32"><a aria-label="32"></a>        {</span>
+<span id="cb33-33"><a aria-label="33"></a>            <span class="st">"Scenario"</span>: name,</span>
+<span id="cb33-34"><a aria-label="34"></a>            <span class="st">"Total cost (£)"</span>: st.session_state.scenarios[name][<span class="st">"cost"</span>],</span>
+<span id="cb33-35"><a aria-label="35"></a>        }</span>
+<span id="cb33-36"><a aria-label="36"></a>        <span class="cf">for</span> name <span class="kw">in</span> chosen_compare</span>
+<span id="cb33-37"><a aria-label="37"></a>    ]</span>
+<span id="cb33-38"><a aria-label="38"></a>)</span>
+<span id="cb33-39"><a aria-label="39"></a></span>
+<span id="cb33-40"><a aria-label="40"></a>st.caption(<span class="st">"Total nurse staffing costs:"</span>)</span>
+<span id="cb33-41"><a aria-label="41"></a></span>
+<span id="cb33-42"><a aria-label="42"></a>st.dataframe(costs, hide_index<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section></section>
 <section>
@@ -1767,49 +1783,7 @@
 <p>We can reuse a standard template, changing a few details for our app.</p>
 <p>Let’s work through the <code>index.html</code> used to deploy the scenario app.</p>
 </div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode numberSource html number-lines code-with-copy"><code class="sourceCode html"><span id="cb33-1"><a aria-label="1"></a><span class="dt">&lt;!doctype</span> html<span class="dt">&gt;</span></span>
-<span id="cb33-2"><a aria-label="2"></a><span class="dt">&lt;</span><span class="kw">html</span><span class="dt">&gt;</span></span>
-<span id="cb33-3"><a aria-label="3"></a>  <span class="dt">&lt;</span><span class="kw">head</span><span class="dt">&gt;</span></span>
-<span id="cb33-4"><a aria-label="4"></a>    <span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> charset</span><span class="op">=</span><span class="st">"UTF-8"</span><span class="ot"> </span><span class="dt">/&gt;</span></span>
-<span id="cb33-5"><a aria-label="5"></a>    <span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> name</span><span class="op">=</span><span class="st">"viewport"</span><span class="ot"> content</span><span class="op">=</span><span class="st">"width=device-width, initial-scale=1, shrink-to-fit=no"</span><span class="ot"> </span><span class="dt">/&gt;</span></span>
-<span id="cb33-6"><a aria-label="6"></a>    <span class="dt">&lt;</span><span class="kw">title</span><span class="dt">&gt;</span>Scenario app<span class="dt">&lt;/</span><span class="kw">title</span><span class="dt">&gt;</span></span>
-<span id="cb33-7"><a aria-label="7"></a>    <span class="dt">&lt;</span><span class="kw">link</span><span class="ot"> rel</span><span class="op">=</span><span class="st">"stylesheet"</span><span class="ot"> href</span><span class="op">=</span><span class="st">"https://cdn.jsdelivr.net/npm/@stlite/browser@1.12.2/build/stlite.css"</span><span class="ot"> </span><span class="dt">/&gt;</span></span>
-<span id="cb33-8"><a aria-label="8"></a>    <span class="dt">&lt;</span><span class="kw">script</span><span class="ot"> type=</span><span class="st">"module"</span><span class="ot"> src</span><span class="op">=</span><span class="st">"https://cdn.jsdelivr.net/npm/@stlite/browser@1.12.2/build/stlite.js"</span><span class="dt">&gt;&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
-<span id="cb33-9"><a aria-label="9"></a>  <span class="dt">&lt;/</span><span class="kw">head</span><span class="dt">&gt;</span></span>
-<span id="cb33-10"><a aria-label="10"></a>  <span class="dt">&lt;</span><span class="kw">body</span><span class="dt">&gt;</span></span>
-<span id="cb33-11"><a aria-label="11"></a>    <span class="dt">&lt;</span><span class="kw">streamlit-app</span><span class="ot"> src</span><span class="op">=</span><span class="st">"./app.py"</span><span class="dt">&gt;</span></span>
-<span id="cb33-12"><a aria-label="12"></a>        <span class="dt">&lt;</span><span class="kw">app-file</span><span class="ot"> name</span><span class="op">=</span><span class="st">"home.py"</span><span class="ot"> url</span><span class="op">=</span><span class="st">"./home.py"</span><span class="dt">&gt;&lt;/</span><span class="kw">app-file</span><span class="dt">&gt;</span></span>
-<span id="cb33-13"><a aria-label="13"></a>        <span class="dt">&lt;</span><span class="kw">app-file</span><span class="ot"> name</span><span class="op">=</span><span class="st">"model.py"</span><span class="ot"> url</span><span class="op">=</span><span class="st">"./model.py"</span><span class="dt">&gt;&lt;/</span><span class="kw">app-file</span><span class="dt">&gt;</span></span>
-<span id="cb33-14"><a aria-label="14"></a>        <span class="dt">&lt;</span><span class="kw">app-file</span><span class="ot"> name</span><span class="op">=</span><span class="st">"results.py"</span><span class="ot"> url</span><span class="op">=</span><span class="st">"./results.py"</span><span class="dt">&gt;&lt;/</span><span class="kw">app-file</span><span class="dt">&gt;</span></span>
-<span id="cb33-15"><a aria-label="15"></a>        <span class="dt">&lt;</span><span class="kw">app-file</span><span class="ot"> name</span><span class="op">=</span><span class="st">"simulation.py"</span><span class="ot"> url</span><span class="op">=</span><span class="st">"./simulation.py"</span><span class="dt">&gt;&lt;/</span><span class="kw">app-file</span><span class="dt">&gt;</span></span>
-<span id="cb33-16"><a aria-label="16"></a>        <span class="dt">&lt;</span><span class="kw">app-file</span></span>
-<span id="cb33-17"><a aria-label="17"></a><span class="ot">            name</span><span class="op">=</span><span class="st">"images/model_diagram.drawio.png"</span></span>
-<span id="cb33-18"><a aria-label="18"></a><span class="ot">            url</span><span class="op">=</span><span class="st">"./images/model_diagram.drawio.png"</span></span>
-<span id="cb33-19"><a aria-label="19"></a><span class="ot">        </span><span class="dt">&gt;&lt;/</span><span class="kw">app-file</span><span class="dt">&gt;</span></span>
-<span id="cb33-20"><a aria-label="20"></a>        <span class="dt">&lt;</span><span class="kw">app-requirements</span><span class="dt">&gt;</span></span>
-<span id="cb33-21"><a aria-label="21"></a>            simpy==4.1.2</span>
-<span id="cb33-22"><a aria-label="22"></a>            numpy</span>
-<span id="cb33-23"><a aria-label="23"></a>            pandas</span>
-<span id="cb33-24"><a aria-label="24"></a>            sim-tools==1.3.0</span>
-<span id="cb33-25"><a aria-label="25"></a>        <span class="dt">&lt;/</span><span class="kw">app-requirements</span><span class="dt">&gt;</span></span>
-<span id="cb33-26"><a aria-label="26"></a>    <span class="dt">&lt;/</span><span class="kw">streamlit-app</span><span class="dt">&gt;</span></span>
-<span id="cb33-27"><a aria-label="27"></a>  <span class="dt">&lt;/</span><span class="kw">body</span><span class="dt">&gt;</span></span>
-<span id="cb33-28"><a aria-label="28"></a><span class="dt">&lt;/</span><span class="kw">html</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div></div>
-</section>
-<section id="running-a-streamlit-app-with-stlite-1" class="slide level2">
-<h2>Running a Streamlit app with stlite</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><br></p>
-<p>The highlighted lines provide the standard page structure and can stay the same between apps.</p>
-<ul>
-<li><code>&lt;head&gt;</code> contains page settings and loads stlite’s stylesheet and JavaScript.</li>
-<li><code>&lt;body&gt;</code> contains the page content, including our app.</li>
-</ul>
-<p>The closing tags at the end mark where the app, page body and HTML document finish.</p>
-</div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34" data-code-line-numbers="1-5,7-10,26-28"><pre class="sourceCode numberSource html number-lines code-with-copy"><code class="sourceCode html"><span id="cb34-1"><a aria-label="1"></a><span class="dt">&lt;!doctype</span> html<span class="dt">&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode numberSource html number-lines code-with-copy"><code class="sourceCode html"><span id="cb34-1"><a aria-label="1"></a><span class="dt">&lt;!doctype</span> html<span class="dt">&gt;</span></span>
 <span id="cb34-2"><a aria-label="2"></a><span class="dt">&lt;</span><span class="kw">html</span><span class="dt">&gt;</span></span>
 <span id="cb34-3"><a aria-label="3"></a>  <span class="dt">&lt;</span><span class="kw">head</span><span class="dt">&gt;</span></span>
 <span id="cb34-4"><a aria-label="4"></a>    <span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> charset</span><span class="op">=</span><span class="st">"UTF-8"</span><span class="ot"> </span><span class="dt">/&gt;</span></span>
@@ -1839,15 +1813,19 @@
 <span id="cb34-28"><a aria-label="28"></a><span class="dt">&lt;/</span><span class="kw">html</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
-<section id="running-a-streamlit-app-with-stlite-2" class="slide level2">
+<section id="running-a-streamlit-app-with-stlite-1" class="slide level2">
 <h2>Running a Streamlit app with stlite</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p>Having said that, you’ll notice these are pinned to a particular version of stlite: <code>@stlite/browser@1.12.2</code>.</p>
-<p>If a new version is released since the development of these slides, you may wish to upgrade to that - you can see the latest version in the stlite GitHub releases: <a href="https://github.com/whitphx/stlite/releases" class="uri">https://github.com/whitphx/stlite/releases</a>.</p>
-<p>stlite recommend pinning to a version as they say their API may change without backwards compatability in future releases.</p>
+<p><br></p>
+<p>The highlighted lines provide the standard page structure and can stay the same between apps.</p>
+<ul>
+<li><code>&lt;head&gt;</code> contains page settings and loads stlite’s stylesheet and JavaScript.</li>
+<li><code>&lt;body&gt;</code> contains the page content, including our app.</li>
+</ul>
+<p>The closing tags at the end mark where the app, page body and HTML document finish.</p>
 </div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35" data-code-line-numbers="7-8"><pre class="sourceCode numberSource html number-lines code-with-copy"><code class="sourceCode html"><span id="cb35-1"><a aria-label="1"></a><span class="dt">&lt;!doctype</span> html<span class="dt">&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35" data-code-line-numbers="1-5,7-10,26-28"><pre class="sourceCode numberSource html number-lines code-with-copy"><code class="sourceCode html"><span id="cb35-1"><a aria-label="1"></a><span class="dt">&lt;!doctype</span> html<span class="dt">&gt;</span></span>
 <span id="cb35-2"><a aria-label="2"></a><span class="dt">&lt;</span><span class="kw">html</span><span class="dt">&gt;</span></span>
 <span id="cb35-3"><a aria-label="3"></a>  <span class="dt">&lt;</span><span class="kw">head</span><span class="dt">&gt;</span></span>
 <span id="cb35-4"><a aria-label="4"></a>    <span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> charset</span><span class="op">=</span><span class="st">"UTF-8"</span><span class="ot"> </span><span class="dt">/&gt;</span></span>
@@ -1877,17 +1855,15 @@
 <span id="cb35-28"><a aria-label="28"></a><span class="dt">&lt;/</span><span class="kw">html</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
-<section id="running-a-streamlit-app-with-stlite-3" class="slide level2">
+<section id="running-a-streamlit-app-with-stlite-2" class="slide level2">
 <h2>Running a Streamlit app with stlite</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><br></p>
-<p>Moving on, these are things you’ll want to amend for your own app…</p>
-<p><br></p>
-<p><code>&lt;title&gt;</code> sets the browser tab’s initial title.</p>
-<p>The app replaces this once it loads, so it only appears briefly.</p>
+<p>Having said that, you’ll notice these are pinned to a particular version of stlite: <code>@stlite/browser@1.12.2</code>.</p>
+<p>If a new version is released since the development of these slides, you may wish to upgrade to that - you can see the latest version in the stlite GitHub releases: <a href="https://github.com/whitphx/stlite/releases" class="uri">https://github.com/whitphx/stlite/releases</a>.</p>
+<p>stlite recommend pinning to a version as they say their API may change without backwards compatability in future releases.</p>
 </div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36" data-code-line-numbers="6"><pre class="sourceCode numberSource html number-lines code-with-copy"><code class="sourceCode html"><span id="cb36-1"><a aria-label="1"></a><span class="dt">&lt;!doctype</span> html<span class="dt">&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36" data-code-line-numbers="7-8"><pre class="sourceCode numberSource html number-lines code-with-copy"><code class="sourceCode html"><span id="cb36-1"><a aria-label="1"></a><span class="dt">&lt;!doctype</span> html<span class="dt">&gt;</span></span>
 <span id="cb36-2"><a aria-label="2"></a><span class="dt">&lt;</span><span class="kw">html</span><span class="dt">&gt;</span></span>
 <span id="cb36-3"><a aria-label="3"></a>  <span class="dt">&lt;</span><span class="kw">head</span><span class="dt">&gt;</span></span>
 <span id="cb36-4"><a aria-label="4"></a>    <span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> charset</span><span class="op">=</span><span class="st">"UTF-8"</span><span class="ot"> </span><span class="dt">/&gt;</span></span>
@@ -1917,15 +1893,17 @@
 <span id="cb36-28"><a aria-label="28"></a><span class="dt">&lt;/</span><span class="kw">html</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
-<section id="running-a-streamlit-app-with-stlite-4" class="slide level2">
+<section id="running-a-streamlit-app-with-stlite-3" class="slide level2">
 <h2>Running a Streamlit app with stlite</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><br><br></p>
-<p><code>&lt;streamlit-app&gt;</code> specifies the entrypoint file.</p>
-<p><code>&lt;app-file&gt;</code> identifies all other files required by the app - including Python files, images, and other file types.=</p>
+<p><br></p>
+<p>Moving on, these are things you’ll want to amend for your own app…</p>
+<p><br></p>
+<p><code>&lt;title&gt;</code> sets the browser tab’s initial title.</p>
+<p>The app replaces this once it loads, so it only appears briefly.</p>
 </div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37" data-code-line-numbers="11-19"><pre class="sourceCode numberSource html number-lines code-with-copy"><code class="sourceCode html"><span id="cb37-1"><a aria-label="1"></a><span class="dt">&lt;!doctype</span> html<span class="dt">&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37" data-code-line-numbers="6"><pre class="sourceCode numberSource html number-lines code-with-copy"><code class="sourceCode html"><span id="cb37-1"><a aria-label="1"></a><span class="dt">&lt;!doctype</span> html<span class="dt">&gt;</span></span>
 <span id="cb37-2"><a aria-label="2"></a><span class="dt">&lt;</span><span class="kw">html</span><span class="dt">&gt;</span></span>
 <span id="cb37-3"><a aria-label="3"></a>  <span class="dt">&lt;</span><span class="kw">head</span><span class="dt">&gt;</span></span>
 <span id="cb37-4"><a aria-label="4"></a>    <span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> charset</span><span class="op">=</span><span class="st">"UTF-8"</span><span class="ot"> </span><span class="dt">/&gt;</span></span>
@@ -1955,17 +1933,15 @@
 <span id="cb37-28"><a aria-label="28"></a><span class="dt">&lt;/</span><span class="kw">html</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
-<section id="running-a-streamlit-app-with-stlite-5" class="slide level2">
+<section id="running-a-streamlit-app-with-stlite-4" class="slide level2">
 <h2>Running a Streamlit app with stlite</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><br></p>
-<p><code>&lt;app-requirements&gt;</code> lists the Python packages to install.</p>
-<p>We pin <code>simpy</code> and <code>sim-tools</code> to the versions used to develop the app. We leave <code>numpy</code> and <code>pandas</code> unpinned so Pyodide can use its compatible versions.</p>
-<p><br></p>
-<p>We don’t include <code>streamlit</code> as stlite provides it.</p>
+<p><br><br></p>
+<p><code>&lt;streamlit-app&gt;</code> specifies the entrypoint file.</p>
+<p><code>&lt;app-file&gt;</code> identifies all other files required by the app - including Python files, images, and other file types.=</p>
 </div><div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38" data-code-line-numbers="20-25"><pre class="sourceCode numberSource html number-lines code-with-copy"><code class="sourceCode html"><span id="cb38-1"><a aria-label="1"></a><span class="dt">&lt;!doctype</span> html<span class="dt">&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38" data-code-line-numbers="11-19"><pre class="sourceCode numberSource html number-lines code-with-copy"><code class="sourceCode html"><span id="cb38-1"><a aria-label="1"></a><span class="dt">&lt;!doctype</span> html<span class="dt">&gt;</span></span>
 <span id="cb38-2"><a aria-label="2"></a><span class="dt">&lt;</span><span class="kw">html</span><span class="dt">&gt;</span></span>
 <span id="cb38-3"><a aria-label="3"></a>  <span class="dt">&lt;</span><span class="kw">head</span><span class="dt">&gt;</span></span>
 <span id="cb38-4"><a aria-label="4"></a>    <span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> charset</span><span class="op">=</span><span class="st">"UTF-8"</span><span class="ot"> </span><span class="dt">/&gt;</span></span>
@@ -1993,6 +1969,46 @@
 <span id="cb38-26"><a aria-label="26"></a>    <span class="dt">&lt;/</span><span class="kw">streamlit-app</span><span class="dt">&gt;</span></span>
 <span id="cb38-27"><a aria-label="27"></a>  <span class="dt">&lt;/</span><span class="kw">body</span><span class="dt">&gt;</span></span>
 <span id="cb38-28"><a aria-label="28"></a><span class="dt">&lt;/</span><span class="kw">html</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+</section>
+<section id="running-a-streamlit-app-with-stlite-5" class="slide level2">
+<h2>Running a Streamlit app with stlite</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><br></p>
+<p><code>&lt;app-requirements&gt;</code> lists the Python packages to install.</p>
+<p>We pin <code>simpy</code> and <code>sim-tools</code> to the versions used to develop the app. We leave <code>numpy</code> and <code>pandas</code> unpinned so Pyodide can use its compatible versions.</p>
+<p><br></p>
+<p>We don’t include <code>streamlit</code> as stlite provides it.</p>
+</div><div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39" data-code-line-numbers="20-25"><pre class="sourceCode numberSource html number-lines code-with-copy"><code class="sourceCode html"><span id="cb39-1"><a aria-label="1"></a><span class="dt">&lt;!doctype</span> html<span class="dt">&gt;</span></span>
+<span id="cb39-2"><a aria-label="2"></a><span class="dt">&lt;</span><span class="kw">html</span><span class="dt">&gt;</span></span>
+<span id="cb39-3"><a aria-label="3"></a>  <span class="dt">&lt;</span><span class="kw">head</span><span class="dt">&gt;</span></span>
+<span id="cb39-4"><a aria-label="4"></a>    <span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> charset</span><span class="op">=</span><span class="st">"UTF-8"</span><span class="ot"> </span><span class="dt">/&gt;</span></span>
+<span id="cb39-5"><a aria-label="5"></a>    <span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> name</span><span class="op">=</span><span class="st">"viewport"</span><span class="ot"> content</span><span class="op">=</span><span class="st">"width=device-width, initial-scale=1, shrink-to-fit=no"</span><span class="ot"> </span><span class="dt">/&gt;</span></span>
+<span id="cb39-6"><a aria-label="6"></a>    <span class="dt">&lt;</span><span class="kw">title</span><span class="dt">&gt;</span>Scenario app<span class="dt">&lt;/</span><span class="kw">title</span><span class="dt">&gt;</span></span>
+<span id="cb39-7"><a aria-label="7"></a>    <span class="dt">&lt;</span><span class="kw">link</span><span class="ot"> rel</span><span class="op">=</span><span class="st">"stylesheet"</span><span class="ot"> href</span><span class="op">=</span><span class="st">"https://cdn.jsdelivr.net/npm/@stlite/browser@1.12.2/build/stlite.css"</span><span class="ot"> </span><span class="dt">/&gt;</span></span>
+<span id="cb39-8"><a aria-label="8"></a>    <span class="dt">&lt;</span><span class="kw">script</span><span class="ot"> type=</span><span class="st">"module"</span><span class="ot"> src</span><span class="op">=</span><span class="st">"https://cdn.jsdelivr.net/npm/@stlite/browser@1.12.2/build/stlite.js"</span><span class="dt">&gt;&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb39-9"><a aria-label="9"></a>  <span class="dt">&lt;/</span><span class="kw">head</span><span class="dt">&gt;</span></span>
+<span id="cb39-10"><a aria-label="10"></a>  <span class="dt">&lt;</span><span class="kw">body</span><span class="dt">&gt;</span></span>
+<span id="cb39-11"><a aria-label="11"></a>    <span class="dt">&lt;</span><span class="kw">streamlit-app</span><span class="ot"> src</span><span class="op">=</span><span class="st">"./app.py"</span><span class="dt">&gt;</span></span>
+<span id="cb39-12"><a aria-label="12"></a>        <span class="dt">&lt;</span><span class="kw">app-file</span><span class="ot"> name</span><span class="op">=</span><span class="st">"home.py"</span><span class="ot"> url</span><span class="op">=</span><span class="st">"./home.py"</span><span class="dt">&gt;&lt;/</span><span class="kw">app-file</span><span class="dt">&gt;</span></span>
+<span id="cb39-13"><a aria-label="13"></a>        <span class="dt">&lt;</span><span class="kw">app-file</span><span class="ot"> name</span><span class="op">=</span><span class="st">"model.py"</span><span class="ot"> url</span><span class="op">=</span><span class="st">"./model.py"</span><span class="dt">&gt;&lt;/</span><span class="kw">app-file</span><span class="dt">&gt;</span></span>
+<span id="cb39-14"><a aria-label="14"></a>        <span class="dt">&lt;</span><span class="kw">app-file</span><span class="ot"> name</span><span class="op">=</span><span class="st">"results.py"</span><span class="ot"> url</span><span class="op">=</span><span class="st">"./results.py"</span><span class="dt">&gt;&lt;/</span><span class="kw">app-file</span><span class="dt">&gt;</span></span>
+<span id="cb39-15"><a aria-label="15"></a>        <span class="dt">&lt;</span><span class="kw">app-file</span><span class="ot"> name</span><span class="op">=</span><span class="st">"simulation.py"</span><span class="ot"> url</span><span class="op">=</span><span class="st">"./simulation.py"</span><span class="dt">&gt;&lt;/</span><span class="kw">app-file</span><span class="dt">&gt;</span></span>
+<span id="cb39-16"><a aria-label="16"></a>        <span class="dt">&lt;</span><span class="kw">app-file</span></span>
+<span id="cb39-17"><a aria-label="17"></a><span class="ot">            name</span><span class="op">=</span><span class="st">"images/model_diagram.drawio.png"</span></span>
+<span id="cb39-18"><a aria-label="18"></a><span class="ot">            url</span><span class="op">=</span><span class="st">"./images/model_diagram.drawio.png"</span></span>
+<span id="cb39-19"><a aria-label="19"></a><span class="ot">        </span><span class="dt">&gt;&lt;/</span><span class="kw">app-file</span><span class="dt">&gt;</span></span>
+<span id="cb39-20"><a aria-label="20"></a>        <span class="dt">&lt;</span><span class="kw">app-requirements</span><span class="dt">&gt;</span></span>
+<span id="cb39-21"><a aria-label="21"></a>            simpy==4.1.2</span>
+<span id="cb39-22"><a aria-label="22"></a>            numpy</span>
+<span id="cb39-23"><a aria-label="23"></a>            pandas</span>
+<span id="cb39-24"><a aria-label="24"></a>            sim-tools==1.3.0</span>
+<span id="cb39-25"><a aria-label="25"></a>        <span class="dt">&lt;/</span><span class="kw">app-requirements</span><span class="dt">&gt;</span></span>
+<span id="cb39-26"><a aria-label="26"></a>    <span class="dt">&lt;/</span><span class="kw">streamlit-app</span><span class="dt">&gt;</span></span>
+<span id="cb39-27"><a aria-label="27"></a>  <span class="dt">&lt;/</span><span class="kw">body</span><span class="dt">&gt;</span></span>
+<span id="cb39-28"><a aria-label="28"></a><span class="dt">&lt;/</span><span class="kw">html</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
 <section id="streamlit-versions-in-stlite" class="slide level2">
@@ -2025,14 +2041,14 @@
 </div><div class="column" style="width:45%;">
 <div class="fragment">
 <p>Alternatively, run your app using your chosen stlite version and include this command to see which Streamlit build it uses:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a aria-label="1"></a>st.write(<span class="st">"Streamlit version:"</span>, st.__version__)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a aria-label="1"></a>st.write(<span class="st">"Streamlit version:"</span>, st.__version__)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div></div>
 </section>
 <section id="try-out-the-stlite-app-locally" class="slide level2">
 <h2>Try out the stlite app locally</h2>
 <p><code>index.html</code> serves as the website’s starting page. To view the app locally, open a terminal in the folder containing <code>index.html</code> and run:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a aria-label="1"></a><span class="ex">python</span> <span class="at">-m</span> http.server 8000</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a aria-label="1"></a><span class="ex">python</span> <span class="at">-m</span> http.server 8000</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Then open <code>http://localhost:8000</code> in your browser. This lets us test the app on our own computer.</p>
 <p>To share it with others through a web address, we need to host its files online. GitHub Pages can host <code>index.html</code> and the other files our app needs. When someone visits the website, their browser downloads these files and runs the app using stlite.</p>
 </section></section>
@@ -2089,31 +2105,31 @@
 <p>These instructions assume your app files are in the repository root (the top-level folder).</p>
 <p>This is why we selected <code>/ (root)</code> when setting up GitHub Pages.</p>
 <p>For example:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb41-1"><a aria-label="1"></a>your-repository/</span>
-<span id="cb41-2"><a aria-label="2"></a>├── index.html</span>
-<span id="cb41-3"><a aria-label="3"></a>├── app.py</span>
-<span id="cb41-4"><a aria-label="4"></a>├── home.py</span>
-<span id="cb41-5"><a aria-label="5"></a>├── model.py</span>
-<span id="cb41-6"><a aria-label="6"></a>├── simulation.py</span>
-<span id="cb41-7"><a aria-label="7"></a>├── results.py</span>
-<span id="cb41-8"><a aria-label="8"></a>└── images/</span>
-<span id="cb41-9"><a aria-label="9"></a>    └── logo.png</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb42-1"><a aria-label="1"></a>your-repository/</span>
+<span id="cb42-2"><a aria-label="2"></a>├── index.html</span>
+<span id="cb42-3"><a aria-label="3"></a>├── app.py</span>
+<span id="cb42-4"><a aria-label="4"></a>├── home.py</span>
+<span id="cb42-5"><a aria-label="5"></a>├── model.py</span>
+<span id="cb42-6"><a aria-label="6"></a>├── simulation.py</span>
+<span id="cb42-7"><a aria-label="7"></a>├── results.py</span>
+<span id="cb42-8"><a aria-label="8"></a>└── images/</span>
+<span id="cb42-9"><a aria-label="9"></a>    └── logo.png</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="file-locations-1" class="slide level2">
 <h2>File locations</h2>
 <p>You can also organise your app files into subfolders.</p>
 <p>If <code>index.html</code> stays in the root, the GitHub Pages settings stay the same. Just update the paths in <code>index.html</code> to match your file locations.</p>
 <p>For example:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42" data-code-line-numbers="3-10"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb42-1"><a aria-label="1"></a>your-repository/</span>
-<span id="cb42-2"><a aria-label="2"></a>├── index.html</span>
-<span id="cb42-3"><a aria-label="3"></a>└── app/</span>
-<span id="cb42-4"><a aria-label="4"></a>    ├── app.py</span>
-<span id="cb42-5"><a aria-label="5"></a>    ├── home.py</span>
-<span id="cb42-6"><a aria-label="6"></a>    ├── model.py</span>
-<span id="cb42-7"><a aria-label="7"></a>    ├── simulation.py</span>
-<span id="cb42-8"><a aria-label="8"></a>    ├── results.py</span>
-<span id="cb42-9"><a aria-label="9"></a>    └── images/</span>
-<span id="cb42-10"><a aria-label="10"></a>        └── logo.png</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43" data-code-line-numbers="3-10"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb43-1"><a aria-label="1"></a>your-repository/</span>
+<span id="cb43-2"><a aria-label="2"></a>├── index.html</span>
+<span id="cb43-3"><a aria-label="3"></a>└── app/</span>
+<span id="cb43-4"><a aria-label="4"></a>    ├── app.py</span>
+<span id="cb43-5"><a aria-label="5"></a>    ├── home.py</span>
+<span id="cb43-6"><a aria-label="6"></a>    ├── model.py</span>
+<span id="cb43-7"><a aria-label="7"></a>    ├── simulation.py</span>
+<span id="cb43-8"><a aria-label="8"></a>    ├── results.py</span>
+<span id="cb43-9"><a aria-label="9"></a>    └── images/</span>
+<span id="cb43-10"><a aria-label="10"></a>        └── logo.png</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="file-locations-2" class="slide level2">
 <h2>File locations</h2>
@@ -2210,12 +2226,12 @@
 <p><code>page_icon</code>: The favicon, which is a small icon beside the browser tab’s title. Use an image, emoji or Material Symbols icon.</p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43" data-code-line-numbers="3-6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a aria-label="1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
-<span id="cb43-2"><a aria-label="2"></a></span>
-<span id="cb43-3"><a aria-label="3"></a>st.set_page_config(</span>
-<span id="cb43-4"><a aria-label="4"></a>    page_title<span class="op">=</span><span class="st">"Nurse simulation"</span>,</span>
-<span id="cb43-5"><a aria-label="5"></a>    page_icon<span class="op">=</span><span class="st">"🏥"</span>,</span>
-<span id="cb43-6"><a aria-label="6"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44" data-code-line-numbers="3-6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a aria-label="1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb44-2"><a aria-label="2"></a></span>
+<span id="cb44-3"><a aria-label="3"></a>st.set_page_config(</span>
+<span id="cb44-4"><a aria-label="4"></a>    page_title<span class="op">=</span><span class="st">"Nurse simulation"</span>,</span>
+<span id="cb44-5"><a aria-label="5"></a>    page_icon<span class="op">=</span><span class="st">"🏥"</span>,</span>
+<span id="cb44-6"><a aria-label="6"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:50%;">
 <p><img data-src="images/set_page_config_tab.png"></p>
 </div></div>
@@ -2226,16 +2242,16 @@
 <p>This is what an app looks like with <code>layout="centered"</code>.</p>
 <div class="columns">
 <div class="column" style="width:40%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44" data-code-line-numbers="3-5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a aria-label="1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
-<span id="cb44-2"><a aria-label="2"></a></span>
-<span id="cb44-3"><a aria-label="3"></a>st.set_page_config(</span>
-<span id="cb44-4"><a aria-label="4"></a>    layout<span class="op">=</span><span class="st">"centered"</span></span>
-<span id="cb44-5"><a aria-label="5"></a>)</span>
-<span id="cb44-6"><a aria-label="6"></a></span>
-<span id="cb44-7"><a aria-label="7"></a><span class="cf">with</span> st.sidebar:</span>
-<span id="cb44-8"><a aria-label="8"></a>    st.title(<span class="st">"Layout demo"</span>)</span>
-<span id="cb44-9"><a aria-label="9"></a></span>
-<span id="cb44-10"><a aria-label="10"></a>st.image(<span class="st">"backtothefuture.png"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45" data-code-line-numbers="3-5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a aria-label="1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb45-2"><a aria-label="2"></a></span>
+<span id="cb45-3"><a aria-label="3"></a>st.set_page_config(</span>
+<span id="cb45-4"><a aria-label="4"></a>    layout<span class="op">=</span><span class="st">"centered"</span></span>
+<span id="cb45-5"><a aria-label="5"></a>)</span>
+<span id="cb45-6"><a aria-label="6"></a></span>
+<span id="cb45-7"><a aria-label="7"></a><span class="cf">with</span> st.sidebar:</span>
+<span id="cb45-8"><a aria-label="8"></a>    st.title(<span class="st">"Layout demo"</span>)</span>
+<span id="cb45-9"><a aria-label="9"></a></span>
+<span id="cb45-10"><a aria-label="10"></a>st.image(<span class="st">"backtothefuture.png"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:60%;">
 <p><img data-src="images/layout_centered.png"></p>
 </div></div>
@@ -2246,16 +2262,16 @@
 <p>This is what an app looks like with <code>layout="wide"</code>.</p>
 <div class="columns">
 <div class="column" style="width:40%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45" data-code-line-numbers="3-5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a aria-label="1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
-<span id="cb45-2"><a aria-label="2"></a></span>
-<span id="cb45-3"><a aria-label="3"></a>st.set_page_config(</span>
-<span id="cb45-4"><a aria-label="4"></a>    layout<span class="op">=</span><span class="st">"wide"</span></span>
-<span id="cb45-5"><a aria-label="5"></a>)</span>
-<span id="cb45-6"><a aria-label="6"></a></span>
-<span id="cb45-7"><a aria-label="7"></a><span class="cf">with</span> st.sidebar:</span>
-<span id="cb45-8"><a aria-label="8"></a>    st.title(<span class="st">"Layout demo"</span>)</span>
-<span id="cb45-9"><a aria-label="9"></a></span>
-<span id="cb45-10"><a aria-label="10"></a>st.image(<span class="st">"backtothefuture.png"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46" data-code-line-numbers="3-5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a aria-label="1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb46-2"><a aria-label="2"></a></span>
+<span id="cb46-3"><a aria-label="3"></a>st.set_page_config(</span>
+<span id="cb46-4"><a aria-label="4"></a>    layout<span class="op">=</span><span class="st">"wide"</span></span>
+<span id="cb46-5"><a aria-label="5"></a>)</span>
+<span id="cb46-6"><a aria-label="6"></a></span>
+<span id="cb46-7"><a aria-label="7"></a><span class="cf">with</span> st.sidebar:</span>
+<span id="cb46-8"><a aria-label="8"></a>    st.title(<span class="st">"Layout demo"</span>)</span>
+<span id="cb46-9"><a aria-label="9"></a></span>
+<span id="cb46-10"><a aria-label="10"></a>st.image(<span class="st">"backtothefuture.png"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:60%;">
 <p><img data-src="images/layout_wide.png"></p>
 </div></div>
@@ -2265,14 +2281,14 @@
 <p>This command creates a logo in the app. You can provide a path to an image, or an emoji or material symbols icon. For example:</p>
 <div class="columns">
 <div class="column" style="width:40%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46" data-code-line-numbers="3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a aria-label="1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
-<span id="cb46-2"><a aria-label="2"></a></span>
-<span id="cb46-3"><a aria-label="3"></a>st.logo(<span class="st">"nihr_logo.png"</span>)</span>
-<span id="cb46-4"><a aria-label="4"></a></span>
-<span id="cb46-5"><a aria-label="5"></a><span class="cf">with</span> st.sidebar:</span>
-<span id="cb46-6"><a aria-label="6"></a>    st.title(<span class="st">"Logo demo"</span>)</span>
-<span id="cb46-7"><a aria-label="7"></a></span>
-<span id="cb46-8"><a aria-label="8"></a>st.write(<span class="st">"This app has a logo in the sidebar"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47" data-code-line-numbers="3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a aria-label="1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb47-2"><a aria-label="2"></a></span>
+<span id="cb47-3"><a aria-label="3"></a>st.logo(<span class="st">"nihr_logo.png"</span>)</span>
+<span id="cb47-4"><a aria-label="4"></a></span>
+<span id="cb47-5"><a aria-label="5"></a><span class="cf">with</span> st.sidebar:</span>
+<span id="cb47-6"><a aria-label="6"></a>    st.title(<span class="st">"Logo demo"</span>)</span>
+<span id="cb47-7"><a aria-label="7"></a></span>
+<span id="cb47-8"><a aria-label="8"></a>st.write(<span class="st">"This app has a logo in the sidebar"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:60%;">
 <p><img data-src="images/logo.png"></p>
 </div></div>
@@ -2284,16 +2300,16 @@
 <div class="columns">
 <div class="column" style="width:40%;">
 <p><br></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47" data-code-line-numbers="8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a aria-label="1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
-<span id="cb47-2"><a aria-label="2"></a></span>
-<span id="cb47-3"><a aria-label="3"></a>pg <span class="op">=</span> st.navigation(</span>
-<span id="cb47-4"><a aria-label="4"></a>    pages<span class="op">=</span>[</span>
-<span id="cb47-5"><a aria-label="5"></a>        st.Page(<span class="st">"page1.py"</span>),</span>
-<span id="cb47-6"><a aria-label="6"></a>        st.Page(<span class="st">"page2.py"</span>),</span>
-<span id="cb47-7"><a aria-label="7"></a>    ],</span>
-<span id="cb47-8"><a aria-label="8"></a>    position<span class="op">=</span><span class="st">"top"</span>,</span>
-<span id="cb47-9"><a aria-label="9"></a>)</span>
-<span id="cb47-10"><a aria-label="10"></a>pg.run()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48" data-code-line-numbers="8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a aria-label="1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb48-2"><a aria-label="2"></a></span>
+<span id="cb48-3"><a aria-label="3"></a>pg <span class="op">=</span> st.navigation(</span>
+<span id="cb48-4"><a aria-label="4"></a>    pages<span class="op">=</span>[</span>
+<span id="cb48-5"><a aria-label="5"></a>        st.Page(<span class="st">"page1.py"</span>),</span>
+<span id="cb48-6"><a aria-label="6"></a>        st.Page(<span class="st">"page2.py"</span>),</span>
+<span id="cb48-7"><a aria-label="7"></a>    ],</span>
+<span id="cb48-8"><a aria-label="8"></a>    position<span class="op">=</span><span class="st">"top"</span>,</span>
+<span id="cb48-9"><a aria-label="9"></a>)</span>
+<span id="cb48-10"><a aria-label="10"></a>pg.run()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:60%;">
 <p><img data-src="images/navbar.png"></p>
 </div></div>
@@ -2301,10 +2317,10 @@
 <section id="config.toml" class="slide level2">
 <h2><code>config.toml</code></h2>
 <p>Create a <code>.streamlit</code> folder in your project folder, then add a <code>config.toml</code> file:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb48-1"><a aria-label="1"></a>your-app/</span>
-<span id="cb48-2"><a aria-label="2"></a>├── app.py</span>
-<span id="cb48-3"><a aria-label="3"></a>└── .streamlit/</span>
-<span id="cb48-4"><a aria-label="4"></a>    └── config.toml</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb49-1"><a aria-label="1"></a>your-app/</span>
+<span id="cb49-2"><a aria-label="2"></a>├── app.py</span>
+<span id="cb49-3"><a aria-label="3"></a>└── .streamlit/</span>
+<span id="cb49-4"><a aria-label="4"></a>    └── config.toml</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This is a configuration file. It can control things like logging, error messages, and caching.</p>
 <p>We’ll focus now on using it to customise the app’s theme.</p>
 </section>
@@ -2312,27 +2328,27 @@
 <h2><code>config.toml</code> theme</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb49-1"><a aria-label="1"></a><span class="kw">[theme]</span></span>
-<span id="cb49-2"><a aria-label="2"></a></span>
-<span id="cb49-3"><a aria-label="3"></a><span class="co"># Theme that your custom theme inherits from</span></span>
-<span id="cb49-4"><a aria-label="4"></a><span class="co"># Can be Streamlit's default light or dark theme</span></span>
-<span id="cb49-5"><a aria-label="5"></a><span class="co"># Or a local file path or URL to a custom theme.toml file</span></span>
-<span id="cb49-6"><a aria-label="6"></a><span class="dt">base</span> <span class="op">=</span> <span class="st">"light"</span></span>
-<span id="cb49-7"><a aria-label="7"></a></span>
-<span id="cb49-8"><a aria-label="8"></a><span class="co"># Primary accent colour for interactive elements</span></span>
-<span id="cb49-9"><a aria-label="9"></a><span class="dt">primaryColor</span> <span class="op">=</span> <span class="st">"#2563EB"</span></span>
-<span id="cb49-10"><a aria-label="10"></a></span>
-<span id="cb49-11"><a aria-label="11"></a><span class="co">#  Background colour for the main content area</span></span>
-<span id="cb49-12"><a aria-label="12"></a><span class="dt">backgroundColor</span> <span class="op">=</span> <span class="st">"#FFFCF5"</span></span>
-<span id="cb49-13"><a aria-label="13"></a></span>
-<span id="cb49-14"><a aria-label="14"></a><span class="co"># Secondary background colour, used for widgets and the sidebar</span></span>
-<span id="cb49-15"><a aria-label="15"></a><span class="dt">secondaryBackgroundColor</span> <span class="op">=</span> <span class="st">"#DEEAF6"</span></span>
-<span id="cb49-16"><a aria-label="16"></a></span>
-<span id="cb49-17"><a aria-label="17"></a><span class="co"># Default text colour</span></span>
-<span id="cb49-18"><a aria-label="18"></a><span class="dt">textColor</span> <span class="op">=</span> <span class="st">"#172B4D"</span></span>
-<span id="cb49-19"><a aria-label="19"></a></span>
-<span id="cb49-20"><a aria-label="20"></a><span class="co"># Default font, excluding code</span></span>
-<span id="cb49-21"><a aria-label="21"></a><span class="dt">font</span> <span class="op">=</span> <span class="st">"sans-serif"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb50-1"><a aria-label="1"></a><span class="kw">[theme]</span></span>
+<span id="cb50-2"><a aria-label="2"></a></span>
+<span id="cb50-3"><a aria-label="3"></a><span class="co"># Theme that your custom theme inherits from</span></span>
+<span id="cb50-4"><a aria-label="4"></a><span class="co"># Can be Streamlit's default light or dark theme</span></span>
+<span id="cb50-5"><a aria-label="5"></a><span class="co"># Or a local file path or URL to a custom theme.toml file</span></span>
+<span id="cb50-6"><a aria-label="6"></a><span class="dt">base</span> <span class="op">=</span> <span class="st">"light"</span></span>
+<span id="cb50-7"><a aria-label="7"></a></span>
+<span id="cb50-8"><a aria-label="8"></a><span class="co"># Primary accent colour for interactive elements</span></span>
+<span id="cb50-9"><a aria-label="9"></a><span class="dt">primaryColor</span> <span class="op">=</span> <span class="st">"#2563EB"</span></span>
+<span id="cb50-10"><a aria-label="10"></a></span>
+<span id="cb50-11"><a aria-label="11"></a><span class="co">#  Background colour for the main content area</span></span>
+<span id="cb50-12"><a aria-label="12"></a><span class="dt">backgroundColor</span> <span class="op">=</span> <span class="st">"#FFFCF5"</span></span>
+<span id="cb50-13"><a aria-label="13"></a></span>
+<span id="cb50-14"><a aria-label="14"></a><span class="co"># Secondary background colour, used for widgets and the sidebar</span></span>
+<span id="cb50-15"><a aria-label="15"></a><span class="dt">secondaryBackgroundColor</span> <span class="op">=</span> <span class="st">"#DEEAF6"</span></span>
+<span id="cb50-16"><a aria-label="16"></a></span>
+<span id="cb50-17"><a aria-label="17"></a><span class="co"># Default text colour</span></span>
+<span id="cb50-18"><a aria-label="18"></a><span class="dt">textColor</span> <span class="op">=</span> <span class="st">"#172B4D"</span></span>
+<span id="cb50-19"><a aria-label="19"></a></span>
+<span id="cb50-20"><a aria-label="20"></a><span class="co"># Default font, excluding code</span></span>
+<span id="cb50-21"><a aria-label="21"></a><span class="dt">font</span> <span class="op">=</span> <span class="st">"sans-serif"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:40%;">
 <p>Define your theme settings under <code>[theme]</code>. There are lots of options - we have included a few of the main ones here.</p>
 <p>Use <code>[theme.sidebar]</code> to override settings specifically for the sidebar.</p>
@@ -2344,12 +2360,12 @@
 <p>This is what the default light theme looks like.</p>
 <div class="columns">
 <div class="column" style="width:45%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb50-1"><a aria-label="1"></a><span class="kw">[theme]</span></span>
-<span id="cb50-2"><a aria-label="2"></a></span>
-<span id="cb50-3"><a aria-label="3"></a><span class="co"># Theme that your custom theme inherits from</span></span>
-<span id="cb50-4"><a aria-label="4"></a><span class="co"># Can be Streamlit's default light or dark theme</span></span>
-<span id="cb50-5"><a aria-label="5"></a><span class="co"># Or a local file path or URL to a custom theme.toml file</span></span>
-<span id="cb50-6"><a aria-label="6"></a><span class="dt">base</span> <span class="op">=</span> <span class="st">"light"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb51-1"><a aria-label="1"></a><span class="kw">[theme]</span></span>
+<span id="cb51-2"><a aria-label="2"></a></span>
+<span id="cb51-3"><a aria-label="3"></a><span class="co"># Theme that your custom theme inherits from</span></span>
+<span id="cb51-4"><a aria-label="4"></a><span class="co"># Can be Streamlit's default light or dark theme</span></span>
+<span id="cb51-5"><a aria-label="5"></a><span class="co"># Or a local file path or URL to a custom theme.toml file</span></span>
+<span id="cb51-6"><a aria-label="6"></a><span class="dt">base</span> <span class="op">=</span> <span class="st">"light"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:55%;">
 <p><img data-src="images/theme_light.png"></p>
 </div></div>
@@ -2359,12 +2375,12 @@
 <p>This is what the default dark theme looks like.</p>
 <div class="columns">
 <div class="column" style="width:45%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb51-1"><a aria-label="1"></a><span class="kw">[theme]</span></span>
-<span id="cb51-2"><a aria-label="2"></a></span>
-<span id="cb51-3"><a aria-label="3"></a><span class="co"># Theme that your custom theme inherits from</span></span>
-<span id="cb51-4"><a aria-label="4"></a><span class="co"># Can be Streamlit's default light or dark theme</span></span>
-<span id="cb51-5"><a aria-label="5"></a><span class="co"># Or a local file path or URL to a custom theme.toml file</span></span>
-<span id="cb51-6"><a aria-label="6"></a><span class="dt">base</span> <span class="op">=</span> <span class="st">"dark"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb52-1"><a aria-label="1"></a><span class="kw">[theme]</span></span>
+<span id="cb52-2"><a aria-label="2"></a></span>
+<span id="cb52-3"><a aria-label="3"></a><span class="co"># Theme that your custom theme inherits from</span></span>
+<span id="cb52-4"><a aria-label="4"></a><span class="co"># Can be Streamlit's default light or dark theme</span></span>
+<span id="cb52-5"><a aria-label="5"></a><span class="co"># Or a local file path or URL to a custom theme.toml file</span></span>
+<span id="cb52-6"><a aria-label="6"></a><span class="dt">base</span> <span class="op">=</span> <span class="st">"dark"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:55%;">
 <p><img data-src="images/theme_dark.png"></p>
 </div></div>
@@ -2374,27 +2390,27 @@
 <p>This is an example of a custom theme.</p>
 <div class="columns">
 <div class="column" style="width:45%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb52-1"><a aria-label="1"></a><span class="kw">[theme]</span></span>
-<span id="cb52-2"><a aria-label="2"></a></span>
-<span id="cb52-3"><a aria-label="3"></a><span class="co"># Theme that your custom theme inherits from</span></span>
-<span id="cb52-4"><a aria-label="4"></a><span class="co"># Can be Streamlit's default light or dark theme</span></span>
-<span id="cb52-5"><a aria-label="5"></a><span class="co"># Or a local file path or URL to a custom theme.toml file</span></span>
-<span id="cb52-6"><a aria-label="6"></a><span class="dt">base</span> <span class="op">=</span> <span class="st">"light"</span></span>
-<span id="cb52-7"><a aria-label="7"></a></span>
-<span id="cb52-8"><a aria-label="8"></a><span class="co"># Primary accent colour for interactive elements</span></span>
-<span id="cb52-9"><a aria-label="9"></a><span class="dt">primaryColor</span> <span class="op">=</span> <span class="st">"#2563EB"</span></span>
-<span id="cb52-10"><a aria-label="10"></a></span>
-<span id="cb52-11"><a aria-label="11"></a><span class="co">#  Background colour for the main content area</span></span>
-<span id="cb52-12"><a aria-label="12"></a><span class="dt">backgroundColor</span> <span class="op">=</span> <span class="st">"#FFFCF5"</span></span>
-<span id="cb52-13"><a aria-label="13"></a></span>
-<span id="cb52-14"><a aria-label="14"></a><span class="co"># Secondary background colour, used for widgets and the sidebar</span></span>
-<span id="cb52-15"><a aria-label="15"></a><span class="dt">secondaryBackgroundColor</span> <span class="op">=</span> <span class="st">"#DEEAF6"</span></span>
-<span id="cb52-16"><a aria-label="16"></a></span>
-<span id="cb52-17"><a aria-label="17"></a><span class="co"># Default text colour</span></span>
-<span id="cb52-18"><a aria-label="18"></a><span class="dt">textColor</span> <span class="op">=</span> <span class="st">"#172B4D"</span></span>
-<span id="cb52-19"><a aria-label="19"></a></span>
-<span id="cb52-20"><a aria-label="20"></a><span class="co"># Default font, excluding code</span></span>
-<span id="cb52-21"><a aria-label="21"></a><span class="dt">font</span> <span class="op">=</span> <span class="st">"sans-serif"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb53-1"><a aria-label="1"></a><span class="kw">[theme]</span></span>
+<span id="cb53-2"><a aria-label="2"></a></span>
+<span id="cb53-3"><a aria-label="3"></a><span class="co"># Theme that your custom theme inherits from</span></span>
+<span id="cb53-4"><a aria-label="4"></a><span class="co"># Can be Streamlit's default light or dark theme</span></span>
+<span id="cb53-5"><a aria-label="5"></a><span class="co"># Or a local file path or URL to a custom theme.toml file</span></span>
+<span id="cb53-6"><a aria-label="6"></a><span class="dt">base</span> <span class="op">=</span> <span class="st">"light"</span></span>
+<span id="cb53-7"><a aria-label="7"></a></span>
+<span id="cb53-8"><a aria-label="8"></a><span class="co"># Primary accent colour for interactive elements</span></span>
+<span id="cb53-9"><a aria-label="9"></a><span class="dt">primaryColor</span> <span class="op">=</span> <span class="st">"#2563EB"</span></span>
+<span id="cb53-10"><a aria-label="10"></a></span>
+<span id="cb53-11"><a aria-label="11"></a><span class="co">#  Background colour for the main content area</span></span>
+<span id="cb53-12"><a aria-label="12"></a><span class="dt">backgroundColor</span> <span class="op">=</span> <span class="st">"#FFFCF5"</span></span>
+<span id="cb53-13"><a aria-label="13"></a></span>
+<span id="cb53-14"><a aria-label="14"></a><span class="co"># Secondary background colour, used for widgets and the sidebar</span></span>
+<span id="cb53-15"><a aria-label="15"></a><span class="dt">secondaryBackgroundColor</span> <span class="op">=</span> <span class="st">"#DEEAF6"</span></span>
+<span id="cb53-16"><a aria-label="16"></a></span>
+<span id="cb53-17"><a aria-label="17"></a><span class="co"># Default text colour</span></span>
+<span id="cb53-18"><a aria-label="18"></a><span class="dt">textColor</span> <span class="op">=</span> <span class="st">"#172B4D"</span></span>
+<span id="cb53-19"><a aria-label="19"></a></span>
+<span id="cb53-20"><a aria-label="20"></a><span class="co"># Default font, excluding code</span></span>
+<span id="cb53-21"><a aria-label="21"></a><span class="dt">font</span> <span class="op">=</span> <span class="st">"sans-serif"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:55%;">
 <p><img data-src="images/theme_custom.png"></p>
 </div></div>
@@ -2404,10 +2420,10 @@
 <p>For additional customisation, we can use CSS (Cascading Style Sheets). CSS is a language that controls how web content look.</p>
 <p>Use config.toml for the overall theme, and Streamlit’s built-in options wherever possible. CSS is useful for more specific styling that these options don’t support.</p>
 <p>We can write these styles in a <code>.css</code> file and load them into our app using <code>st.html()</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a aria-label="1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
-<span id="cb53-2"><a aria-label="2"></a></span>
-<span id="cb53-3"><a aria-label="3"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"style.css"</span>) <span class="im">as</span> css:</span>
-<span id="cb53-4"><a aria-label="4"></a>    st.html(<span class="ss">f"&lt;style&gt;</span><span class="sc">{</span>css<span class="sc">.</span>read()<span class="sc">}</span><span class="ss">&lt;/style&gt;"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb54"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a aria-label="1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb54-2"><a aria-label="2"></a></span>
+<span id="cb54-3"><a aria-label="3"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"style.css"</span>) <span class="im">as</span> css:</span>
+<span id="cb54-4"><a aria-label="4"></a>    st.html(<span class="ss">f"&lt;style&gt;</span><span class="sc">{</span>css<span class="sc">.</span>read()<span class="sc">}</span><span class="ss">&lt;/style&gt;"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Streamlit has introduced lots of new features over the last few years. You may find older tutorial using CSS, but those features are now supported directly by Streamlit, so it’s always worth checking the current documentaiton.</p>
 </section></section>
 <section>
@@ -2446,6 +2462,75 @@
 </blockquote>
 </div>
 </div></div>
+</section></section>
+<section>
+<section id="other-streamlit-features" class="title-slide slide level1 center">
+<h1>Other streamlit features</h1>
+
+</section>
+<section id="other-streamlit-features-1" class="slide level2">
+<h2>Other streamlit features</h2>
+<p>We’ve focused on the key features for building and sharing a DES app.</p>
+<p>Streamlit has plenty more to offer, but we can’t cover everything in these sessions.</p>
+<p>We’ll briefly highlight a few other features you might find useful.</p>
+<p>See the <a href="https://docs.streamlit.io/develop/api-reference">Streamlit documentation</a> for more examples and guidance.</p>
+<p><a href="https://docs.streamlit.io/develop/api-reference"><img data-src="images/api_reference.png"></a></p>
+</section>
+<section id="st.metric" class="slide level2">
+<h2><code>st.metric()</code></h2>
+</section>
+<section id="st.grid" class="slide level2">
+<h2><code>st.grid()</code></h2>
+</section>
+<section id="fragments" class="slide level2">
+<h2>Fragments</h2>
+</section>
+<section id="caching" class="slide level2">
+<h2>Caching</h2>
+</section>
+<section id="user-authentication" class="slide level2">
+<h2>User authentication</h2>
+</section>
+<section id="database-linkage" class="slide level2">
+<h2>Database linkage</h2>
+</section>
+<section id="app-testing" class="slide level2">
+<h2>App testing</h2>
+</section>
+<section id="custom-components" class="slide level2">
+<h2>Custom components</h2>
+</section>
+<section id="st.toast" class="slide level2">
+<h2><code>st.toast</code></h2>
+</section>
+<section id="st.data_editor" class="slide level2">
+<h2><code>st.data_editor</code></h2>
+</section>
+<section id="built-in-streamlit-charts" class="slide level2">
+<h2>Built-in streamlit charts</h2>
+<div class="api-images">
+<p><img data-src="images/st_area_chart.png"> <img data-src="images/st_bar_chart.png"> <img data-src="images/st_line_chart.png"> <img data-src="images/st_scatter_chart.png"> <img data-src="images/st_map.png"></p>
+</div>
+</section>
+<section id="supported-chart-libraries" class="slide level2">
+<h2>Supported chart libraries</h2>
+<p>We used <code>st.plotly_chart</code>, but there are several others…</p>
+<div class="api-images">
+<p><img data-src="images/st_altair_chart.png"> <img data-src="images/st_echarts_chart.png"> <img data-src="images/st_vega_lite_chart.png"> <img data-src="images/st_plotly_chart.png"></p>
+<p><img data-src="images/st_pydeck_chart.png"> <img data-src="images/st_mermaid_chart.png"> <img data-src="images/st_graphviz_chart.png"> <img data-src="images/st_pyplot.png"></p>
+</div>
+</section>
+<section id="maps" class="slide level2">
+<h2>Maps</h2>
+</section>
+<section id="st.form" class="slide level2">
+<h2><code>st.form</code></h2>
+</section>
+<section id="other-input-widget-types" class="slide level2">
+<h2>Other input widget types</h2>
+<div class="api-images">
+<p><img data-src="images/st_checkbox.png"> <img data-src="images/st_color_picker.png"> <img data-src="images/st_feedback.png"></p>
+</div>
 
 
 </section></section>

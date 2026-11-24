@@ -91,6 +91,13 @@
     "text": "Keeping track of scenarios\nWe can also show a table of saved scenarios, so users can keep track of their runs.\nThis checks if scenarios is empty - and will only appear after the first scenario has been run.\nWe take the settings from each saved scenario and display them as a row in the table.\nA caption reminds users that these scenarios are saved for the current session only.\n\nif st.session_state.scenarios:\n    st.divider()\n    st.header(\"Saved scenarios\")\n\n    st.dataframe(\n        [scenario[\"settings\"] for scenario in st.session_state.scenarios.values()],\n        hide_index=True,\n    )\n    st.caption(\"Scenarios are saved for the current session only.\")"
   },
   {
+    "objectID": "slides/index.html#st.divider",
+    "href": "slides/index.html#st.divider",
+    "title": "",
+    "section": "st.divider()",
+    "text": "st.divider()\nYou may’ve noticed we used a new Streamlit element here - st.divider().\nThis displays a horizontal line on the app.\n\nif st.session_state.scenarios:\n    st.divider()\n    st.header(\"Saved scenarios\")\n\n    st.dataframe(\n        [scenario[\"settings\"] for scenario in st.session_state.scenarios.values()],\n        hide_index=True,\n    )\n    st.caption(\"Scenarios are saved for the current session only.\")"
+  },
+  {
     "objectID": "slides/index.html#linking-to-results-page",
     "href": "slides/index.html#linking-to-results-page",
     "title": "",
@@ -572,6 +579,118 @@
     "title": "",
     "section": "Exercise 2",
     "text": "Exercise 2\n\n\n\nDeploy your app using stlite and GitHub pages.\nThen customise your app. You could try:\n\nSetting st.set_page_config.\nAdding st.logo().\nMoving navigation menu to top of screen.\nAdding config.toml with a custom theme.\n\nRemember if add new files will need to add those to index.html.\n\n\n\n\n\n?? minutes + ?? minute break\n\n\n\n\nExtensions\n\n."
+  },
+  {
+    "objectID": "slides/index.html#other-streamlit-features-1",
+    "href": "slides/index.html#other-streamlit-features-1",
+    "title": "",
+    "section": "Other streamlit features",
+    "text": "Other streamlit features\nWe’ve focused on the key features for building and sharing a DES app.\nStreamlit has plenty more to offer, but we can’t cover everything in these sessions.\nWe’ll briefly highlight a few other features you might find useful.\nSee the Streamlit documentation for more examples and guidance."
+  },
+  {
+    "objectID": "slides/index.html#st.metric",
+    "href": "slides/index.html#st.metric",
+    "title": "",
+    "section": "st.metric()",
+    "text": "st.metric()"
+  },
+  {
+    "objectID": "slides/index.html#st.grid",
+    "href": "slides/index.html#st.grid",
+    "title": "",
+    "section": "st.grid()",
+    "text": "st.grid()"
+  },
+  {
+    "objectID": "slides/index.html#fragments",
+    "href": "slides/index.html#fragments",
+    "title": "",
+    "section": "Fragments",
+    "text": "Fragments"
+  },
+  {
+    "objectID": "slides/index.html#caching",
+    "href": "slides/index.html#caching",
+    "title": "",
+    "section": "Caching",
+    "text": "Caching"
+  },
+  {
+    "objectID": "slides/index.html#user-authentication",
+    "href": "slides/index.html#user-authentication",
+    "title": "",
+    "section": "User authentication",
+    "text": "User authentication"
+  },
+  {
+    "objectID": "slides/index.html#database-linkage",
+    "href": "slides/index.html#database-linkage",
+    "title": "",
+    "section": "Database linkage",
+    "text": "Database linkage"
+  },
+  {
+    "objectID": "slides/index.html#app-testing",
+    "href": "slides/index.html#app-testing",
+    "title": "",
+    "section": "App testing",
+    "text": "App testing"
+  },
+  {
+    "objectID": "slides/index.html#custom-components",
+    "href": "slides/index.html#custom-components",
+    "title": "",
+    "section": "Custom components",
+    "text": "Custom components"
+  },
+  {
+    "objectID": "slides/index.html#st.toast",
+    "href": "slides/index.html#st.toast",
+    "title": "",
+    "section": "st.toast",
+    "text": "st.toast"
+  },
+  {
+    "objectID": "slides/index.html#st.data_editor",
+    "href": "slides/index.html#st.data_editor",
+    "title": "",
+    "section": "st.data_editor",
+    "text": "st.data_editor"
+  },
+  {
+    "objectID": "slides/index.html#built-in-streamlit-charts",
+    "href": "slides/index.html#built-in-streamlit-charts",
+    "title": "",
+    "section": "Built-in streamlit charts",
+    "text": "Built-in streamlit charts"
+  },
+  {
+    "objectID": "slides/index.html#supported-chart-libraries",
+    "href": "slides/index.html#supported-chart-libraries",
+    "title": "",
+    "section": "Supported chart libraries",
+    "text": "Supported chart libraries\nWe used st.plotly_chart, but there are several others…"
+  },
+  {
+    "objectID": "slides/index.html#maps",
+    "href": "slides/index.html#maps",
+    "title": "",
+    "section": "Maps",
+    "text": "Maps"
+  },
+  {
+    "objectID": "slides/index.html#st.form",
+    "href": "slides/index.html#st.form",
+    "title": "",
+    "section": "st.form",
+    "text": "st.form"
+  },
+  {
+    "objectID": "slides/index.html#other-input-widget-types",
+    "href": "slides/index.html#other-input-widget-types",
+    "title": "",
+    "section": "Other input widget types",
+    "text": "Other input widget types"
   },
   {
     "objectID": "index.html",

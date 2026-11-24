@@ -1,0 +1,11 @@
+.reveal .api-images p {
+  margin: 0;
+  line-height: 1;
+}
+
+.reveal .api-images img {
+  height: 250px;
+  width: auto;
+  margin: 0;
+  vertical-align: middle;
+}
