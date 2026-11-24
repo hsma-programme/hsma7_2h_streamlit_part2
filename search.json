@@ -578,7 +578,7 @@
     "href": "slides/index.html#exercise-2-1",
     "title": "",
     "section": "Exercise 2",
-    "text": "Exercise 2\n\n\n\nDeploy your app using stlite and GitHub pages.\nThen customise your app. You could try:\n\nSetting st.set_page_config.\nAdding st.logo().\nMoving navigation menu to top of screen.\nAdding config.toml with a custom theme.\n\nRemember if add new files will need to add those to index.html.\n\n\n\n\n\n?? minutes + ?? minute break\n\n\n\n\nExtensions\n\n."
+    "text": "Exercise 2\n\n\n\n(1) Deploy your app using stlite and GitHub pages.\n(2) Customise your app. You could try:\n\nSetting st.set_page_config.\nAdding st.logo().\nMoving navigation menu to top of screen.\nAdding config.toml with a custom theme.\n\nRemember: If you add new files, they will also need to be added to index.html.\n\n\n\n\n\n?? minutes + ?? minute break\n\n\n\n\nExtensions\n\nUse CSS to customise an element beyond the options available in the theme settings.\nCreate both a light and a dark theme for your app.\nTest your deployed app on a phone or narrow browser window - could you improve the layout?"
   },
   {
     "objectID": "slides/index.html#other-streamlit-features-1",
