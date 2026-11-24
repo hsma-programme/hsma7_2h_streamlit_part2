@@ -2116,20 +2116,20 @@ Streamlit has introduced lots of new features over the last few years. You may f
 
 :::: {.columns}
 
-::: {.column width="45%"}
+::: {.column width="55%"}
 
 <br>
 
-Deploy your app using stlite and GitHub pages.
+**(1)** Deploy your app using stlite and GitHub pages.
 
-Then customise your app. You could try:
+**(2)** Customise your app. You could try:
 
 * Setting `st.set_page_config`.
 * Adding `st.logo()`.
 * Moving navigation menu to top of screen.
 * Adding `config.toml` with a custom theme.
 
-Remember if add new files will need to add those to `index.html`.
+**Remember:** If you add new files, they will also need to be added to `index.html`.
 
 :::
 
@@ -2137,7 +2137,7 @@ Remember if add new files will need to add those to `index.html`.
 
 :::
 
-::: {.column width="50%"}
+::: {.column width="40%"}
 
 ::: {style="display: flex; justify-content: flex-end;"}
 ::: {.value-box icon="fa-solid fa-clock" icon-position="left" icon-size="2em" min-height="0" padding="0.4rem 1rem" width="350px"}
@@ -2149,7 +2149,9 @@ Remember if add new files will need to add those to `index.html`.
 
 > **Extensions**
 > 
-> * .
+> * Use CSS to customise an element beyond the options available in the theme settings.
+> * Create both a light and a dark theme for your app.
+> * Test your deployed app on a phone or narrow browser window - could you improve the layout?
 
 :::
 
