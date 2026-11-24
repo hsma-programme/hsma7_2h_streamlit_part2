@@ -5,7 +5,8 @@ format:
 metadata-files:
   - template/slides.yml
 filters:
-  - value-box
+  - whitphx/stlite
+  - bergam0t/value-box
 ---
 
 ## 
@@ -2239,6 +2240,7 @@ There are several other input widgets beyond those we've used, including:
 ![](images/st_toggle.png)
 ![](images/st_date_input.png)
 ![](images/st_file_uploader.png)
+![](images/st_data_editor.png)
 
 :::
 
@@ -2301,35 +2303,143 @@ Streamlit also has some built-in plotting functions.
 
 
 
-## Maps
+## Maps {visibility="hidden"}
+
+Maps are useful for displaying results of location optimisation, which we cover...
+
+**TODO: Consider referring to book for this... do content on it for location optimisation module...?**
+
+
+
+
+## `st.toast`
+
+This displays a short message in the app's top-right corner which disappears after 4 seconds.
+
+:::: {.columns}
+
+::: {.column}
+
+```{.python}
+{{< include code/features/toast.py >}}
+```
+
+:::
+
+::: {.column}
+
+```{stlite-python}
+{{< include code/features/toast.py >}}
+```
+
+:::
+
+::::
+
+
+
+
+## `st.popover`
+
+Popover creates a container that opens when clicked.
+
+:::: {.columns}
+
+::: {.column}
+
+```{.python}
+{{< include code/features/popover.py >}}
+```
+
+:::
+
+::: {.column}
+
+```{stlite-python}
+{{< include code/features/popover.py >}}
+```
+
+:::
+
+::::
+
+
 
 
 ## Fragments
 
+By default, interacting with a widget reruns the app script.
+
+Use `@st.fragment` to define a function that can rerun independently when users interact with widgets inside it.
+
+For example, users could change which results appear in a chart without rerunning unrelated parts of the page.
+
+
+
+
 ## Caching
+
+Use `@st.cache_data` to save the output of a function and reuse it when its code and inputs haven't changed.
+
+This can avoid repeatedly loading data or performing expensive calculations.
+
+Be careful when caching a simulation: running it again with the same inputs may return the cached results rather than generate a new random sample.
+
 
 ## User authentication
 
-## Database linkage
+Streamlit supports signing users in with `st.login()`.
 
-## App testing
+* `st.user` provides information about the signed-in user.
+* `st.logout()` signs them out.
+
+![](images/authentication.png)
+
+
+
+
+## Connections and databases
+
+Streamlit has built-in support for connections to Snowflake and SQL using SQLAlchemy.
+
+![](images/connections.png)
+
+
+
 
 ## Custom components
 
-## `st.toast`
+:::: {.columns}
 
-## `st.popover`
+::: {.column}
 
-## `st.bottom`
+<br><br>
 
-## `st.data_editor`
+If Streamlit doesn't have the feature you need, you may find a custom component developed by the community.
+
+These extend your app with additional functionality.
+
+You can also build your own components.
+
+Check compatibility with your deployment approach, particularly if you are using stlite.
+
+:::
+
+::: {.column}
+
+![](images/components.png){height=550px}
+
+:::
+
+::::
 
 
 
 
+## App testing
 
+Streamlit's `AppTest` lets you test an app programmatically.
 
+You can simulate interactions, such as changing an input or clicking a button, and check the resulting output.
 
-## Maps
-
-## `st.form`
+For example, check that opening the results page before running a scenario displays your information message rather than an error.
