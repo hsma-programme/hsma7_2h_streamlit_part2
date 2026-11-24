@@ -1,5 +1,7 @@
 ---
-format: revealjs
+format:
+  revealjs:
+    css: styles.css
 metadata-files:
   - template/slides.yml
 filters:
@@ -268,7 +270,7 @@ We'll add new code to:
 
 ::: {.column width="50%"}
 
-```{.python code-line-numbers="false"}
+```{.python}
 {{< include code/page_sim/simulation_save.py >}}
 ```
 
@@ -287,7 +289,7 @@ We also show a success message to confirm that the scenario has run and its resu
 
 <br>
 
-```{.python code-line-numbers="false"}
+```{.python}
 {{< include code/page_sim/simulation_select_success.py >}}
 ```
 
@@ -306,7 +308,22 @@ A caption reminds users that these scenarios are saved for the current session o
 
 <br>
 
-```{.python code-line-numbers="false"}
+```{.python}
+{{< include code/page_sim/simulation_table.py >}}
+```
+
+
+
+
+## `st.divider()`
+
+You may've noticed we used a new Streamlit element here - `st.divider()`.
+
+This displays a horizontal line on the app.
+
+<br>
+
+```{.python code-line-numbers="2"}
 {{< include code/page_sim/simulation_table.py >}}
 ```
 
@@ -2138,3 +2155,88 @@ Remember if add new files will need to add those to `index.html`.
 :::
 
 ::::
+
+# Other streamlit features
+
+## Other streamlit features
+
+We've focused on the key features for building and sharing a DES app.
+
+Streamlit has plenty more to offer, but we can't cover everything in these sessions.
+
+We'll briefly highlight a few other features you might find useful.
+
+See the [Streamlit documentation](https://docs.streamlit.io/develop/api-reference) for more examples and guidance.
+
+[![](images/api_reference.png)](https://docs.streamlit.io/develop/api-reference)
+
+
+
+
+## `st.metric()`
+
+## `st.grid()`
+
+## Fragments
+
+## Caching
+
+## User authentication
+
+## Database linkage
+
+## App testing
+
+## Custom components
+
+## `st.toast`
+
+## `st.data_editor`
+
+## Built-in streamlit charts
+
+::: {.api-images}
+
+![](images/st_area_chart.png)
+![](images/st_bar_chart.png)
+![](images/st_line_chart.png)
+![](images/st_scatter_chart.png)
+![](images/st_map.png)
+
+:::
+
+
+
+## Supported chart libraries
+
+We used `st.plotly_chart`, but there are several others...
+
+::: {.api-images}
+
+![](images/st_altair_chart.png)
+![](images/st_echarts_chart.png)
+![](images/st_vega_lite_chart.png)
+![](images/st_plotly_chart.png)
+
+![](images/st_pydeck_chart.png)
+![](images/st_mermaid_chart.png)
+![](images/st_graphviz_chart.png)
+![](images/st_pyplot.png)
+
+:::
+
+
+
+## Maps
+
+## `st.form`
+
+## Other input widget types
+
+::: {.api-images}
+
+![](images/st_checkbox.png)
+![](images/st_color_picker.png)
+![](images/st_feedback.png)
+
+:::
