@@ -592,77 +592,28 @@
     "href": "slides/index.html#st.metric",
     "title": "",
     "section": "st.metric()",
-    "text": "st.metric()"
+    "text": "st.metric()\n\n\nDisplay a key value (value) with an optional indicator of change (delta).\nBy default, positive changes are green and negative changes are red, but this can be inverted or set manually.\nimport streamlit as st\n\nst.metric(\n    label=\"Average daily referrals\",\n    value=120,\n    delta=\"10 vs last year\",\n    delta_color=\"red\"\n)\n\nst.metric(\n    label=\"Staffed beds\",\n    value=32,\n    delta=\"4 vs last year\",\n    delta_color=\"green\",\n)"
   },
   {
     "objectID": "slides/index.html#st.grid",
     "href": "slides/index.html#st.grid",
     "title": "",
     "section": "st.grid()",
-    "text": "st.grid()"
+    "text": "st.grid()\n\n\nst.grid() is a responsive container that works well for displaying metrics side by side. Elements reflow into fewer columns when less width is available, so the layout can adapt to different screen sizes.\nimport streamlit as st\n\ngrid = st.grid()\n\ngrid.metric(\n    label=\"Average daily referrals\",\n    value=120,\n    delta=\"10 vs last year\",\n    delta_color=\"red\"\n)\n\ngrid.metric(\n    label=\"Staffed beds\",\n    value=32,\n    delta=\"4 vs last year\",\n    delta_color=\"green\",\n)"
   },
   {
-    "objectID": "slides/index.html#fragments",
-    "href": "slides/index.html#fragments",
+    "objectID": "slides/index.html#input-widgets",
+    "href": "slides/index.html#input-widgets",
     "title": "",
-    "section": "Fragments",
-    "text": "Fragments"
+    "section": "Input widgets",
+    "text": "Input widgets\nThere are several other input widgets beyond those we’ve used, including:"
   },
   {
-    "objectID": "slides/index.html#caching",
-    "href": "slides/index.html#caching",
+    "objectID": "slides/index.html#status-elements",
+    "href": "slides/index.html#status-elements",
     "title": "",
-    "section": "Caching",
-    "text": "Caching"
-  },
-  {
-    "objectID": "slides/index.html#user-authentication",
-    "href": "slides/index.html#user-authentication",
-    "title": "",
-    "section": "User authentication",
-    "text": "User authentication"
-  },
-  {
-    "objectID": "slides/index.html#database-linkage",
-    "href": "slides/index.html#database-linkage",
-    "title": "",
-    "section": "Database linkage",
-    "text": "Database linkage"
-  },
-  {
-    "objectID": "slides/index.html#app-testing",
-    "href": "slides/index.html#app-testing",
-    "title": "",
-    "section": "App testing",
-    "text": "App testing"
-  },
-  {
-    "objectID": "slides/index.html#custom-components",
-    "href": "slides/index.html#custom-components",
-    "title": "",
-    "section": "Custom components",
-    "text": "Custom components"
-  },
-  {
-    "objectID": "slides/index.html#st.toast",
-    "href": "slides/index.html#st.toast",
-    "title": "",
-    "section": "st.toast",
-    "text": "st.toast"
-  },
-  {
-    "objectID": "slides/index.html#st.data_editor",
-    "href": "slides/index.html#st.data_editor",
-    "title": "",
-    "section": "st.data_editor",
-    "text": "st.data_editor"
-  },
-  {
-    "objectID": "slides/index.html#built-in-streamlit-charts",
-    "href": "slides/index.html#built-in-streamlit-charts",
-    "title": "",
-    "section": "Built-in streamlit charts",
-    "text": "Built-in streamlit charts"
+    "section": "Status elements",
+    "text": "Status elements\nIf your simulation takes a while to run, status elements can be helpful for reassuring users that they app is working and that they should wait."
   },
   {
     "objectID": "slides/index.html#supported-chart-libraries",
@@ -672,25 +623,67 @@
     "text": "Supported chart libraries\nWe used st.plotly_chart, but there are several others…"
   },
   {
-    "objectID": "slides/index.html#maps",
-    "href": "slides/index.html#maps",
+    "objectID": "slides/index.html#built-in-streamlit-charts",
+    "href": "slides/index.html#built-in-streamlit-charts",
     "title": "",
-    "section": "Maps",
-    "text": "Maps"
+    "section": "Built-in streamlit charts",
+    "text": "Built-in streamlit charts\nStreamlit also has some built-in plotting functions."
   },
   {
-    "objectID": "slides/index.html#st.form",
-    "href": "slides/index.html#st.form",
+    "objectID": "slides/index.html#st.toast",
+    "href": "slides/index.html#st.toast",
     "title": "",
-    "section": "st.form",
-    "text": "st.form"
+    "section": "st.toast",
+    "text": "st.toast\nThis displays a short message in the app’s top-right corner which disappears after 4 seconds.\n\n\nimport streamlit as st\n\nif st.button(\"Show notification\"):\n    st.toast(\"Your simulation has finished!\")"
   },
   {
-    "objectID": "slides/index.html#other-input-widget-types",
-    "href": "slides/index.html#other-input-widget-types",
+    "objectID": "slides/index.html#st.popover",
+    "href": "slides/index.html#st.popover",
     "title": "",
-    "section": "Other input widget types",
-    "text": "Other input widget types"
+    "section": "st.popover",
+    "text": "st.popover\nPopover creates a container that opens when clicked.\n\n\nimport streamlit as st\n\nwith st.popover(\"Open popover\"):\n    st.write(\"Hello!\")\n\nst.write(\"\"\"\nThis is our demo app.\n\nWe are demonstrating `st.popover`.\n\nIt will appear over the top of this text when clicked.\n\"\"\")"
+  },
+  {
+    "objectID": "slides/index.html#fragments",
+    "href": "slides/index.html#fragments",
+    "title": "",
+    "section": "Fragments",
+    "text": "Fragments\nBy default, interacting with a widget reruns the app script.\nUse @st.fragment to define a function that can rerun independently when users interact with widgets inside it.\nFor example, users could change which results appear in a chart without rerunning unrelated parts of the page."
+  },
+  {
+    "objectID": "slides/index.html#caching",
+    "href": "slides/index.html#caching",
+    "title": "",
+    "section": "Caching",
+    "text": "Caching\nUse @st.cache_data to save the output of a function and reuse it when its code and inputs haven’t changed.\nThis can avoid repeatedly loading data or performing expensive calculations.\nBe careful when caching a simulation: running it again with the same inputs may return the cached results rather than generate a new random sample."
+  },
+  {
+    "objectID": "slides/index.html#user-authentication",
+    "href": "slides/index.html#user-authentication",
+    "title": "",
+    "section": "User authentication",
+    "text": "User authentication\nStreamlit supports signing users in with st.login().\n\nst.user provides information about the signed-in user.\nst.logout() signs them out."
+  },
+  {
+    "objectID": "slides/index.html#connections-and-databases",
+    "href": "slides/index.html#connections-and-databases",
+    "title": "",
+    "section": "Connections and databases",
+    "text": "Connections and databases\nStreamlit has built-in support for connections to Snowflake and SQL using SQLAlchemy."
+  },
+  {
+    "objectID": "slides/index.html#custom-components",
+    "href": "slides/index.html#custom-components",
+    "title": "",
+    "section": "Custom components",
+    "text": "Custom components\n\n\n\nIf Streamlit doesn’t have the feature you need, you may find a custom component developed by the community.\nThese extend your app with additional functionality.\nYou can also build your own components.\nCheck compatibility with your deployment approach, particularly if you are using stlite."
+  },
+  {
+    "objectID": "slides/index.html#app-testing",
+    "href": "slides/index.html#app-testing",
+    "title": "",
+    "section": "App testing",
+    "text": "App testing\nStreamlit’s AppTest lets you test an app programmatically.\nYou can simulate interactions, such as changing an input or clicking a button, and check the resulting output.\nFor example, check that opening the results page before running a scenario displays your information message rather than an error."
   },
   {
     "objectID": "index.html",

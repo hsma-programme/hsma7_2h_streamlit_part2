@@ -7,6 +7,9 @@
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-447e42e69aaa9833c0ba1b986f430b20.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/quarto-contrib/stlite/iframeResizer.min.js"></script>
+<script src="../site_libs/quarto-contrib/stlite/stlite.js"></script>
+<link href="../site_libs/quarto-contrib/stlite/style.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/value-box-styles-1.0.0/value-box.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.11.9">
@@ -2478,38 +2481,69 @@
 </section>
 <section id="st.metric" class="slide level2">
 <h2><code>st.metric()</code></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p>Display a key value (<code>value</code>) with an optional indicator of change (<code>delta</code>).</p>
+<p>By default, positive changes are green and negative changes are red, but this can be inverted or set manually.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb55"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a aria-label="1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb55-2"><a aria-label="2"></a></span>
+<span id="cb55-3"><a aria-label="3"></a>st.metric(</span>
+<span id="cb55-4"><a aria-label="4"></a>    label<span class="op">=</span><span class="st">"Average daily referrals"</span>,</span>
+<span id="cb55-5"><a aria-label="5"></a>    value<span class="op">=</span><span class="dv">120</span>,</span>
+<span id="cb55-6"><a aria-label="6"></a>    delta<span class="op">=</span><span class="st">"10 vs last year"</span>,</span>
+<span id="cb55-7"><a aria-label="7"></a>    delta_color<span class="op">=</span><span class="st">"red"</span></span>
+<span id="cb55-8"><a aria-label="8"></a>)</span>
+<span id="cb55-9"><a aria-label="9"></a></span>
+<span id="cb55-10"><a aria-label="10"></a>st.metric(</span>
+<span id="cb55-11"><a aria-label="11"></a>    label<span class="op">=</span><span class="st">"Staffed beds"</span>,</span>
+<span id="cb55-12"><a aria-label="12"></a>    value<span class="op">=</span><span class="dv">32</span>,</span>
+<span id="cb55-13"><a aria-label="13"></a>    delta<span class="op">=</span><span class="st">"4 vs last year"</span>,</span>
+<span id="cb55-14"><a aria-label="14"></a>    delta_color<span class="op">=</span><span class="st">"green"</span>,</span>
+<span id="cb55-15"><a aria-label="15"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:40%;">
+<p><img data-src="images/metric.png"></p>
+</div></div>
 </section>
 <section id="st.grid" class="slide level2">
 <h2><code>st.grid()</code></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p><code>st.grid()</code> is a responsive container that works well for displaying metrics side by side. Elements reflow into fewer columns when less width is available, so the layout can adapt to different screen sizes.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb56" data-code-line-numbers="3,5,12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a aria-label="1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb56-2"><a aria-label="2"></a></span>
+<span id="cb56-3"><a aria-label="3"></a>grid <span class="op">=</span> st.grid()</span>
+<span id="cb56-4"><a aria-label="4"></a></span>
+<span id="cb56-5"><a aria-label="5"></a>grid.metric(</span>
+<span id="cb56-6"><a aria-label="6"></a>    label<span class="op">=</span><span class="st">"Average daily referrals"</span>,</span>
+<span id="cb56-7"><a aria-label="7"></a>    value<span class="op">=</span><span class="dv">120</span>,</span>
+<span id="cb56-8"><a aria-label="8"></a>    delta<span class="op">=</span><span class="st">"10 vs last year"</span>,</span>
+<span id="cb56-9"><a aria-label="9"></a>    delta_color<span class="op">=</span><span class="st">"red"</span></span>
+<span id="cb56-10"><a aria-label="10"></a>)</span>
+<span id="cb56-11"><a aria-label="11"></a></span>
+<span id="cb56-12"><a aria-label="12"></a>grid.metric(</span>
+<span id="cb56-13"><a aria-label="13"></a>    label<span class="op">=</span><span class="st">"Staffed beds"</span>,</span>
+<span id="cb56-14"><a aria-label="14"></a>    value<span class="op">=</span><span class="dv">32</span>,</span>
+<span id="cb56-15"><a aria-label="15"></a>    delta<span class="op">=</span><span class="st">"4 vs last year"</span>,</span>
+<span id="cb56-16"><a aria-label="16"></a>    delta_color<span class="op">=</span><span class="st">"green"</span>,</span>
+<span id="cb56-17"><a aria-label="17"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:40%;">
+<p><img data-src="images/grid.png"></p>
+</div></div>
 </section>
-<section id="fragments" class="slide level2">
-<h2>Fragments</h2>
-</section>
-<section id="caching" class="slide level2">
-<h2>Caching</h2>
-</section>
-<section id="user-authentication" class="slide level2">
-<h2>User authentication</h2>
-</section>
-<section id="database-linkage" class="slide level2">
-<h2>Database linkage</h2>
-</section>
-<section id="app-testing" class="slide level2">
-<h2>App testing</h2>
-</section>
-<section id="custom-components" class="slide level2">
-<h2>Custom components</h2>
-</section>
-<section id="st.toast" class="slide level2">
-<h2><code>st.toast</code></h2>
-</section>
-<section id="st.data_editor" class="slide level2">
-<h2><code>st.data_editor</code></h2>
-</section>
-<section id="built-in-streamlit-charts" class="slide level2">
-<h2>Built-in streamlit charts</h2>
+<section id="input-widgets" class="slide level2">
+<h2>Input widgets</h2>
+<p>There are several other input widgets beyond those we’ve used, including:</p>
 <div class="api-images">
-<p><img data-src="images/st_area_chart.png"> <img data-src="images/st_bar_chart.png"> <img data-src="images/st_line_chart.png"> <img data-src="images/st_scatter_chart.png"> <img data-src="images/st_map.png"></p>
+<p><img data-src="images/st_checkbox.png"> <img data-src="images/st_color_picker.png"> <img data-src="images/st_feedback.png"> <img data-src="images/st_menu_button.png"></p>
+<p><img data-src="images/st_select_slider.png"> <img data-src="images/st_toggle.png"> <img data-src="images/st_date_input.png"> <img data-src="images/st_file_uploader.png"> <img data-src="images/st_data_editor.png"></p>
+</div>
+</section>
+<section id="status-elements" class="slide level2">
+<h2>Status elements</h2>
+<p>If your simulation takes a while to run, status elements can be helpful for reassuring users that they app is working and that they should wait.</p>
+<p><br></p>
+<div class="api-images">
+<p><img data-src="images/st_progress.png"> <img data-src="images/st_spinner.png"></p>
 </div>
 </section>
 <section id="supported-chart-libraries" class="slide level2">
@@ -2520,17 +2554,95 @@
 <p><img data-src="images/st_pydeck_chart.png"> <img data-src="images/st_mermaid_chart.png"> <img data-src="images/st_graphviz_chart.png"> <img data-src="images/st_pyplot.png"></p>
 </div>
 </section>
-<section id="maps" class="slide level2">
-<h2>Maps</h2>
-</section>
-<section id="st.form" class="slide level2">
-<h2><code>st.form</code></h2>
-</section>
-<section id="other-input-widget-types" class="slide level2">
-<h2>Other input widget types</h2>
+<section id="built-in-streamlit-charts" class="slide level2">
+<h2>Built-in streamlit charts</h2>
+<p>Streamlit also has some built-in plotting functions.</p>
+<p><br></p>
 <div class="api-images">
-<p><img data-src="images/st_checkbox.png"> <img data-src="images/st_color_picker.png"> <img data-src="images/st_feedback.png"></p>
+<p><img data-src="images/st_area_chart.png"> <img data-src="images/st_bar_chart.png"> <img data-src="images/st_line_chart.png"> <img data-src="images/st_scatter_chart.png"> <img data-src="images/st_map.png"></p>
 </div>
+</section>
+
+<section id="st.toast" class="slide level2">
+<h2><code>st.toast</code></h2>
+<p>This displays a short message in the app’s top-right corner which disappears after 4 seconds.</p>
+<div class="columns">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb57"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a aria-label="1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb57-2"><a aria-label="2"></a></span>
+<span id="cb57-3"><a aria-label="3"></a><span class="cf">if</span> st.button(<span class="st">"Show notification"</span>):</span>
+<span id="cb57-4"><a aria-label="4"></a>    st.toast(<span class="st">"Your simulation has finished!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<iframe src="https://share.stlite.net/?embed=true#code=import%20streamlit%20as%20st%0A%0Aif%20st.button%28%22Show%20notification%22%29%3A%0A%20%20%20%20st.toast%28%22Your%20simulation%20has%20finished%21%22%29%0A
+" class="stlite"></iframe>
+</div></div>
+</section>
+<section id="st.popover" class="slide level2">
+<h2><code>st.popover</code></h2>
+<p>Popover creates a container that opens when clicked.</p>
+<div class="columns">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb58"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a aria-label="1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb58-2"><a aria-label="2"></a></span>
+<span id="cb58-3"><a aria-label="3"></a><span class="cf">with</span> st.popover(<span class="st">"Open popover"</span>):</span>
+<span id="cb58-4"><a aria-label="4"></a>    st.write(<span class="st">"Hello!"</span>)</span>
+<span id="cb58-5"><a aria-label="5"></a></span>
+<span id="cb58-6"><a aria-label="6"></a>st.write(<span class="st">"""</span></span>
+<span id="cb58-7"><a aria-label="7"></a><span class="st">This is our demo app.</span></span>
+<span id="cb58-8"><a aria-label="8"></a></span>
+<span id="cb58-9"><a aria-label="9"></a><span class="st">We are demonstrating `st.popover`.</span></span>
+<span id="cb58-10"><a aria-label="10"></a></span>
+<span id="cb58-11"><a aria-label="11"></a><span class="st">It will appear over the top of this text when clicked.</span></span>
+<span id="cb58-12"><a aria-label="12"></a><span class="st">"""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<iframe src="https://share.stlite.net/?embed=true#code=import%20streamlit%20as%20st%0A%0Awith%20st.popover%28%22Open%20popover%22%29%3A%0A%20%20%20%20st.write%28%22Hello%21%22%29%0A%0Ast.write%28%22%22%22%0AThis%20is%20our%20demo%20app.%0A%0AWe%20are%20demonstrating%20%60st.popover%60.%0A%0AIt%20will%20appear%20over%20the%20top%20of%20this%20text%20when%20clicked.%0A%22%22%22%29%0A
+" class="stlite"></iframe>
+</div></div>
+</section>
+<section id="fragments" class="slide level2">
+<h2>Fragments</h2>
+<p>By default, interacting with a widget reruns the app script.</p>
+<p>Use <code>@st.fragment</code> to define a function that can rerun independently when users interact with widgets inside it.</p>
+<p>For example, users could change which results appear in a chart without rerunning unrelated parts of the page.</p>
+</section>
+<section id="caching" class="slide level2">
+<h2>Caching</h2>
+<p>Use <code>@st.cache_data</code> to save the output of a function and reuse it when its code and inputs haven’t changed.</p>
+<p>This can avoid repeatedly loading data or performing expensive calculations.</p>
+<p>Be careful when caching a simulation: running it again with the same inputs may return the cached results rather than generate a new random sample.</p>
+</section>
+<section id="user-authentication" class="slide level2">
+<h2>User authentication</h2>
+<p>Streamlit supports signing users in with <code>st.login()</code>.</p>
+<ul>
+<li><code>st.user</code> provides information about the signed-in user.</li>
+<li><code>st.logout()</code> signs them out.</li>
+</ul>
+<p><img data-src="images/authentication.png"></p>
+</section>
+<section id="connections-and-databases" class="slide level2">
+<h2>Connections and databases</h2>
+<p>Streamlit has built-in support for connections to Snowflake and SQL using SQLAlchemy.</p>
+<p><img data-src="images/connections.png"></p>
+</section>
+<section id="custom-components" class="slide level2">
+<h2>Custom components</h2>
+<div class="columns">
+<div class="column">
+<p><br><br></p>
+<p>If Streamlit doesn’t have the feature you need, you may find a custom component developed by the community.</p>
+<p>These extend your app with additional functionality.</p>
+<p>You can also build your own components.</p>
+<p>Check compatibility with your deployment approach, particularly if you are using stlite.</p>
+</div><div class="column">
+<p><img data-src="images/components.png" height="550"></p>
+</div></div>
+</section>
+<section id="app-testing" class="slide level2">
+<h2>App testing</h2>
+<p>Streamlit’s <code>AppTest</code> lets you test an app programmatically.</p>
+<p>You can simulate interactions, such as changing an input or clicking a button, and check the resulting output.</p>
+<p>For example, check that opening the results page before running a scenario displays your information message rather than an error.</p>
 
 
 </section></section>
